@@ -16,9 +16,10 @@ class HeaderDivider extends StatelessWidget {
           width: 10,
         ),
         Expanded(
-          child: const Divider(
-            thickness: 1,
+          child: Divider(
+            thickness: 2,
             height: 20,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ],

@@ -5,6 +5,7 @@ import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/workout/widgets/new_workout_button.dart';
 
 import '../../core/common/widgets/empty_state_widget.dart';
+import 'new_workout_view.dart';
 
 class WorkoutView extends StatelessWidget {
   const WorkoutView({super.key});
@@ -24,7 +25,13 @@ class WorkoutView extends StatelessWidget {
         ),
         child: Column(
           children: [
-            NewWorkoutButton(onTap: () {}),
+            NewWorkoutButton(onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NewWorkoutView(),
+                  ));
+            }),
             const SizedBox(height: 20),
             HeaderDivider(text: AppStrings.yourWorkouts),
             const SizedBox(height: 20),

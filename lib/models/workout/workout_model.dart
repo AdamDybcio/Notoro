@@ -1,7 +1,8 @@
-class Workout {
-  final String name;
-  final int sets;
-  final int reps;
+import 'exercise_training_model.dart';
 
-  Workout({required this.name, required this.sets, required this.reps});
+class WorkoutModel {
+  final List<ExerciseTrainingModel> excercises;
+  final String name;
+
+  WorkoutModel({required this.excercises, required this.name});
 }

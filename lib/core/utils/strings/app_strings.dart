@@ -4,7 +4,6 @@ class AppStrings {
   static const String workout = 'Trening';
   static const String history = 'Historia';
   static const String settings = 'Ustawienia';
-
   static const String yourWorkouts = 'Twoje treningi';
   static const String newWorkoutButtonTitle = 'Nowy trening';
   static const String newWorkoutButtonSubtitle =
@@ -16,4 +15,8 @@ class AppStrings {
   static const String noHistorySubtitle =
       'Odbądź trening, aby pojawił się tutaj';
   static const String homePage = 'Strona główna';
+  static const String newWorkout = 'Nowy trening';
+  static const String workoutName = 'Nazwa treningu';
+  static const String excercises = 'Ćwiczenia';
+  static const String dragExerciseHere = 'Przeciągnij ćwiczenia tutaj';
 }
