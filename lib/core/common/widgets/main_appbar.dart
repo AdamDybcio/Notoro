@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
   final IconData leadingIcon;
   final String title;
-  const MainAppbar({super.key, required this.leadingIcon, required this.title});
+  final bool showLogo;
+  const MainAppbar({
+    super.key,
+    required this.leadingIcon,
+    required this.title,
+    this.showLogo = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +18,22 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: Theme.of(context).textTheme.headlineMedium,
       ),
-      leading: Icon(
-        leadingIcon,
-        size: 30,
-        color: Theme.of(context).colorScheme.primary,
-      ),
+      leading: !showLogo
+          ? Icon(
+              leadingIcon,
+              size: 30,
+              color: Theme.of(context).colorScheme.primary,
+            )
+          : Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: BorderRadius.circular(20),
+                image: const DecorationImage(
+                  image: AssetImage('assets/branding/app_logo.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),

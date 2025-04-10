@@ -13,7 +13,7 @@ class WorkoutView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppbar(
-        leadingIcon: Icons.fitness_center,
+        leadingIcon: Icons.fitness_center_outlined,
         title: AppStrings.workout,
       ),
       body: Padding(
@@ -31,7 +31,6 @@ class WorkoutView extends StatelessWidget {
             EmptyStateWidget(
               title: AppStrings.noWorkoutsTitle,
               subtitle: AppStrings.noWorkoutsSubtitle,
-              icon: Icons.sentiment_dissatisfied_outlined,
             ),
           ],
         ),

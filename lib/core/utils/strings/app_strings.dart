@@ -12,4 +12,8 @@ class AppStrings {
   static const String noWorkoutsTitle = 'Nie masz jeszcze żadnych treningów';
   static const String noWorkoutsSubtitle =
       'Dodaj swój pierwszy plan treningowy';
+  static const String noHistoryTitle = 'Nie masz jeszcze odbytych treningów';
+  static const String noHistorySubtitle =
+      'Odbądź trening, aby pojawił się tutaj';
+  static const String homePage = 'Strona główna';
 }

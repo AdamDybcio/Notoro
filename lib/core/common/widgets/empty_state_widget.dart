@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class EmptyStateWidget extends StatelessWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
+  final IconData? icon;
   const EmptyStateWidget({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.icon,
+    this.icon,
   });
 
   @override
@@ -19,7 +19,7 @@ class EmptyStateWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              icon,
+              icon ?? Icons.sentiment_dissatisfied_outlined,
               size: 72,
               color: Theme.of(context).colorScheme.primary.withAlpha(125),
             ),
