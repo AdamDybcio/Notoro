@@ -19,4 +19,9 @@ class AppStrings {
   static const String workoutName = 'Nazwa treningu';
   static const String excercises = 'Ćwiczenia';
   static const String dragExerciseHere = 'Przeciągnij ćwiczenia tutaj';
+  static const String availableExercises = 'Dostępne ćwiczenia';
+  static const String editSets = 'Edytuj serie';
+  static const String deleteExercise = 'Usuń ćwiczenie';
+  static const String moveUp = 'Przesuń w górę';
+  static const String moveDown = 'Przesuń w dół';
 }

@@ -8,34 +8,48 @@ class ExerciseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(12),
+        color: colorScheme.primaryContainer,
+        borderRadius: BorderRadius.circular(10),
       ),
-      child: ListTile(
-        leading: Icon(
-          exercise.icon ?? Icons.fitness_center,
-          size: 48,
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-        ),
-        title: Text(
-          exercise.name,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
-        ),
-        subtitle: Wrap(
-          spacing: 4,
-          children: exercise.bodyParts
-              .map((part) => Icon(
-                    Helpers.mapBodyPartToIcon(part),
-                    size: 16,
-                    color: Colors.grey,
-                  ))
-              .toList(),
-        ),
+      child: Row(
+        children: [
+          Icon(
+            exercise.icon ?? Icons.fitness_center,
+            size: 32,
+            color: colorScheme.onPrimaryContainer,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  exercise.name,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                const SizedBox(height: 4),
+                Wrap(
+                  spacing: 4,
+                  runSpacing: -6,
+                  children: exercise.bodyParts
+                      .map((part) => Icon(
+                            Helpers.mapBodyPartToIcon(part),
+                            size: 14,
+                            color: Colors.grey,
+                          ))
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

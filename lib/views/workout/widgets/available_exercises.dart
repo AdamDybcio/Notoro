@@ -6,34 +6,37 @@ import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/views/workout/widgets/exercise_tile.dart';
 
 class AvailableExercises extends StatelessWidget {
-  const AvailableExercises({
-    super.key,
-  });
+  const AvailableExercises({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 100,
       child: BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
         builder: (context, state) {
           return ListView.separated(
+            scrollDirection: Axis.horizontal,
             itemCount: state.availableExercises.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final exercise = state.availableExercises[index];
+
               return LongPressDraggable<ExerciseModel>(
                 data: exercise,
                 feedback: Material(
                   color: Colors.transparent,
                   child: Opacity(
-                    opacity: 0.8,
+                    opacity: 0.9,
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width - 40,
+                      width: 220,
                       child: ExerciseTile(exercise: exercise),
                     ),
                   ),
                 ),
-                child: ExerciseTile(
-                  exercise: exercise,
+                child: SizedBox(
+                  width: 220,
+                  child: ExerciseTile(exercise: exercise),
                 ),
               );
             },

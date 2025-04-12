@@ -13,13 +13,14 @@ class WorkoutBuilderBloc
           availableExercises: [],
           selectedExercises: [],
         )) {
-    on<LoadAvailableExercises>(_onLoadAvailableExercises);
-    on<AddExerciseToWorkout>(_onAddExercise);
-    on<RemoveExerciseFromWorkout>(_onRemoveExercise);
-    on<UpdateExerciseSet>(_onUpdateExerciseSet);
+    on<LoadAvailableExercises>(onLoadAvailableExercises);
+    on<AddExerciseToWorkout>(onAddExercise);
+    on<RemoveExerciseFromWorkout>(onRemoveExercise);
+    on<UpdateExerciseSet>(onUpdateExerciseSet);
+    on<ReorderExercise>(onReorderExercise);
   }
 
-  void _onLoadAvailableExercises(
+  void onLoadAvailableExercises(
     LoadAvailableExercises event,
     Emitter<WorkoutBuilderState> emit,
   ) {
@@ -33,7 +34,7 @@ class WorkoutBuilderBloc
     ));
   }
 
-  void _onAddExercise(
+  void onAddExercise(
     AddExerciseToWorkout event,
     Emitter<WorkoutBuilderState> emit,
   ) {
@@ -42,15 +43,15 @@ class WorkoutBuilderBloc
         event.exercise.icon,
         name: event.exercise.name,
         bodyParts: event.exercise.bodyParts,
-        sets: 3,
-        reps: [10, 10, 10],
-        weight: [0, 0, 0],
+        sets: 4,
+        reps: [8, 8, 8, 8],
+        weight: [0, 0, 0, 0],
       ));
 
     emit(state.copyWith(selectedExercises: newList));
   }
 
-  void _onRemoveExercise(
+  void onRemoveExercise(
     RemoveExerciseFromWorkout event,
     Emitter<WorkoutBuilderState> emit,
   ) {
@@ -60,7 +61,7 @@ class WorkoutBuilderBloc
     emit(state.copyWith(selectedExercises: newList));
   }
 
-  void _onUpdateExerciseSet(
+  void onUpdateExerciseSet(
     UpdateExerciseSet event,
     Emitter<WorkoutBuilderState> emit,
   ) {
@@ -78,5 +79,19 @@ class WorkoutBuilderBloc
     );
 
     emit(state.copyWith(selectedExercises: updatedList));
+  }
+
+  void onReorderExercise(
+    ReorderExercise event,
+    Emitter<WorkoutBuilderState> emit,
+  ) {
+    final list = List<ExerciseTrainingModel>.from(state.selectedExercises);
+
+    if (event.oldIndex < 0 || event.oldIndex >= list.length) return;
+    if (event.newIndex < 0 || event.newIndex >= list.length) return;
+    final item = list.removeAt(event.oldIndex);
+    list.insert(event.newIndex, item);
+
+    emit(state.copyWith(selectedExercises: list));
   }
 }

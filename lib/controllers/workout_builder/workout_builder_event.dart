@@ -27,3 +27,9 @@ class UpdateExerciseSet extends WorkoutBuilderEvent {
     required this.weight,
   });
 }
+
+class ReorderExercise extends WorkoutBuilderEvent {
+  final int oldIndex;
+  final int newIndex;
+  ReorderExercise(this.oldIndex, this.newIndex);
+}

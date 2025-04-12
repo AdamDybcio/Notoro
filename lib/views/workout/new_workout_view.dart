@@ -15,6 +15,7 @@ class NewWorkoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: CommonAppbar(title: AppStrings.newWorkout),
       body: BlocProvider(
         create: (_) => WorkoutBuilderBloc()..add(LoadAvailableExercises()),
@@ -33,11 +34,12 @@ class NewWorkoutView extends StatelessWidget {
               const SizedBox(height: 20),
               HeaderDivider(text: AppStrings.excercises),
               const SizedBox(height: 20),
-              SelectedExercises(),
+              Expanded(child: SelectedExercises()),
               const SizedBox(height: 20),
-              HeaderDivider(text: 'Dostępne ćwiczenia'),
+              HeaderDivider(text: AppStrings.availableExercises),
               const SizedBox(height: 20),
               AvailableExercises(),
+              const SizedBox(height: 20),
             ],
           ),
         ),

@@ -24,7 +24,6 @@ class SelectedExercises extends StatelessWidget {
             final bool isHovering = candidateData.isNotEmpty;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: 250,
               decoration: BoxDecoration(
                 color: isHovering
                     ? Theme.of(context)
@@ -61,6 +60,17 @@ class SelectedExercises extends StatelessWidget {
                                   ),
                                 );
                           },
+                          onEdit: () {},
+                          onMoveUp: () =>
+                              context.read<WorkoutBuilderBloc>().add(
+                                    ReorderExercise(index, index - 1),
+                                  ),
+                          onMoveDown: () =>
+                              context.read<WorkoutBuilderBloc>().add(
+                                    ReorderExercise(index, index + 1),
+                                  ),
+                          isFirst: index == 0,
+                          isLast: index == state.selectedExercises.length - 1,
                         );
                       },
                     ),
