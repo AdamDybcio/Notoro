@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/new_workout_button.dart';
 
 import '../../core/common/widgets/empty_state_widget.dart';
 import 'new_workout_view.dart';
+import 'widgets/workout_card.dart';
 
 class WorkoutView extends StatelessWidget {
   const WorkoutView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final workoutBox = Hive.box<WorkoutModel>('workouts');
     return Scaffold(
       appBar: MainAppbar(
         leadingIcon: Icons.fitness_center_outlined,
@@ -35,9 +39,39 @@ class WorkoutView extends StatelessWidget {
             const SizedBox(height: 20),
             HeaderDivider(text: AppStrings.yourWorkouts),
             const SizedBox(height: 20),
-            EmptyStateWidget(
-              title: AppStrings.noWorkoutsTitle,
-              subtitle: AppStrings.noWorkoutsSubtitle,
+            ValueListenableBuilder<Box<WorkoutModel>>(
+              valueListenable: workoutBox.listenable(),
+              builder: (context, box, _) {
+                final workouts = box.values.toList();
+
+                if (workouts.isEmpty) {
+                  return EmptyStateWidget(
+                    title: AppStrings.noWorkoutsTitle,
+                    subtitle: AppStrings.noWorkoutsSubtitle,
+                  );
+                }
+
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: workouts.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, index) {
+                    final workout = workouts[index];
+                    return WorkoutCard(
+                      workout: workout,
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (_) => WorkoutDetailView(workout: workout),
+                        //   ),
+                        // );
+                      },
+                    );
+                  },
+                );
+              },
             ),
           ],
         ),

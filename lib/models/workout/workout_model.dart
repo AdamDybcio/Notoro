@@ -1,8 +1,18 @@
-import 'exercise_training_model.dart';
+import 'package:hive/hive.dart';
+import 'package:notoro/models/workout/exercise_training_model.dart';
 
-class WorkoutModel {
-  final List<ExerciseTrainingModel> excercises;
+part 'workout_model.g.dart';
+
+@HiveType(typeId: 3)
+class WorkoutModel extends HiveObject {
+  @HiveField(0)
   final String name;
 
-  WorkoutModel({required this.excercises, required this.name});
+  @HiveField(1)
+  final List<ExerciseTrainingModel> exercises;
+
+  WorkoutModel({
+    required this.name,
+    required this.exercises,
+  });
 }

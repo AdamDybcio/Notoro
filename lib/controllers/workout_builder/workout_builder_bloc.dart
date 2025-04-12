@@ -1,24 +1,25 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
-import 'package:notoro/core/utils/enums/app_enums.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+
+import '../../models/workout/body_part.dart';
 
 class WorkoutBuilderBloc
     extends Bloc<WorkoutBuilderEvent, WorkoutBuilderState> {
   WorkoutBuilderBloc()
       : super(WorkoutBuilderState(
-          availableExercises: [],
-          selectedExercises: [],
-        )) {
+            availableExercises: [], selectedExercises: [], workoutName: '')) {
     on<LoadAvailableExercises>(onLoadAvailableExercises);
     on<AddExerciseToWorkout>(onAddExercise);
     on<RemoveExerciseFromWorkout>(onRemoveExercise);
     on<UpdateExerciseSet>(onUpdateExerciseSet);
     on<ReorderExercise>(onReorderExercise);
     on<UpdateFullExercise>(onUpdateFullExercise);
+    on<UpdateWorkoutName>((event, emit) {
+      emit(state.copyWith(workoutName: event.name));
+    });
   }
 
   void onLoadAvailableExercises(
@@ -27,11 +28,14 @@ class WorkoutBuilderBloc
   ) {
     emit(state.copyWith(
       availableExercises: [
-        ExerciseModel(Icons.fitness_center,
+        ExerciseModel(
+            assetImagePath: 'assets/body_parts/chest.png',
             name: 'Ławka płaska',
             bodyParts: [BodyPart.chest, BodyPart.shoulders]),
-        ExerciseModel(Icons.sports_gymnastics,
-            name: 'Przysiad', bodyParts: [BodyPart.legs]),
+        ExerciseModel(
+            assetImagePath: 'assets/body_parts/chest.png',
+            name: 'Przysiad',
+            bodyParts: [BodyPart.legs]),
       ],
     ));
   }
@@ -42,7 +46,7 @@ class WorkoutBuilderBloc
   ) {
     final newList = List<ExerciseTrainingModel>.from(state.selectedExercises)
       ..add(ExerciseTrainingModel(
-        event.exercise.icon,
+        assetImagePath: event.exercise.assetImagePath,
         name: event.exercise.name,
         bodyParts: event.exercise.bodyParts,
         sets: 4,
@@ -79,7 +83,7 @@ class WorkoutBuilderBloc
     updatedWeight[event.setIndex] = event.newWeight;
 
     final updatedExercise = ExerciseTrainingModel(
-      current.icon,
+      assetImagePath: current.assetImagePath,
       name: current.name,
       bodyParts: current.bodyParts,
       sets: current.sets,
@@ -117,7 +121,7 @@ class WorkoutBuilderBloc
     final current = list[event.exerciseIndex];
 
     final updatedExercise = ExerciseTrainingModel(
-      current.icon,
+      assetImagePath: current.assetImagePath,
       name: current.name,
       bodyParts: current.bodyParts,
       sets: event.newSets,

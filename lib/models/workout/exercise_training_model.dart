@@ -1,16 +1,34 @@
-import 'package:notoro/models/workout/exercise_model.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:notoro/models/workout/body_part.dart';
 
-class ExerciseTrainingModel extends ExerciseModel {
+part 'exercise_training_model.g.dart';
+
+@HiveType(typeId: 1)
+class ExerciseTrainingModel extends HiveObject {
+  @HiveField(0)
+  final String name;
+
+  @HiveField(1)
+  final List<BodyPart> bodyParts;
+
+  @HiveField(2)
+  final String assetImagePath;
+
+  @HiveField(3)
   final int sets;
+
+  @HiveField(4)
   final List<int> reps;
+
+  @HiveField(5)
   final List<double> weight;
 
-  ExerciseTrainingModel(
-    super.icon, {
+  ExerciseTrainingModel({
+    required this.name,
+    required this.bodyParts,
+    required this.assetImagePath,
     required this.sets,
     required this.reps,
     required this.weight,
-    required super.name,
-    required super.bodyParts,
   });
 }

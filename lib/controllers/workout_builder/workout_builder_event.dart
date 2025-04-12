@@ -47,3 +47,8 @@ class UpdateFullExercise extends WorkoutBuilderEvent {
     required this.newWeight,
   });
 }
+
+class UpdateWorkoutName extends WorkoutBuilderEvent {
+  final String name;
+  UpdateWorkoutName(this.name);
+}

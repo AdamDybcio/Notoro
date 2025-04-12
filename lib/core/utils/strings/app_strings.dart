@@ -34,4 +34,7 @@ class AppStrings {
   static const String weight = 'Ciężar (kg)';
   static const String save = 'Zapisz';
   static const String add = 'Dodaj';
+  static const String workoutNameEmpty = "Podaj nazwę treningu";
+  static const String addOneExercise = "Dodaj przynajmniej jedno ćwiczenie";
+  static const String workoutCreated = "Trening został stworzony";
 }

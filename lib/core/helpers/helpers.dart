@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
-import 'package:notoro/core/utils/enums/app_enums.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
 import '../../controllers/workout_builder/workout_builder_bloc.dart';
+import '../../models/workout/body_part.dart';
 
 class Helpers {
   static String mapBodyPartToString(BodyPart part) {

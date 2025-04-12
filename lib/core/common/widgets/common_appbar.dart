@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final List<Widget>? actions;
   const CommonAppbar({
     super.key,
     required this.title,
+    this.actions,
   });
 
   @override
@@ -14,6 +16,7 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: Theme.of(context).textTheme.headlineMedium,
       ),
+      actions: actions,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios),
         onPressed: () {

@@ -1,10 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/enums/app_enums.dart';
+import 'package:notoro/models/workout/body_part.dart';
 
 class ExerciseModel {
   final String name;
   final List<BodyPart> bodyParts;
-  final IconData? icon;
+  final String assetImagePath;
 
-  ExerciseModel(this.icon, {required this.name, required this.bodyParts});
+  ExerciseModel(
+      {required this.name,
+      required this.bodyParts,
+      required this.assetImagePath});
 }

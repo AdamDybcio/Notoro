@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/enums/app_enums.dart';
+
+import '../../../models/workout/body_part.dart';
 
 class BodyPartChip extends StatelessWidget {
   final BodyPart part;
