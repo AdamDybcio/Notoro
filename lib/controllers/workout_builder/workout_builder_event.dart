@@ -15,16 +15,16 @@ class RemoveExerciseFromWorkout extends WorkoutBuilderEvent {
 }
 
 class UpdateExerciseSet extends WorkoutBuilderEvent {
-  final int index;
-  final int sets;
-  final List<int> reps;
-  final List<double> weight;
+  final int exerciseIndex;
+  final int setIndex;
+  final int newReps;
+  final double newWeight;
 
   UpdateExerciseSet({
-    required this.index,
-    required this.sets,
-    required this.reps,
-    required this.weight,
+    required this.exerciseIndex,
+    required this.setIndex,
+    required this.newReps,
+    required this.newWeight,
   });
 }
 
@@ -32,4 +32,18 @@ class ReorderExercise extends WorkoutBuilderEvent {
   final int oldIndex;
   final int newIndex;
   ReorderExercise(this.oldIndex, this.newIndex);
+}
+
+class UpdateFullExercise extends WorkoutBuilderEvent {
+  final int exerciseIndex;
+  final int newSets;
+  final List<int> newReps;
+  final List<double> newWeight;
+
+  UpdateFullExercise({
+    required this.exerciseIndex,
+    required this.newSets,
+    required this.newReps,
+    required this.newWeight,
+  });
 }

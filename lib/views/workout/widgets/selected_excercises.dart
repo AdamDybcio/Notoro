@@ -53,6 +53,7 @@ class SelectedExercises extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return SelectedExerciseTile(
                           exercise: state.selectedExercises[index],
+                          exerciseIndex: index,
                           onRemove: () {
                             context.read<WorkoutBuilderBloc>().add(
                                   RemoveExerciseFromWorkout(

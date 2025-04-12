@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
+
+import 'body_part_chip.dart';
 
 class ExerciseTile extends StatelessWidget {
   final ExerciseModel exercise;
@@ -11,40 +12,46 @@ class ExerciseTile extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(
-            exercise.icon ?? Icons.fitness_center,
-            size: 32,
-            color: colorScheme.onPrimaryContainer,
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/body_parts/chest.png',
+                height: 36,
+                width: 36,
+              ),
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
                   exercise.name,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: colorScheme.onPrimaryContainer,
                       ),
                 ),
-                const SizedBox(height: 4),
-                Wrap(
-                  spacing: 4,
-                  runSpacing: -6,
-                  children: exercise.bodyParts
-                      .map((part) => Icon(
-                            Helpers.mapBodyPartToIcon(part),
-                            size: 14,
-                            color: Colors.grey,
-                          ))
-                      .toList(),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: exercise.bodyParts
+                        .map((part) => BodyPartChip(part: part))
+                        .toList(),
+                  ),
                 ),
               ],
             ),

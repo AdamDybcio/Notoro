@@ -18,6 +18,7 @@ class WorkoutBuilderBloc
     on<RemoveExerciseFromWorkout>(onRemoveExercise);
     on<UpdateExerciseSet>(onUpdateExerciseSet);
     on<ReorderExercise>(onReorderExercise);
+    on<UpdateFullExercise>(onUpdateFullExercise);
   }
 
   void onLoadAvailableExercises(
@@ -27,9 +28,10 @@ class WorkoutBuilderBloc
     emit(state.copyWith(
       availableExercises: [
         ExerciseModel(Icons.fitness_center,
-            name: 'Bench Press', bodyParts: [BodyPart.chest]),
+            name: 'Ławka płaska',
+            bodyParts: [BodyPart.chest, BodyPart.shoulders]),
         ExerciseModel(Icons.sports_gymnastics,
-            name: 'Squat', bodyParts: [BodyPart.legs]),
+            name: 'Przysiad', bodyParts: [BodyPart.legs]),
       ],
     ));
   }
@@ -65,20 +67,29 @@ class WorkoutBuilderBloc
     UpdateExerciseSet event,
     Emitter<WorkoutBuilderState> emit,
   ) {
-    final updatedList =
-        List<ExerciseTrainingModel>.from(state.selectedExercises);
-    final exercise = updatedList[event.index];
+    final list = List<ExerciseTrainingModel>.from(state.selectedExercises);
+    final current = list[event.exerciseIndex];
 
-    updatedList[event.index] = ExerciseTrainingModel(
-      exercise.icon,
-      name: exercise.name,
-      bodyParts: exercise.bodyParts,
-      sets: event.sets,
-      reps: event.reps,
-      weight: event.weight,
+    if (event.setIndex < 0 || event.setIndex >= current.sets) return;
+
+    final updatedReps = List<int>.from(current.reps);
+    final updatedWeight = List<double>.from(current.weight);
+
+    updatedReps[event.setIndex] = event.newReps;
+    updatedWeight[event.setIndex] = event.newWeight;
+
+    final updatedExercise = ExerciseTrainingModel(
+      current.icon,
+      name: current.name,
+      bodyParts: current.bodyParts,
+      sets: current.sets,
+      reps: updatedReps,
+      weight: updatedWeight,
     );
 
-    emit(state.copyWith(selectedExercises: updatedList));
+    list[event.exerciseIndex] = updatedExercise;
+
+    emit(state.copyWith(selectedExercises: list));
   }
 
   void onReorderExercise(
@@ -91,6 +102,30 @@ class WorkoutBuilderBloc
     if (event.newIndex < 0 || event.newIndex >= list.length) return;
     final item = list.removeAt(event.oldIndex);
     list.insert(event.newIndex, item);
+
+    emit(state.copyWith(selectedExercises: list));
+  }
+
+  void onUpdateFullExercise(
+    UpdateFullExercise event,
+    Emitter<WorkoutBuilderState> emit,
+  ) {
+    final list = List<ExerciseTrainingModel>.from(state.selectedExercises);
+
+    if (event.exerciseIndex < 0 || event.exerciseIndex >= list.length) return;
+
+    final current = list[event.exerciseIndex];
+
+    final updatedExercise = ExerciseTrainingModel(
+      current.icon,
+      name: current.name,
+      bodyParts: current.bodyParts,
+      sets: event.newSets,
+      reps: event.newReps,
+      weight: event.newWeight,
+    );
+
+    list[event.exerciseIndex] = updatedExercise;
 
     emit(state.copyWith(selectedExercises: list));
   }

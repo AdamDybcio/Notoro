@@ -24,4 +24,14 @@ class AppStrings {
   static const String deleteExercise = 'Usuń ćwiczenie';
   static const String moveUp = 'Przesuń w górę';
   static const String moveDown = 'Przesuń w dół';
+  static const String removeExercise = 'Usuń ćwiczenie';
+  static const String removeExerciseConfirmation =
+      'Czy na pewno chcesz usunąć to ćwiczenie?';
+  static const String remove = 'Usuń';
+  static const String cancel = 'Anuluj';
+  static const String editSet = 'Edytuj serię';
+  static const String reps = 'Powtórzenia';
+  static const String weight = 'Ciężar (kg)';
+  static const String save = 'Zapisz';
+  static const String add = 'Dodaj';
 }
