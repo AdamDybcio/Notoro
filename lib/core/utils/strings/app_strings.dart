@@ -41,4 +41,8 @@ class AppStrings {
   static const String exerciseName = "Nazwa ćwiczenia";
   static const String exerciseNameEmpty = "Podaj nazwę ćwiczenia";
   static const String addOnePart = "Dodaj przynajmniej jedną część ciała";
+  static const String exerciseAlreadyExists =
+      'Ćwiczenie o tej nazwie już istnieje';
+  static const String workoutAlreadyExists =
+      'Trening o takiej nazwie już istnieje';
 }

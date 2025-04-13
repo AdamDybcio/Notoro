@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -55,22 +57,39 @@ class NewWorkoutView extends StatelessWidget {
                       );
                       return;
                     }
+
+                    final existingWorkout = box.values.firstWhere(
+                      (workout) =>
+                          workout.name.trim().toLowerCase() ==
+                          name.trim().toLowerCase(),
+                      orElse: () => WorkoutModel(name: '', exercises: []),
+                    );
+
+                    if (existingWorkout.name.trim() != '' ||
+                        existingWorkout.exercises.isNotEmpty) {
+                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        CustomSnackbar.show(
+                          context: context,
+                          message: AppStrings.workoutAlreadyExists,
+                        ),
+                      );
+                      return;
+                    }
+
                     final newWorkout = WorkoutModel(
                       name: name,
                       exercises: exercises,
                     );
                     await box.add(newWorkout);
-                    // ignore: use_build_context_synchronously
+
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    // ignore: use_build_context_synchronously
                     ScaffoldMessenger.of(context).showSnackBar(
                       CustomSnackbar.show(
-                        // ignore: use_build_context_synchronously
                         context: context,
                         message: AppStrings.workoutCreated,
                       ),
                     );
-                    // ignore: use_build_context_synchronously
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.check, size: 30),

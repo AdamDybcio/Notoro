@@ -51,6 +51,25 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
       return;
     }
 
+    final existing = BlocProvider.of<WorkoutBuilderBloc>(widget.parentContext)
+        .state
+        .availableExercises;
+
+    final nameAlreadyExists = existing.any(
+      (exercise) => exercise.name.toLowerCase() == name.toLowerCase(),
+    );
+
+    if (nameAlreadyExists) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackbar.show(
+          context: context,
+          message: AppStrings.exerciseAlreadyExists,
+        ),
+      );
+      return;
+    }
+
     final newExercise = ExerciseModel(
       name: name,
       bodyParts: parts,

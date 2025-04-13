@@ -21,7 +21,9 @@ class ExerciseTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: colorScheme.primaryContainer,
+        color: (onDelete != null && showDeleteIcon == true)
+            ? colorScheme.tertiaryContainer
+            : colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -33,15 +35,21 @@ class ExerciseTile extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    'assets/body_parts/chest.png',
-                    height: 36,
-                    width: 36,
-                  ),
+                  child: exercise.assetImagePath != ''
+                      ? Image.asset(
+                          exercise.assetImagePath,
+                          height: 36,
+                          width: 36,
+                        )
+                      : Icon(
+                          Icons.fitness_center,
+                          size: 36,
+                          color: colorScheme.onTertiaryContainer,
+                        ),
                 ),
                 const SizedBox(height: 4),
                 Expanded(
-                  child: IconButton(
+                  child: IconButton.outlined(
                     onPressed: onDelete,
                     icon: const Icon(
                       Icons.delete_outline,
@@ -56,11 +64,17 @@ class ExerciseTile extends StatelessWidget {
             Center(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  'assets/body_parts/chest.png',
-                  height: 36,
-                  width: 36,
-                ),
+                child: exercise.assetImagePath != ''
+                    ? Image.asset(
+                        exercise.assetImagePath,
+                        height: 36,
+                        width: 36,
+                      )
+                    : Icon(
+                        Icons.fitness_center,
+                        size: 36,
+                        color: colorScheme.onPrimaryContainer,
+                      ),
               ),
             ),
           const SizedBox(width: 12),

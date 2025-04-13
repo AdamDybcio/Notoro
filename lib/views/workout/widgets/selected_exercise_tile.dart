@@ -6,7 +6,6 @@ import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
-import '../../../models/workout/body_part.dart';
 import 'body_part_chip.dart';
 
 class SelectedExerciseTile extends StatelessWidget {
@@ -49,11 +48,17 @@ class SelectedExerciseTile extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    Helpers.mapBodyPartToString(BodyPart.chest),
-                    width: 56,
-                    height: 56,
-                  ),
+                  child: exercise.assetImagePath != ''
+                      ? Image.asset(
+                          exercise.assetImagePath,
+                          width: 56,
+                          height: 56,
+                        )
+                      : Icon(
+                          Icons.fitness_center,
+                          size: 56,
+                          color: colorScheme.onPrimaryContainer,
+                        ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -79,7 +84,7 @@ class SelectedExerciseTile extends StatelessWidget {
                     ],
                   ),
                 ),
-                IconButton(
+                IconButton.outlined(
                   onPressed: () async {
                     final shouldDelete =
                         await Helpers.showDeleteConfirmationDialog(

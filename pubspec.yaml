@@ -34,6 +34,7 @@ flutter:
     - assets/
     - assets/branding/
     - assets/body_parts/
+    - assets/exercises/
 
 flutter_launcher_icons:
   android: true

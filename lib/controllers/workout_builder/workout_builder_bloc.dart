@@ -21,6 +21,7 @@ class WorkoutBuilderBloc
       emit(state.copyWith(workoutName: event.name));
     });
     on<AddAvailableExercise>(onAddAvailableExercise);
+    on<RemoveAvailableExercise>(onRemoveAvailableExercise);
   }
 
   void onLoadAvailableExercises(
@@ -142,5 +143,26 @@ class WorkoutBuilderBloc
 
     final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
     await customBox.add(event.exercise);
+  }
+
+  void onRemoveAvailableExercise(
+    RemoveAvailableExercise event,
+    Emitter<WorkoutBuilderState> emit,
+  ) async {
+    final updatedList = List<ExerciseModel>.from(state.availableExercises)
+      ..removeWhere((e) => e.name == event.exercise.name);
+
+    emit(state.copyWith(availableExercises: updatedList));
+
+    final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
+
+    final keyToRemove = customBox.keys.firstWhere(
+      (key) => customBox.get(key)?.name == event.exercise.name,
+      orElse: () => null,
+    );
+
+    if (keyToRemove != null) {
+      await customBox.delete(keyToRemove);
+    }
   }
 }

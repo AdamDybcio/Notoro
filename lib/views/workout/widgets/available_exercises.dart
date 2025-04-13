@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
+import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
@@ -17,7 +18,7 @@ class AvailableExercises extends StatelessWidget {
       child: BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
         builder: (context, state) {
           state.availableExercises.sort(
-            (a, b) => a.name.compareTo(b.name),
+            (a, b) => a.name.toUpperCase().compareTo(b.name.toUpperCase()),
           );
           var availableExercises = state.availableExercises.toList();
           return ListView.separated(
@@ -58,7 +59,10 @@ class AvailableExercises extends StatelessWidget {
                                     confirmText: AppStrings.remove,
                                     isNegative: true);
                             if (shouldDelete == true) {
-                              //onRemove();
+                              // ignore: use_build_context_synchronously
+                              context
+                                  .read<WorkoutBuilderBloc>()
+                                  .add(RemoveAvailableExercise(exercise));
                             }
                           }
                         : null,

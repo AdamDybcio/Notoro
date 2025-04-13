@@ -7,7 +7,7 @@ class ExerciseFactory {
       ExerciseModel(
         name: 'Wyciskanie na ławce',
         bodyParts: [BodyPart.chest],
-        assetImagePath: 'assets/body_parts/chest.png',
+        assetImagePath: 'assets/exercises/bench_press.png',
         isCustom: false,
       ),
       ExerciseModel(
@@ -25,13 +25,13 @@ class ExerciseFactory {
       ExerciseModel(
         name: 'Podciąganie',
         bodyParts: [BodyPart.back, BodyPart.arms],
-        assetImagePath: 'assets/body_parts/arms.png',
+        assetImagePath: 'assets/body_parts/biceps.png',
         isCustom: false,
       ),
       ExerciseModel(
         name: 'Pompki',
         bodyParts: [BodyPart.chest, BodyPart.arms, BodyPart.shoulders],
-        assetImagePath: 'assets/body_parts/pushups.png',
+        assetImagePath: 'assets/body_parts/chest.png',
         isCustom: false,
       ),
       ExerciseModel(

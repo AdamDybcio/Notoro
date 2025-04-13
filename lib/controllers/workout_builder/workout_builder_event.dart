@@ -57,3 +57,9 @@ class AddAvailableExercise extends WorkoutBuilderEvent {
   final ExerciseModel exercise;
   AddAvailableExercise(this.exercise);
 }
+
+class RemoveAvailableExercise extends WorkoutBuilderEvent {
+  final ExerciseModel exercise;
+
+  RemoveAvailableExercise(this.exercise);
+}
