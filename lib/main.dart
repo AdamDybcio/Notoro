@@ -7,6 +7,7 @@ import 'package:notoro/models/workout/body_part.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
 import 'controllers/navbar/navbar_cubit.dart';
+import 'models/workout/exercise_model.dart';
 import 'models/workout/workout_model.dart';
 import 'views/navbar_view.dart';
 
@@ -17,6 +18,7 @@ void main() async {
   Hive.registerAdapter(WorkoutModelAdapter());
   Hive.registerAdapter(ExerciseTrainingModelAdapter());
   Hive.registerAdapter(BodyPartAdapter());
+  Hive.registerAdapter(ExerciseModelAdapter());
   await Hive.openBox<WorkoutModel>('workouts');
 
   await SystemChrome.setPreferredOrientations([

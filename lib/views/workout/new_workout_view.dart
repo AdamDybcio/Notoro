@@ -9,6 +9,7 @@ import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/workout_model.dart';
+import 'package:notoro/views/workout/widgets/add_exercise_dialog.dart';
 import 'package:notoro/views/workout/widgets/selected_excercises.dart';
 
 import 'widgets/available_exercises.dart';
@@ -102,7 +103,29 @@ class NewWorkoutView extends StatelessWidget {
               const SizedBox(height: 20),
               Expanded(child: SelectedExercises()),
               const SizedBox(height: 20),
-              HeaderDivider(text: AppStrings.availableExercises),
+              BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
+                builder: (context, state) {
+                  return HeaderDivider(
+                    text: AppStrings.availableExercises,
+                    actionButton: IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) =>
+                              AddExerciseDialog(parentContext: context),
+                        );
+                      },
+                      icon: Icon(Icons.add,
+                          size: 30,
+                          color: Theme.of(context).colorScheme.onPrimary),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        shape: const CircleBorder(),
+                      ),
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: 20),
               AvailableExercises(),
               const SizedBox(height: 20),

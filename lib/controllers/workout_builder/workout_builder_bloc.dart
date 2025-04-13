@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
+import 'package:notoro/core/data/exercise_factory.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
-
-import '../../models/workout/body_part.dart';
 
 class WorkoutBuilderBloc
     extends Bloc<WorkoutBuilderEvent, WorkoutBuilderState> {
@@ -20,24 +20,21 @@ class WorkoutBuilderBloc
     on<UpdateWorkoutName>((event, emit) {
       emit(state.copyWith(workoutName: event.name));
     });
+    on<AddAvailableExercise>(onAddAvailableExercise);
   }
 
   void onLoadAvailableExercises(
     LoadAvailableExercises event,
     Emitter<WorkoutBuilderState> emit,
-  ) {
-    emit(state.copyWith(
-      availableExercises: [
-        ExerciseModel(
-            assetImagePath: 'assets/body_parts/chest.png',
-            name: 'Ławka płaska',
-            bodyParts: [BodyPart.chest, BodyPart.shoulders]),
-        ExerciseModel(
-            assetImagePath: 'assets/body_parts/chest.png',
-            name: 'Przysiad',
-            bodyParts: [BodyPart.legs]),
-      ],
-    ));
+  ) async {
+    final baseExercises = ExerciseFactory.getBaseExercises();
+
+    final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
+    final customExercises = customBox.values.toList();
+
+    final all = [...baseExercises, ...customExercises];
+
+    emit(state.copyWith(availableExercises: all));
   }
 
   void onAddExercise(
@@ -132,5 +129,18 @@ class WorkoutBuilderBloc
     list[event.exerciseIndex] = updatedExercise;
 
     emit(state.copyWith(selectedExercises: list));
+  }
+
+  void onAddAvailableExercise(
+    AddAvailableExercise event,
+    Emitter<WorkoutBuilderState> emit,
+  ) async {
+    final updatedList = List<ExerciseModel>.from(state.availableExercises)
+      ..add(event.exercise);
+
+    emit(state.copyWith(availableExercises: updatedList));
+
+    final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
+    await customBox.add(event.exercise);
   }
 }

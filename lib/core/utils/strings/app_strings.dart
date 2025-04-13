@@ -37,4 +37,8 @@ class AppStrings {
   static const String workoutNameEmpty = "Podaj nazwę treningu";
   static const String addOneExercise = "Dodaj przynajmniej jedno ćwiczenie";
   static const String workoutCreated = "Trening został stworzony";
+  static const String addExercise = "Dodaj ćwiczenie";
+  static const String exerciseName = "Nazwa ćwiczenia";
+  static const String exerciseNameEmpty = "Podaj nazwę ćwiczenia";
+  static const String addOnePart = "Dodaj przynajmniej jedną część ciała";
 }

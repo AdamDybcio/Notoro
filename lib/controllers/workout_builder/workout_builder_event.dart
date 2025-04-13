@@ -52,3 +52,8 @@ class UpdateWorkoutName extends WorkoutBuilderEvent {
   final String name;
   UpdateWorkoutName(this.name);
 }
+
+class AddAvailableExercise extends WorkoutBuilderEvent {
+  final ExerciseModel exercise;
+  AddAvailableExercise(this.exercise);
+}

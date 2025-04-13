@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class HeaderDivider extends StatelessWidget {
   final String text;
-  const HeaderDivider({super.key, required this.text});
+  final Widget? actionButton;
+  const HeaderDivider({super.key, required this.text, this.actionButton});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,12 @@ class HeaderDivider extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
+        if (actionButton != null) ...[
+          const SizedBox(
+            width: 5,
+          ),
+          actionButton!,
+        ],
       ],
     );
   }
