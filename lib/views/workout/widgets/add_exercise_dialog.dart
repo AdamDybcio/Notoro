@@ -107,6 +107,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
               children: BodyPart.values
                   .map((part) => FilterChip(
                         label: Text(Helpers.mapBodyPartToName(part)),
+                        checkmarkColor: Colors.white,
                         avatar: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: Image.asset(

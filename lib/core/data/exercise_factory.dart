@@ -6,32 +6,32 @@ class ExerciseFactory {
     return [
       ExerciseModel(
         name: 'Wyciskanie na ławce',
-        bodyParts: [BodyPart.chest],
+        bodyParts: [BodyPart.chest, BodyPart.shoulders, BodyPart.arms],
         assetImagePath: 'assets/exercises/bench_press.png',
         isCustom: false,
       ),
       ExerciseModel(
         name: 'Martwy ciąg',
         bodyParts: [BodyPart.back, BodyPart.legs],
-        assetImagePath: 'assets/body_parts/back.png',
+        assetImagePath: 'assets/exercises/deadlift.png',
         isCustom: false,
       ),
       ExerciseModel(
-        name: 'Przysiady',
+        name: 'Wypychanie ciężaru na suwnicy',
         bodyParts: [BodyPart.legs],
-        assetImagePath: 'assets/body_parts/legs.png',
+        assetImagePath: 'assets/exercises/suwnica_lezac.png',
         isCustom: false,
       ),
       ExerciseModel(
-        name: 'Podciąganie',
-        bodyParts: [BodyPart.back, BodyPart.arms],
-        assetImagePath: 'assets/body_parts/biceps.png',
+        name: 'Uginanie ramion na modlitewniku',
+        bodyParts: [BodyPart.arms],
+        assetImagePath: 'assets/exercises/modlitewnik.png',
         isCustom: false,
       ),
       ExerciseModel(
         name: 'Pompki',
         bodyParts: [BodyPart.chest, BodyPart.arms, BodyPart.shoulders],
-        assetImagePath: 'assets/body_parts/chest.png',
+        assetImagePath: 'assets/exercises/pushup.png',
         isCustom: false,
       ),
       ExerciseModel(
