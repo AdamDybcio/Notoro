@@ -95,6 +95,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
               onTapOutside: (_) =>
                   FocusManager.instance.primaryFocus?.unfocus(),
               controller: nameController,
+              maxLength: 50,
               decoration: const InputDecoration(
                 labelText: AppStrings.exerciseName,
                 border: OutlineInputBorder(),

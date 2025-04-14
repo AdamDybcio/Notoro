@@ -58,4 +58,19 @@ class AppStrings {
   static const String clearDay = 'Wyczyść dzień';
   static const String todayWorkout = 'Dzisiejszy trening:\n';
   static const String startWorkout = 'Rozpocznij';
+  static const String noData = 'Brak danych';
+  static const String noDataSubtitle = 'Zrób trening, by zobaczyć statystyki!';
+  static const String yourStats = 'Twoje statystyki';
+  static const String mostFrequentDays = 'Najczęstsze dni treningowe';
+  static const String mostWeight =
+      'Rekord całkowitego obciążenia na treningu:\n';
+  static const String weightWeeklyProgress = 'Progres objętości tygodniowej';
+  static const String favParts = 'Zaangażowanie partii';
+  static const String prepareWorkout = 'Przygotuj trening';
+  static const String configureRest =
+      'Skonfiguruj czas przerw i rozpocznij trening';
+  static const String startWorkoutLong = 'Rozpocznij trening';
+  static const String setRest = 'Przerwa między seriami';
+  static const String setRestAfter = 'Przerwa po ćwiczeniu';
+  static const String sec = 'sek.';
 }

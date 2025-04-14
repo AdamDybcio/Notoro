@@ -19,7 +19,7 @@ class WorkoutCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      color: colorScheme.primaryContainer,
+      color: colorScheme.surfaceContainerHighest,
       elevation: 2,
       child: InkWell(
         onTap: onTap,

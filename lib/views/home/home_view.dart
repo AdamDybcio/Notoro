@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/views/home/widgets/global_stats_section.dart';
 import 'package:notoro/views/home/widgets/today_workout_banner.dart';
 import 'package:notoro/views/home/widgets/weekly_plan_section.dart';
 
@@ -24,6 +25,7 @@ class HomeView extends StatelessWidget {
             SizedBox(height: 20),
             WeeklyPlanSection(),
             SizedBox(height: 20),
+            GlobalStatsSection(),
           ],
         ),
       ),

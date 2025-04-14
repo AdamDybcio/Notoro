@@ -4,6 +4,7 @@ import 'package:notoro/controllers/weekly_plan/weekly_plan_bloc.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_state.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/views/home/workout_configuration_view.dart';
 
 class TodayWorkoutBanner extends StatelessWidget {
   const TodayWorkoutBanner({super.key});
@@ -43,7 +44,15 @@ class TodayWorkoutBanner extends StatelessWidget {
               ),
             ),
             trailing: FilledButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        WorkoutConfigurationView(workout: workout),
+                  ),
+                );
+              },
               icon: const Icon(Icons.play_arrow),
               label: const Text(AppStrings.startWorkout),
             ),

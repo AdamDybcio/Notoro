@@ -35,7 +35,7 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
             HeaderDivider(
               text: AppStrings.weeklyPlan,
               actionButton: Transform.rotate(
-                angle: isExpanded ? 90 * 3.14 / 180 : 270 * 3.14 / 180,
+                angle: !isExpanded ? 90 * 3.14 / 180 : 270 * 3.14 / 180,
                 child: IconButton(
                   icon: Icon(Icons.arrow_back_ios,
                       size: 30, color: Theme.of(context).colorScheme.onPrimary),
@@ -65,7 +65,9 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                         margin: const EdgeInsets.only(bottom: 6),
                         color: isToday
                             ? Theme.of(context).colorScheme.tertiaryContainer
-                            : Theme.of(context).cardColor,
+                            : Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHigh,
                         elevation: 2,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(12),

@@ -13,6 +13,7 @@ class NewWorkoutButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
+      color: colorScheme.surfaceContainerHigh,
       elevation: 2,
       child: InkWell(
         onTap: onTap,
