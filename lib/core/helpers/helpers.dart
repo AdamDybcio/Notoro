@@ -5,7 +5,9 @@ import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/models/dashboard/weekly_plan.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+import 'package:notoro/models/workout/workout_model.dart';
 
 import '../../controllers/workout_builder/workout_builder_bloc.dart';
 import '../../models/workout/body_part.dart';
@@ -25,6 +27,25 @@ class Helpers {
         return 'assets/body_parts/shoulders.png';
       case BodyPart.abs:
         return 'assets/body_parts/abs.png';
+    }
+  }
+
+  static String mapDayOfWeekToName(DayOfWeek day) {
+    switch (day) {
+      case DayOfWeek.monday:
+        return 'Poniedziałek';
+      case DayOfWeek.tuesday:
+        return 'Wtorek';
+      case DayOfWeek.wednesday:
+        return 'Środa';
+      case DayOfWeek.thursday:
+        return 'Czwartek';
+      case DayOfWeek.friday:
+        return 'Piątek';
+      case DayOfWeek.saturday:
+        return 'Sobota';
+      case DayOfWeek.sunday:
+        return 'Niedziela';
     }
   }
 
@@ -60,6 +81,11 @@ class Helpers {
       case BodyPart.abs:
         return Colors.teal;
     }
+  }
+
+  static DayOfWeek getTodayEnum() {
+    final weekday = DateTime.now().weekday;
+    return DayOfWeek.values[weekday - 1];
   }
 
   static Future<bool?> showDeleteConfirmationDialog({
@@ -289,6 +315,136 @@ class Helpers {
               child: const Text(AppStrings.save),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  static Future<int?> showWorkoutPickerDialog({
+    required BuildContext context,
+    required Map<int, WorkoutModel> availableWorkouts,
+  }) {
+    return showDialog<int>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(AppStrings.chooseWorkout),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                onTap: () => Navigator.pop(context, null),
+                tileColor: Theme.of(context).colorScheme.primaryContainer,
+                title: const Text(AppStrings.clearDay),
+                leading: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Icon(
+                    Icons.clear,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: availableWorkouts.entries
+                        .map((entry) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                onTap: () => Navigator.pop(context, entry.key),
+                                title: Text(entry.value.name),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${entry.value.exercises.length} ćwiczeń',
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Wrap(
+                                      spacing: 4,
+                                      runSpacing: 4,
+                                      children: [
+                                        ...entry.value.exercises.take(5).map(
+                                              (exercise) => ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                child: exercise
+                                                            .assetImagePath !=
+                                                        ''
+                                                    ? ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(4),
+                                                        child: Image.asset(
+                                                          exercise
+                                                              .assetImagePath,
+                                                          width: 18,
+                                                          height: 18,
+                                                        ),
+                                                      )
+                                                    : Icon(
+                                                        Icons.fitness_center,
+                                                        size: 18,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onPrimaryContainer,
+                                                      ),
+                                              ),
+                                            ),
+                                        if (entry.value.exercises.length > 5)
+                                          Text(
+                                            '+${entry.value.exercises.length - 5}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall
+                                                ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .onPrimaryContainer,
+                                                ),
+                                          ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                leading: Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Icon(
+                                    Icons.fitness_center,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                ),
+                              ),
+                              const Divider(
+                                height: 1,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          );
+                        })
+                        .toList()
+                        .reversed
+                        .toList(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );

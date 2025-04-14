@@ -6,8 +6,7 @@ class AppStrings {
   static const String settings = 'Ustawienia';
   static const String yourWorkouts = 'Twoje treningi';
   static const String newWorkoutButtonTitle = 'Nowy trening';
-  static const String newWorkoutButtonSubtitle =
-      'Stwórz swój następny plan treningowy';
+  static const String newWorkoutButtonSubtitle = 'Stwórz swój następny trening';
   static const String noWorkoutsTitle = 'Nie masz jeszcze żadnych treningów';
   static const String noWorkoutsSubtitle =
       'Dodaj swój pierwszy plan treningowy';
@@ -52,4 +51,11 @@ class AppStrings {
   static const String removeWorkout = 'Usuń trening';
   static const String removeWorkoutConfirmation =
       'Czy na pewno chcesz usunąć ten trening?';
+  static const String weeklyPlan = 'Plan treningowy';
+  static const String noWorkout = 'Brak treningu [kliknij, aby dodać]';
+  static const String noWorkoutsAvailable = 'Brak dostępnych treningów';
+  static const String chooseWorkout = 'Wybierz trening';
+  static const String clearDay = 'Wyczyść dzień';
+  static const String todayWorkout = 'Dzisiejszy trening:\n';
+  static const String startWorkout = 'Rozpocznij';
 }

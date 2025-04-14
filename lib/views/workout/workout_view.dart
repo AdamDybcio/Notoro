@@ -46,7 +46,7 @@ class WorkoutView extends StatelessWidget {
             ValueListenableBuilder<Box<WorkoutModel>>(
               valueListenable: workoutBox.listenable(),
               builder: (context, box, _) {
-                final workouts = box.values.toList();
+                final workouts = box.values.toList().reversed.toList();
 
                 if (workouts.isEmpty) {
                   return EmptyStateWidget(
@@ -55,30 +55,33 @@ class WorkoutView extends StatelessWidget {
                   );
                 }
 
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: workouts.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final workout = workouts[index];
-                    return WorkoutCard(
-                      workout: workout,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider(
-                              create: (_) => WorkoutDetailBloc(
-                                  Hive.box<WorkoutModel>('workouts'))
-                                ..add(LoadWorkoutDetail(workout.key as int)),
-                              child: const WorkoutDetailView(),
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
+                return Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...workouts.map((workout) {
+                          return WorkoutCard(
+                            workout: workout,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => BlocProvider(
+                                    create: (_) => WorkoutDetailBloc(
+                                        Hive.box<WorkoutModel>('workouts'))
+                                      ..add(LoadWorkoutDetail(
+                                          workout.key as int)),
+                                    child: const WorkoutDetailView(),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }),
+                        const SizedBox(height: 12),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),

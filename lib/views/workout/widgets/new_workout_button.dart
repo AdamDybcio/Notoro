@@ -59,7 +59,6 @@ class NewWorkoutButton extends StatelessWidget {
               const Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 20,
-                color: Colors.grey,
               ),
             ],
           ),

@@ -28,10 +28,18 @@ class WorkoutCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              Icon(
-                Icons.fitness_center,
-                color: colorScheme.primary,
-                size: 32,
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.fitness_center,
+                  color: colorScheme.onPrimary,
+                  size: 32,
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -44,6 +52,8 @@ class WorkoutCard extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: colorScheme.onPrimaryContainer,
                           ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 6),
                     Text(

@@ -107,13 +107,14 @@ class NewWorkoutView extends StatelessWidget {
                   return TextField(
                     onChanged: (value) =>
                         BlocProvider.of<WorkoutBuilderBloc>(context)
-                            .add(UpdateWorkoutName(value)),
+                            .add(UpdateWorkoutName(value.trim())),
                     onTapOutside: (_) =>
                         FocusManager.instance.primaryFocus?.unfocus(),
                     decoration: InputDecoration(
                       labelText: AppStrings.workoutName,
                       border: OutlineInputBorder(),
                     ),
+                    maxLength: 50,
                   );
                 },
               ),
