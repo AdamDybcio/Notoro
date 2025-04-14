@@ -45,4 +45,11 @@ class AppStrings {
       'Ćwiczenie o tej nazwie już istnieje';
   static const String workoutAlreadyExists =
       'Trening o takiej nazwie już istnieje';
+  static const String workoutDetails = 'Szczegóły treningu';
+  static const String workoutStats = 'Statystyki treningu';
+  static const String sets = 'Serie';
+  static const String workoutDeleted = 'Trening został usunięty';
+  static const String removeWorkout = 'Usuń trening';
+  static const String removeWorkoutConfirmation =
+      'Czy na pewno chcesz usunąć ten trening?';
 }

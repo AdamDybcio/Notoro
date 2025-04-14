@@ -15,4 +15,14 @@ class WorkoutModel extends HiveObject {
     required this.name,
     required this.exercises,
   });
+
+  WorkoutModel copyWith({
+    String? name,
+    List<ExerciseTrainingModel>? exercises,
+  }) {
+    return WorkoutModel(
+      name: name ?? this.name,
+      exercises: exercises ?? this.exercises,
+    );
+  }
 }

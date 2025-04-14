@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
+import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/new_workout_button.dart';
+import 'package:notoro/views/workout/workout_detail_view.dart';
 
 import '../../core/common/widgets/empty_state_widget.dart';
 import 'new_workout_view.dart';
@@ -61,12 +65,17 @@ class WorkoutView extends StatelessWidget {
                     return WorkoutCard(
                       workout: workout,
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (_) => WorkoutDetailView(workout: workout),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider(
+                              create: (_) => WorkoutDetailBloc(
+                                  Hive.box<WorkoutModel>('workouts'))
+                                ..add(LoadWorkoutDetail(workout.key as int)),
+                              child: const WorkoutDetailView(),
+                            ),
+                          ),
+                        );
                       },
                     );
                   },

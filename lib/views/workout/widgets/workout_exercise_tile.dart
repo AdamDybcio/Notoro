@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
-import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
 import 'body_part_chip.dart';
 
-class SelectedExerciseTile extends StatelessWidget {
+class WorkoutExerciseTile extends StatelessWidget {
   final ExerciseTrainingModel exercise;
   final VoidCallback onRemove;
-  final VoidCallback onEdit;
   final VoidCallback onMoveUp;
   final VoidCallback onMoveDown;
+  final VoidCallback onAddSet;
+  final bool onEditSetDialog;
+  final bool onEditSetDialogWorkout;
   final bool isFirst;
   final bool isLast;
   final int exerciseIndex;
 
-  const SelectedExerciseTile({
+  const WorkoutExerciseTile({
     super.key,
     required this.exercise,
     required this.onRemove,
-    required this.onEdit,
     required this.onMoveUp,
     required this.onMoveDown,
     required this.isFirst,
     required this.isLast,
     required this.exerciseIndex,
+    required this.onAddSet,
+    this.onEditSetDialog = false,
+    this.onEditSetDialogWorkout = false,
   });
 
   @override
@@ -114,14 +115,23 @@ class SelectedExerciseTile extends StatelessWidget {
                         exercise.sets,
                         (index) {
                           return ActionChip(
-                            onPressed: () {
-                              Helpers.showEditSetDialog(
-                                context: context,
-                                index: index,
-                                exercise: exercise,
-                                exerciseIndex: exerciseIndex,
-                              );
-                            },
+                            onPressed: onEditSetDialog
+                                ? () {
+                                    Helpers.showEditSetDialog(
+                                      context: context,
+                                      index: index,
+                                      exercise: exercise,
+                                      exerciseIndex: exerciseIndex,
+                                    );
+                                  }
+                                : () {
+                                    Helpers.showEditSetDialogWorkout(
+                                      context: context,
+                                      index: index,
+                                      exercise: exercise,
+                                      exerciseIndex: exerciseIndex,
+                                    );
+                                  },
                             visualDensity: VisualDensity.compact,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(
@@ -140,20 +150,7 @@ class SelectedExerciseTile extends StatelessWidget {
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         visualDensity: VisualDensity.compact,
-                        onPressed: () {
-                          final updatedReps = List<int>.from(exercise.reps)
-                            ..add(8);
-                          final updatedWeight =
-                              List<double>.from(exercise.weight)..add(0);
-                          context.read<WorkoutBuilderBloc>().add(
-                                UpdateFullExercise(
-                                  exerciseIndex: exerciseIndex,
-                                  newSets: updatedReps.length,
-                                  newReps: updatedReps,
-                                  newWeight: updatedWeight,
-                                ),
-                              );
-                        },
+                        onPressed: onAddSet,
                       ),
                     ],
                   ),

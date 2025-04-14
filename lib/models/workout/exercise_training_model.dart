@@ -31,4 +31,22 @@ class ExerciseTrainingModel extends HiveObject {
     required this.reps,
     required this.weight,
   });
+
+  ExerciseTrainingModel copyWith({
+    String? name,
+    List<BodyPart>? bodyParts,
+    String? assetImagePath,
+    int? sets,
+    List<int>? reps,
+    List<double>? weight,
+  }) {
+    return ExerciseTrainingModel(
+      name: name ?? this.name,
+      bodyParts: bodyParts ?? this.bodyParts,
+      assetImagePath: assetImagePath ?? this.assetImagePath,
+      sets: sets ?? this.sets,
+      reps: reps ?? this.reps,
+      weight: weight ?? this.weight,
+    );
+  }
 }

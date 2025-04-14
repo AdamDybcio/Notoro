@@ -5,7 +5,7 @@ import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
-import 'package:notoro/views/workout/widgets/selected_exercise_tile.dart';
+import 'package:notoro/views/workout/widgets/workout_exercise_tile.dart';
 
 class SelectedExercises extends StatelessWidget {
   const SelectedExercises({super.key});
@@ -51,7 +51,7 @@ class SelectedExercises extends StatelessWidget {
                   : ListView.builder(
                       itemCount: state.selectedExercises.length,
                       itemBuilder: (context, index) {
-                        return SelectedExerciseTile(
+                        return WorkoutExerciseTile(
                           exercise: state.selectedExercises[index],
                           exerciseIndex: index,
                           onRemove: () {
@@ -61,7 +61,6 @@ class SelectedExercises extends StatelessWidget {
                                   ),
                                 );
                           },
-                          onEdit: () {},
                           onMoveUp: () =>
                               context.read<WorkoutBuilderBloc>().add(
                                     ReorderExercise(index, index - 1),
@@ -72,6 +71,23 @@ class SelectedExercises extends StatelessWidget {
                                   ),
                           isFirst: index == 0,
                           isLast: index == state.selectedExercises.length - 1,
+                          onAddSet: () {
+                            final updatedReps = List<int>.from(
+                                state.selectedExercises[index].reps)
+                              ..add(8);
+                            final updatedWeight = List<double>.from(
+                                state.selectedExercises[index].weight)
+                              ..add(0);
+                            context.read<WorkoutBuilderBloc>().add(
+                                  UpdateFullExercise(
+                                    exerciseIndex: index,
+                                    newSets: updatedReps.length,
+                                    newReps: updatedReps,
+                                    newWeight: updatedWeight,
+                                  ),
+                                );
+                          },
+                          onEditSetDialog: true,
                         );
                       },
                     ),
