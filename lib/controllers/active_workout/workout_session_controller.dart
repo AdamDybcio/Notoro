@@ -95,9 +95,11 @@ class WorkoutSessionController extends ChangeNotifier {
       currentSet == currentExerciseModel.sets - 1 &&
       !isResting;
 
-  void disposeController() {
+  @override
+  void dispose() {
     _restTimer?.cancel();
     _tickTimer?.cancel();
     _stopwatch.stop();
+    super.dispose();
   }
 }

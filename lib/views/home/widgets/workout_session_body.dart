@@ -36,7 +36,6 @@ class WorkoutSessionBody extends StatelessWidget {
                       duration: controller.elapsed,
                     );
                     Hive.box<HistoryModel>('workout_history').add(history);
-                    controller.disposeController();
 
                     Navigator.pop(context);
                   },
