@@ -11,6 +11,7 @@ class WorkoutSessionController extends ChangeNotifier {
 
   final Stopwatch _stopwatch = Stopwatch();
   Timer? _restTimer;
+  Timer? _tickTimer;
 
   int currentExercise = 0;
   int currentSet = 0;
@@ -36,6 +37,10 @@ class WorkoutSessionController extends ChangeNotifier {
         .toList();
 
     _stopwatch.start();
+    _tickTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      notifyListeners();
+    });
+
     notifyListeners();
   }
 
@@ -92,6 +97,7 @@ class WorkoutSessionController extends ChangeNotifier {
 
   void disposeController() {
     _restTimer?.cancel();
+    _tickTimer?.cancel();
     _stopwatch.stop();
   }
 }

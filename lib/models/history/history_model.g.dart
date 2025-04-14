@@ -20,19 +20,22 @@ class HistoryModelAdapter extends TypeAdapter<HistoryModel> {
       workoutName: fields[0] as String,
       exercises: (fields[1] as List).cast<ExerciseTrainingModel>(),
       date: fields[2] as DateTime,
+      duration: fields[3] as Duration,
     );
   }
 
   @override
   void write(BinaryWriter writer, HistoryModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.workoutName)
       ..writeByte(1)
       ..write(obj.exercises)
       ..writeByte(2)
-      ..write(obj.date);
+      ..write(obj.date)
+      ..writeByte(3)
+      ..write(obj.duration);
   }
 
   @override

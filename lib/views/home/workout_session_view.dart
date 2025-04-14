@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
 import 'package:notoro/models/workout/workout_model.dart';
+import 'package:provider/provider.dart';
+
+import 'widgets/workout_session_body.dart';
 
 class WorkoutSessionView extends StatelessWidget {
   final WorkoutModel workout;
@@ -16,14 +19,13 @@ class WorkoutSessionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
-    // return ChangeNotifierProvider(
-    //   create: (_) => WorkoutSessionController(
-    //     workout: workout,
-    //     restBetweenSets: restBetweenSets,
-    //     restAfterExercises: restAfterExercises,
-    //   ),
-    //   child: const WorkoutSessionBody(),
-    // );
+    return ChangeNotifierProvider(
+      create: (_) => WorkoutSessionController(
+        workout: workout,
+        restBetweenSets: restBetweenSets,
+        restAfterExercises: restAfterExercises,
+      ),
+      child: const WorkoutSessionBody(),
+    );
   }
 }

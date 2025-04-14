@@ -15,9 +15,13 @@ class HistoryModel extends HiveObject {
   @HiveField(2)
   final DateTime date;
 
+  @HiveField(3)
+  final Duration duration;
+
   HistoryModel({
     required this.workoutName,
     required this.exercises,
     required this.date,
+    required this.duration,
   });
 }
