@@ -15,6 +15,36 @@ class SettingsNotifier extends ChangeNotifier {
 
   void updateThemeMode(int index) {
     _settings = _settings.copyWith(themeModeIndex: index);
+    _save();
+  }
+
+  void updatePreferredUnit(String unit) {
+    _settings = _settings.copyWith(preferredUnit: unit);
+    _save();
+  }
+
+  void updateDefaultRestBetweenSets(int seconds) {
+    _settings = _settings.copyWith(defaultRestBetweenSets: seconds);
+    _save();
+  }
+
+  void updateDefaultRestBetweenExercises(int seconds) {
+    _settings = _settings.copyWith(defaultRestBetweenExercises: seconds);
+    _save();
+  }
+
+  void resetToDefaults() {
+    _settings = AppSettingsModel();
+    _save();
+  }
+
+  void _save() {
+    box.put('settings', _settings);
+    notifyListeners();
+  }
+
+  void updateDefaultRepsAndSets(int reps, int sets) {
+    _settings = _settings.copyWith(defaultReps: reps, defaultSets: sets);
     box.put('settings', _settings);
     notifyListeners();
   }

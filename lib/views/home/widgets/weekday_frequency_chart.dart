@@ -64,7 +64,15 @@ class WeekdayFrequencyChart extends StatelessWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, _) {
-                      final names = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'];
+                      final names = [
+                        AppStrings.mondayShort,
+                        AppStrings.tuesdayShort,
+                        AppStrings.wednesdayShort,
+                        AppStrings.thursdayShort,
+                        AppStrings.fridayShort,
+                        AppStrings.saturdayShort,
+                        AppStrings.sundayShort,
+                      ];
                       return Text(names[value.toInt() - 1]);
                     },
                   ),
@@ -78,13 +86,13 @@ class WeekdayFrequencyChart extends StatelessWidget {
                 touchTooltipData: BarTouchTooltipData(
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     final day = [
-                      'Pn',
-                      'Wt',
-                      'Śr',
-                      'Cz',
-                      'Pt',
-                      'Sb',
-                      'Nd'
+                      AppStrings.mondayShort,
+                      AppStrings.tuesdayShort,
+                      AppStrings.wednesdayShort,
+                      AppStrings.thursdayShort,
+                      AppStrings.fridayShort,
+                      AppStrings.saturdayShort,
+                      AppStrings.sundayShort,
                     ][group.x.toInt() - 1];
                     return BarTooltipItem(
                       '$day\n${rod.toY.toStringAsFixed(0)}',

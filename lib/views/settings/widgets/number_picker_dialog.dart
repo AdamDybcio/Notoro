@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notoro/core/utils/strings/app_strings.dart';
 
 class NumberPickerDialog extends StatefulWidget {
   final String title;
@@ -36,13 +37,15 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
       content: DropdownButton<int>(
         value: selected,
         isExpanded: true,
+        dropdownColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        menuMaxHeight: 300,
         items: List.generate(
           ((widget.maxValue - widget.minValue) ~/ widget.step) + 1,
           (index) {
             final value = widget.minValue + (index * widget.step);
             return DropdownMenuItem(
               value: value,
-              child: Text('$value sekund'),
+              child: Text('$value ${AppStrings.seconds}'),
             );
           },
         ),
@@ -51,10 +54,10 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Anuluj')),
+            child: const Text(AppStrings.cancel)),
         ElevatedButton(
           onPressed: () => Navigator.pop(context, selected),
-          child: const Text('Zapisz'),
+          child: const Text(AppStrings.save),
         )
       ],
     );

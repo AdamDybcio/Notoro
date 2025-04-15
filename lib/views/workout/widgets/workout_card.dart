@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 
+import '../../../core/utils/strings/app_strings.dart';
+
 class WorkoutCard extends StatelessWidget {
   final WorkoutModel workout;
   final VoidCallback onTap;
@@ -57,7 +59,7 @@ class WorkoutCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      '${workout.exercises.length} ćwiczeń',
+                      '${workout.exercises.length} ${AppStrings.exercisesLowercase}',
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color:
                                 colorScheme.onPrimaryContainer.withAlpha(175),

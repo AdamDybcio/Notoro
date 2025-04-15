@@ -21,13 +21,15 @@ class AppSettingsModelAdapter extends TypeAdapter<AppSettingsModel> {
       defaultRestBetweenExercises: fields[1] as int,
       themeModeIndex: fields[2] as int,
       preferredUnit: fields[3] as String,
+      defaultReps: fields[4] as int,
+      defaultSets: fields[5] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettingsModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.defaultRestBetweenSets)
       ..writeByte(1)
@@ -35,7 +37,11 @@ class AppSettingsModelAdapter extends TypeAdapter<AppSettingsModel> {
       ..writeByte(2)
       ..write(obj.themeModeIndex)
       ..writeByte(3)
-      ..write(obj.preferredUnit);
+      ..write(obj.preferredUnit)
+      ..writeByte(4)
+      ..write(obj.defaultReps)
+      ..writeByte(5)
+      ..write(obj.defaultSets);
   }
 
   @override

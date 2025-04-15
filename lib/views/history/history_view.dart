@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:notoro/core/common/widgets/empty_state_widget.dart';
+import 'package:notoro/core/common/widgets/empty_state_widget_classic.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
@@ -28,7 +28,7 @@ class HistoryView extends StatelessWidget {
           if (items.isEmpty) {
             return Padding(
               padding: const EdgeInsets.all(20),
-              child: EmptyStateWidget(
+              child: EmptyStateWidgetClassic(
                 title: AppStrings.noHistoryTitle,
                 subtitle: AppStrings.noHistorySubtitle,
               ),

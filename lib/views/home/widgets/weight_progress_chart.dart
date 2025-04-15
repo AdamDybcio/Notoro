@@ -44,7 +44,7 @@ class WeightProgressChart extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 4),
         Text(
-          'Tygodni: $totalWeeks • Najwięcej: ${maxValue.toStringAsFixed(0)} kg • Ostatni: ${lastWeek.value.toStringAsFixed(0)} kg',
+          '${AppStrings.weeks}: $totalWeeks • ${AppStrings.most}: ${maxValue.toStringAsFixed(0)} ${AppStrings.kg} • ${AppStrings.last}: ${lastWeek.value.toStringAsFixed(0)} ${AppStrings.kg}',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),

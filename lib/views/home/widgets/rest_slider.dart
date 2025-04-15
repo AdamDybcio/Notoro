@@ -26,7 +26,7 @@ class RestSlider extends StatelessWidget {
           min: 15,
           max: 180,
           divisions: 11,
-          label: '$value s',
+          label: '$value ${AppStrings.secVeryShort}',
           onChanged: (val) => onChanged(val.round()),
         ),
       ],

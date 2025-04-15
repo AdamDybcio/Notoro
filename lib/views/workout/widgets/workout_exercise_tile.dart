@@ -135,7 +135,7 @@ class WorkoutExerciseTile extends StatelessWidget {
                             visualDensity: VisualDensity.compact,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(
-                              '${exercise.reps[index]}x${exercise.weight[index]}kg',
+                              '${exercise.reps[index]}x${exercise.weight[index]}${AppStrings.kg}',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall

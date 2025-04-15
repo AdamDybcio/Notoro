@@ -38,36 +38,36 @@ class Helpers {
   static String mapDayOfWeekToName(DayOfWeek day) {
     switch (day) {
       case DayOfWeek.monday:
-        return 'Poniedziałek';
+        return AppStrings.monday;
       case DayOfWeek.tuesday:
-        return 'Wtorek';
+        return AppStrings.tuesday;
       case DayOfWeek.wednesday:
-        return 'Środa';
+        return AppStrings.wednesday;
       case DayOfWeek.thursday:
-        return 'Czwartek';
+        return AppStrings.thursday;
       case DayOfWeek.friday:
-        return 'Piątek';
+        return AppStrings.friday;
       case DayOfWeek.saturday:
-        return 'Sobota';
+        return AppStrings.saturday;
       case DayOfWeek.sunday:
-        return 'Niedziela';
+        return AppStrings.sunday;
     }
   }
 
   static String mapBodyPartToName(BodyPart part) {
     switch (part) {
       case BodyPart.chest:
-        return 'Klatka';
+        return AppStrings.chest;
       case BodyPart.back:
-        return 'Plecy';
+        return AppStrings.back;
       case BodyPart.legs:
-        return 'Nogi';
+        return AppStrings.legs;
       case BodyPart.arms:
-        return 'Ramiona';
+        return AppStrings.arms;
       case BodyPart.shoulders:
-        return 'Barki';
+        return AppStrings.shoulders;
       case BodyPart.abs:
-        return 'Brzuch';
+        return AppStrings.abs;
     }
   }
 
@@ -196,7 +196,7 @@ class Helpers {
                         );
                     Navigator.of(ctx).pop();
                   },
-                  label: const Text('Usuń serię'),
+                  label: const Text(AppStrings.removeSet),
                 ),
             ],
           ),
@@ -294,7 +294,7 @@ class Helpers {
                         );
                     Navigator.of(ctx).pop();
                   },
-                  label: const Text('Usuń serię'),
+                  label: const Text(AppStrings.removeSet),
                 ),
             ],
           ),
@@ -370,7 +370,7 @@ class Helpers {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${entry.value.exercises.length} ćwiczeń',
+                                      '${entry.value.exercises.length} ${AppStrings.exercisesLowercase}',
                                     ),
                                     const SizedBox(height: 4),
                                     Wrap(
@@ -643,14 +643,13 @@ class Helpers {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) => Padding(
-        padding: const EdgeInsets.all(20),
+      builder: (_) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(AppStrings.chooseTheme,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+            ListTile(title: const Text(AppStrings.chooseTheme)),
             Wrap(
               spacing: 12,
               children: List.generate(3, (i) {
