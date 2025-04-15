@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
@@ -630,6 +631,51 @@ class Helpers {
           ),
         );
       },
+    );
+  }
+
+  static Future<void> showThemeBottomSheet(BuildContext context) async {
+    final notifier = context.read<SettingsNotifier>();
+    final selected = notifier.settings.themeModeIndex;
+
+    await showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(AppStrings.chooseTheme,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 12,
+              children: List.generate(3, (i) {
+                final isSelected = selected == i;
+                final label =
+                    [AppStrings.system, AppStrings.light, AppStrings.dark][i];
+                final icon =
+                    [Icons.smartphone, Icons.light_mode, Icons.dark_mode][i];
+
+                return ChoiceChip(
+                  label: Text(label),
+                  avatar: Icon(icon, size: 20),
+                  checkmarkColor: Colors.white,
+                  selected: isSelected,
+                  onSelected: (_) {
+                    Navigator.pop(context);
+                    notifier.updateThemeMode(i);
+                  },
+                );
+              }),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
     );
   }
 }

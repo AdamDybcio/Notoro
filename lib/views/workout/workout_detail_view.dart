@@ -78,7 +78,7 @@ class WorkoutDetailView extends StatelessWidget {
                   WorkoutStatsSection(workout: workout),
                   const SizedBox(height: 20),
                   HeaderDivider(
-                    text: "${AppStrings.excercises} (${exercises.length})",
+                    text: "${AppStrings.exercises} (${exercises.length})",
                     actionButton: IconButton(
                       onPressed: () async {
                         final exercise = await Helpers.showExercisePickerDialog(

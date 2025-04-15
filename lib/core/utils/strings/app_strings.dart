@@ -16,7 +16,7 @@ class AppStrings {
   static const String homePage = 'Strona główna';
   static const String newWorkout = 'Nowy trening';
   static const String workoutName = 'Nazwa treningu';
-  static const String excercises = 'Ćwiczenia';
+  static const String exercises = 'Ćwiczenia';
   static const String dragExerciseHere = 'Przeciągnij ćwiczenia tutaj';
   static const String availableExercises = 'Dostępne ćwiczenia';
   static const String editSets = 'Edytuj serie';
@@ -115,4 +115,21 @@ class AppStrings {
   static const String newExerciseButtonSubtitle =
       'Stwórz nowe ćwiczenie do listy ćwiczeń';
   static const String exerciseAdded = 'Ćwiczenie zostało dodane';
+  static const String locale = 'pl_PL';
+  static const String exercisesLowercase = 'ćwiczeń';
+  static const String general = 'Ogólne';
+  static const String training = 'Trening';
+  static const String data = 'Dane';
+  static const String info = 'Informacje';
+  static const String defaultRestBetweenSets =
+      'Domyślna przerwa między seriami';
+  static const String defaultRestBetweenExercises =
+      'Domyślna przerwa między ćwiczeniami';
+  static const String seconds = 'sekund';
+  static const String chooseRest = 'Wybierz przerwę (sekundy)';
+  static const String theme = 'Tryb motywu';
+  static const String light = 'Jasny';
+  static const String dark = 'Ciemny';
+  static const String system = 'Systemowy';
+  static const String chooseTheme = 'Wybierz motyw';
 }

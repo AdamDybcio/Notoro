@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_bloc.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_event.dart';
+import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/core/utils/theme/app_theme.dart';
 import 'package:notoro/models/dashboard/weekly_plan.dart';
 import 'package:notoro/models/history/history_model.dart';
+import 'package:notoro/models/settings/app_settings_model.dart';
 import 'package:notoro/models/workout/body_part.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+import 'package:provider/provider.dart';
 
 import 'controllers/navbar/navbar_cubit.dart';
 import 'models/history/duration_adapter.dart';
@@ -28,16 +33,25 @@ void main() async {
   Hive.registerAdapter(DayOfWeekAdapter());
   Hive.registerAdapter(HistoryModelAdapter());
   Hive.registerAdapter(DurationAdapter());
+  Hive.registerAdapter(AppSettingsModelAdapter());
   await Hive.openBox<WeeklyPlan>('user_plan');
   await Hive.openBox<WorkoutModel>('workouts');
   await Hive.openBox<HistoryModel>('workout_history');
+  final settingsBox = await Hive.openBox<AppSettingsModel>('app_settings');
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  await initializeDateFormatting(AppStrings.locale, null);
+
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => SettingsNotifier(settingsBox),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -45,25 +59,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Notoro',
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<WeeklyPlanBloc>(
-            create: (context) => WeeklyPlanBloc(
-              planBox: Hive.box<WeeklyPlan>('user_plan'),
-              workoutBox: Hive.box<WorkoutModel>('workouts'),
-            )..add(LoadWeeklyPlan()),
-          ),
-          BlocProvider<NavbarCubit>(
-            create: (_) => NavbarCubit(),
-          ),
-        ],
-        child: const NavbarView(),
+    return Consumer<SettingsNotifier>(
+      builder: (context, settings, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Notoro',
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        themeMode: settings.themeMode,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider<WeeklyPlanBloc>(
+              create: (context) => WeeklyPlanBloc(
+                planBox: Hive.box<WeeklyPlan>('user_plan'),
+                workoutBox: Hive.box<WorkoutModel>('workouts'),
+              )..add(LoadWeeklyPlan()),
+            ),
+            BlocProvider<NavbarCubit>(
+              create: (_) => NavbarCubit(),
+            ),
+          ],
+          child: const NavbarView(),
+        ),
       ),
     );
   }

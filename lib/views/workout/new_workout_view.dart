@@ -119,7 +119,7 @@ class NewWorkoutView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              HeaderDivider(text: AppStrings.excercises),
+              HeaderDivider(text: AppStrings.exercises),
               const SizedBox(height: 20),
               Expanded(child: SelectedExercises()),
               const SizedBox(height: 20),
