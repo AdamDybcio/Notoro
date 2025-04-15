@@ -14,31 +14,8 @@ class WorkoutSummaryView extends StatelessWidget {
 
   const WorkoutSummaryView({super.key, required this.history});
 
-  List<ExerciseTrainingModel> get filteredExercises {
-    if (!history.wasAbandoned ||
-        history.interruptedExerciseIndex == null ||
-        history.interruptedSetIndex == null) {
-      return history.exercises;
-    }
-
-    final int interruptedEx = history.interruptedExerciseIndex!;
-    final int interruptedSet = history.interruptedSetIndex!;
-
-    return [
-      ...history.exercises.take(interruptedEx),
-      ExerciseTrainingModel(
-        name: history.exercises[interruptedEx].name,
-        bodyParts: history.exercises[interruptedEx].bodyParts,
-        assetImagePath: history.exercises[interruptedEx].assetImagePath,
-        sets: interruptedSet,
-        reps:
-            history.exercises[interruptedEx].reps.take(interruptedSet).toList(),
-        weight: history.exercises[interruptedEx].weight
-            .take(interruptedSet)
-            .toList(),
-      ),
-    ];
-  }
+  List<ExerciseTrainingModel> get filteredExercises =>
+      Helpers.filterValidExercises(history);
 
   Map<int, List<Duration>> get filteredDurations {
     if (!history.wasAbandoned ||
@@ -101,21 +78,7 @@ class WorkoutSummaryView extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             _buildStatsGrid(context),
-            const SizedBox(height: 10),
-            Divider(
-              color: Theme.of(context).colorScheme.primary,
-              thickness: 2,
-              height: 20,
-            ),
-            const SizedBox(height: 10),
             _buildVolumeChart(context),
-            const SizedBox(height: 10),
-            Divider(
-              color: Theme.of(context).colorScheme.primary,
-              thickness: 2,
-              height: 20,
-            ),
-            const SizedBox(height: 10),
             _buildBodyPartDistribution(context),
             const SizedBox(height: 20),
             if (history.wasAbandoned) _buildAbandonedBanner(context),
@@ -177,9 +140,20 @@ class WorkoutSummaryView extends StatelessWidget {
     final entries = data.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
 
+    if (entries.isEmpty) {
+      return SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 10),
+        Divider(
+          color: Theme.of(context).colorScheme.primary,
+          thickness: 2,
+          height: 20,
+        ),
+        const SizedBox(height: 10),
         Text(AppStrings.volumePerExercise,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
@@ -268,9 +242,20 @@ class WorkoutSummaryView extends StatelessWidget {
     final entries = parts.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
 
+    if (entries.isEmpty) {
+      return SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 10),
+        Divider(
+          color: Theme.of(context).colorScheme.primary,
+          thickness: 2,
+          height: 20,
+        ),
+        const SizedBox(height: 10),
         Text(AppStrings.partsUsed,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),

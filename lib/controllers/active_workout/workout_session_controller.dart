@@ -30,9 +30,6 @@ class WorkoutSessionController extends ChangeNotifier {
   bool _isPaused = false;
   bool get isPaused => _isPaused;
 
-  bool _wasAbandoned = false;
-  bool get wasAbandoned => _wasAbandoned;
-
   final Map<int, List<Duration>> _setDurations = {};
   DateTime? _setStartTime;
   Map<int, List<Duration>> get setDurations => _setDurations;
@@ -83,10 +80,11 @@ class WorkoutSessionController extends ChangeNotifier {
   ExerciseTrainingModel get currentExerciseModel =>
       updatedExercises[currentExercise];
 
-  void markAsAbandoned() {
+  void abandon() {
     interruptedExerciseIndex = currentExercise;
     interruptedSetIndex = currentSet;
-    _wasAbandoned = true;
+
+    notifyListeners();
   }
 
   void pauseWorkout() {
@@ -140,12 +138,10 @@ class WorkoutSessionController extends ChangeNotifier {
     }
     if (currentSet < currentExerciseModel.sets - 1) {
       currentSet++;
-      _setStartTime = DateTime.now();
       _startRest(restBetweenSets[currentExercise] ?? 60);
     } else if (currentExercise < updatedExercises.length - 1) {
       currentExercise++;
       currentSet = 0;
-      _setStartTime = DateTime.now();
       _startRest(restAfterExercises[currentExercise - 1] ?? 90);
     } else {
       _stopwatch.stop();
@@ -165,6 +161,7 @@ class WorkoutSessionController extends ChangeNotifier {
       if (restRemaining.inSeconds <= 0) {
         timer.cancel();
         isResting = false;
+        _setStartTime = DateTime.now();
       }
       notifyListeners();
     });

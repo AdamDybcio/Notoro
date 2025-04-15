@@ -14,9 +14,20 @@ class MuscleGroupPieChart extends StatelessWidget {
     final entries = data.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
 
+    if (entries.isEmpty) {
+      return SizedBox.shrink();
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 12),
+        Divider(
+          color: Theme.of(context).colorScheme.primary,
+          thickness: 2,
+          height: 20,
+        ),
+        const SizedBox(height: 12),
         Text(
           AppStrings.favParts,
           style: Theme.of(context).textTheme.titleLarge,

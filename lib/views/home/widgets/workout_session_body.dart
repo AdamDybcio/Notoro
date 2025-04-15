@@ -160,7 +160,7 @@ class WorkoutSessionBody extends StatelessWidget {
                                   ),
                                 );
                                 if (shouldExit == true) {
-                                  controller.markAsAbandoned();
+                                  controller.abandon();
                                   final history = controller.saveToHistory(
                                       isAbandoned: true);
                                   Navigator.pushReplacement(

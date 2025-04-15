@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_bloc.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_state.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/views/home/workout_configuration_view.dart';
 
 class TodayWorkoutBanner extends StatelessWidget {
@@ -23,25 +25,38 @@ class TodayWorkoutBanner extends StatelessWidget {
         final workout = state.availableWorkouts[workoutKey];
         if (workout == null) return const SizedBox.shrink();
 
+        final historyBox = Hive.box<HistoryModel>('workout_history');
+
+        final hasDoneToday = historyBox.values.any((entry) {
+          return entry.workoutName == workout.name &&
+              DateUtils.isSameDay(entry.date, DateTime.now());
+        });
+
         return Card(
           color: Theme.of(context).colorScheme.primaryContainer,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: ListTile(
             contentPadding: const EdgeInsets.all(16),
-            title: RichText(
-              text: TextSpan(
-                text: AppStrings.todayWorkout,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
+            title: Row(
+              children: [
+                Expanded(
+                  child: RichText(
+                    text: TextSpan(
+                      text: '${AppStrings.todayWorkout} ',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                      children: [
+                        TextSpan(
+                          text: workout.name,
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ],
                     ),
-                children: [
-                  TextSpan(
-                    text: workout.name,
-                    style: Theme.of(context).textTheme.labelLarge,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             trailing: FilledButton.icon(
               onPressed: () {
@@ -53,8 +68,13 @@ class TodayWorkoutBanner extends StatelessWidget {
                   ),
                 );
               },
-              icon: const Icon(Icons.play_arrow),
-              label: const Text(AppStrings.startWorkout),
+              icon: Icon(
+                hasDoneToday ? Icons.replay : Icons.play_arrow,
+                size: 20,
+              ),
+              label: Text(hasDoneToday
+                  ? AppStrings.repeatWorkout
+                  : AppStrings.startWorkout),
             ),
           ),
         );

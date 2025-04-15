@@ -11,7 +11,9 @@ import '../../../models/workout/body_part.dart';
 
 class AddExerciseDialog extends StatefulWidget {
   final BuildContext parentContext;
-  const AddExerciseDialog({super.key, required this.parentContext});
+  final bool? showSnackbar;
+  const AddExerciseDialog(
+      {super.key, required this.parentContext, this.showSnackbar = false});
 
   @override
   State<AddExerciseDialog> createState() => _AddExerciseDialogState();
@@ -79,6 +81,14 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
 
     BlocProvider.of<WorkoutBuilderBloc>(widget.parentContext)
         .add(AddAvailableExercise(newExercise));
+
+    if (widget.showSnackbar == true) {
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        CustomSnackbar.show(
+            context: context, message: AppStrings.exerciseAdded),
+      );
+    }
 
     Navigator.of(context).pop();
   }

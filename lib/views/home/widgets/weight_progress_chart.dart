@@ -12,6 +12,10 @@ class WeightProgressChart extends StatelessWidget {
     final sorted = data.entries.toList()
       ..sort((a, b) => a.key.compareTo(b.key));
 
+    if (sorted.last.value == 0) {
+      return const SizedBox.shrink();
+    }
+
     final spots = List.generate(sorted.length, (i) {
       return FlSpot(i.toDouble(), sorted[i].value);
     });
@@ -29,6 +33,13 @@ class WeightProgressChart extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 12),
+        Divider(
+          color: Theme.of(context).colorScheme.primary,
+          thickness: 2,
+          height: 20,
+        ),
+        const SizedBox(height: 12),
         Text(AppStrings.weightWeeklyProgress,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 4),

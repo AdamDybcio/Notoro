@@ -7,8 +7,11 @@ import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/dashboard/weekly_plan.dart';
+import 'package:notoro/models/history/history_model.dart';
+import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:notoro/models/workout/workout_model.dart';
+import 'package:notoro/views/workout/widgets/body_part_chip.dart';
 
 import '../../controllers/workout_builder/workout_builder_bloc.dart';
 import '../../models/workout/body_part.dart';
@@ -532,6 +535,101 @@ class Helpers {
           )
         ],
       ),
+    );
+  }
+
+  static List<ExerciseTrainingModel> filterValidExercises(
+      HistoryModel history) {
+    if (!history.wasAbandoned) return history.exercises;
+
+    return history.exercises
+        .asMap()
+        .entries
+        .map((entry) {
+          final exIndex = entry.key;
+          final ex = entry.value;
+
+          if (exIndex < history.interruptedExerciseIndex!) {
+            return ex;
+          }
+
+          if (exIndex == history.interruptedExerciseIndex) {
+            final validSets = history.interruptedSetIndex!;
+            if (validSets == 0) return null;
+            return ExerciseTrainingModel(
+              name: ex.name,
+              bodyParts: ex.bodyParts.take(validSets).toList(),
+              assetImagePath: ex.assetImagePath,
+              sets: validSets,
+              reps: ex.reps.take(validSets).toList(),
+              weight: ex.weight.take(validSets).toList(),
+            );
+          }
+
+          return null;
+        })
+        .whereType<ExerciseTrainingModel>()
+        .toList();
+  }
+
+  static Future<ExerciseModel?> showExercisePickerDialog({
+    required BuildContext context,
+    required List<ExerciseModel> availableExercises,
+  }) {
+    availableExercises.sort((a, b) {
+      return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
+
+    return showDialog<ExerciseModel>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(AppStrings.addExercise),
+          content: SizedBox(
+            height: 300,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: availableExercises.map((exercise) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        onTap: () => Navigator.pop(context, exercise),
+                        title: Text(exercise.name),
+                        subtitle: Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          children: exercise.bodyParts
+                              .map((part) => BodyPartChip(part: part))
+                              .toList(),
+                        ),
+                        leading: exercise.assetImagePath.isNotEmpty
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: Image.asset(
+                                  exercise.assetImagePath,
+                                  width: 32,
+                                  height: 32,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Icon(
+                                Icons.fitness_center,
+                                size: 32,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                              ),
+                      ),
+                      const Divider(height: 1),
+                    ],
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

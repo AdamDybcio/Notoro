@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:notoro/core/data/exercise_factory.dart';
+import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import '../../models/workout/workout_model.dart';
 import 'workout_detail_event.dart';
@@ -9,19 +11,58 @@ class WorkoutDetailBloc extends Bloc<WorkoutDetailEvent, WorkoutDetailState> {
   final Box<WorkoutModel> workoutBox;
 
   WorkoutDetailBloc(this.workoutBox)
-      : super(const WorkoutDetailState(workout: null)) {
+      : super(const WorkoutDetailState(
+          workout: null,
+          exercises: [],
+          availableExercises: [],
+        )) {
     on<LoadWorkoutDetail>(onLoadWorkout);
     on<RemoveExerciseFromDetailWorkout>(onRemoveExercise);
     on<ReorderExerciseInDetail>(onReorder);
     on<AddSetToExerciseFromDetail>(onAddSet);
     on<UpdateExerciseSetFromDetail>(onUpdateSet);
     on<RemoveSetFromExerciseFromDetail>(onRemoveSet);
+    on<AddExerciseToWorkoutDetails>(onAddExerciseToWorkout);
+    on<LoadAvailableExercisesDetails>(onLoadAvailableExercisesDetails);
   }
 
   void onLoadWorkout(
       LoadWorkoutDetail event, Emitter<WorkoutDetailState> emit) {
     final workout = workoutBox.get(event.workoutKey);
     emit(state.copyWith(workout: workout));
+  }
+
+  void onLoadAvailableExercisesDetails(
+    LoadAvailableExercisesDetails event,
+    Emitter<WorkoutDetailState> emit,
+  ) async {
+    final baseExercises = ExerciseFactory.getBaseExercises();
+
+    final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
+    final customExercises = customBox.values.toList();
+
+    final all = [...baseExercises, ...customExercises];
+
+    emit(state.copyWith(availableExercises: all));
+  }
+
+  void onAddExerciseToWorkout(
+    AddExerciseToWorkoutDetails event,
+    Emitter<WorkoutDetailState> emit,
+  ) {
+    final updatedExercises =
+        List<ExerciseTrainingModel>.from(state.workout!.exercises)
+          ..add(event.exercise);
+
+    final updatedWorkout = state.workout!.copyWith(
+      exercises: updatedExercises,
+    );
+
+    workoutBox.put(state.workout!.key, updatedWorkout);
+
+    emit(state.copyWith(
+      workout: updatedWorkout,
+    ));
   }
 
   void onRemoveExercise(

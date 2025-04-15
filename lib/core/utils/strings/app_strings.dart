@@ -107,4 +107,12 @@ class AppStrings {
   static const String partsUsed = 'Zaangażowane partie';
   static const String workoutWasAbandoned =
       'Trening został przerwany przed końcem.';
+  static const String completed = 'Wykonano';
+  static const String repeatWorkout = 'Powtórz';
+  static const String workouts = 'Treningi';
+  static const String weightShort = 'Ciężar';
+  static const String newExerciseButton = 'Dodaj ćwiczenie';
+  static const String newExerciseButtonSubtitle =
+      'Stwórz nowe ćwiczenie do listy ćwiczeń';
+  static const String exerciseAdded = 'Ćwiczenie zostało dodane';
 }

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:notoro/models/workout/exercise_training_model.dart';
 
 abstract class WorkoutDetailEvent extends Equatable {
   const WorkoutDetailEvent();
@@ -61,3 +62,14 @@ class RemoveSetFromExerciseFromDetail extends WorkoutDetailEvent {
   @override
   List<Object?> get props => [exerciseIndex, setIndex];
 }
+
+class AddExerciseToWorkoutDetails extends WorkoutDetailEvent {
+  final ExerciseTrainingModel exercise;
+
+  const AddExerciseToWorkoutDetails(this.exercise);
+
+  @override
+  List<Object?> get props => [exercise];
+}
+
+class LoadAvailableExercisesDetails extends WorkoutDetailEvent {}

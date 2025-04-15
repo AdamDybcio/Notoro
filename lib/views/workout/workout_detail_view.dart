@@ -11,6 +11,7 @@ import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/workout_exercise_tile.dart';
 
@@ -77,7 +78,36 @@ class WorkoutDetailView extends StatelessWidget {
                   WorkoutStatsSection(workout: workout),
                   const SizedBox(height: 20),
                   HeaderDivider(
-                      text: "${AppStrings.excercises} (${exercises.length})"),
+                    text: "${AppStrings.excercises} (${exercises.length})",
+                    actionButton: IconButton(
+                      onPressed: () async {
+                        final exercise = await Helpers.showExercisePickerDialog(
+                          context: context,
+                          availableExercises: state.availableExercises,
+                        );
+                        if (exercise != null) {
+                          final trainingExercise = ExerciseTrainingModel(
+                            name: exercise.name,
+                            bodyParts: exercise.bodyParts,
+                            assetImagePath: exercise.assetImagePath,
+                            sets: 4,
+                            reps: List.filled(4, 8),
+                            weight: List.filled(4, 0),
+                          );
+                          context.read<WorkoutDetailBloc>().add(
+                                AddExerciseToWorkoutDetails(trainingExercise),
+                              );
+                        }
+                      },
+                      icon: Icon(Icons.add,
+                          size: 30,
+                          color: Theme.of(context).colorScheme.onPrimary),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        shape: const CircleBorder(),
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   for (int i = 0; i < exercises.length; i++) ...{
                     WorkoutExerciseTile(

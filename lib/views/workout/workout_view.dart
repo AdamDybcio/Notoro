@@ -7,6 +7,7 @@ import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/workout_model.dart';
+import 'package:notoro/views/workout/widgets/new_exercise_button.dart';
 import 'package:notoro/views/workout/widgets/new_workout_button.dart';
 import 'package:notoro/views/workout/workout_detail_view.dart';
 
@@ -33,6 +34,7 @@ class WorkoutView extends StatelessWidget {
         ),
         child: Column(
           children: [
+            NewExerciseButton(),
             NewWorkoutButton(onTap: () {
               Navigator.push(
                   context,
@@ -69,6 +71,7 @@ class WorkoutView extends StatelessWidget {
                                   builder: (_) => BlocProvider(
                                     create: (_) => WorkoutDetailBloc(
                                         Hive.box<WorkoutModel>('workouts'))
+                                      ..add(LoadAvailableExercisesDetails())
                                       ..add(LoadWorkoutDetail(
                                           workout.key as int)),
                                     child: const WorkoutDetailView(),
