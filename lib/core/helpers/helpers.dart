@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
@@ -447,6 +448,90 @@ class Helpers {
           ),
         );
       },
+    );
+  }
+
+  static String formatDuration(Duration d) {
+    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
+  static void showEditSetDialogOnSession(
+    BuildContext context,
+    WorkoutSessionController controller,
+    int setIndex,
+  ) {
+    final ex = controller.currentExerciseModel;
+    final repsController =
+        TextEditingController(text: ex.reps[setIndex].toString());
+    final weightController =
+        TextEditingController(text: ex.weight[setIndex].toString());
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text(AppStrings.editSet),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: repsController,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              onTapOutside: (event) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
+              decoration: InputDecoration(
+                labelText: AppStrings.reps,
+                fillColor: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withAlpha(50),
+              ),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: weightController,
+              keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
+              onTapOutside: (event) =>
+                  FocusManager.instance.primaryFocus?.unfocus(),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^\d+\.?\d*'),
+                ),
+              ],
+              decoration: InputDecoration(
+                labelText: AppStrings.weight,
+                fillColor: Theme.of(context)
+                    .colorScheme
+                    .primaryContainer
+                    .withAlpha(50),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(AppStrings.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final reps =
+                  int.tryParse(repsController.text) ?? ex.reps[setIndex];
+              final weight =
+                  double.tryParse(weightController.text) ?? ex.weight[setIndex];
+
+              controller.editSet(setIndex, reps, weight);
+              Navigator.pop(context);
+            },
+            child: const Text(AppStrings.save),
+          )
+        ],
+      ),
     );
   }
 }

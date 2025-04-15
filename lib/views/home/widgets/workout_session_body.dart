@@ -1,10 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
+import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
-import 'package:notoro/models/history/history_model.dart';
+import 'package:notoro/views/home/widgets/next_exercise_card.dart';
 import 'package:provider/provider.dart';
+
+import '../workout_summary_view.dart';
+import 'workout_session_card.dart';
 
 class WorkoutSessionBody extends StatelessWidget {
   const WorkoutSessionBody({super.key});
@@ -16,183 +21,233 @@ class WorkoutSessionBody extends StatelessWidget {
         final theme = Theme.of(context);
 
         if (controller.isFinished) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.celebration, size: 64, color: Colors.green),
-                const SizedBox(height: 20),
-                Text(
-                  'Trening zakończony!',
-                  style: theme.textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 20),
-                FilledButton.icon(
-                  onPressed: () {
-                    final history = HistoryModel(
-                      workoutName: controller.workout.name,
-                      exercises: controller.updatedExercises,
-                      date: DateTime.now(),
-                      duration: controller.elapsed,
-                    );
-                    Hive.box<HistoryModel>('workout_history').add(history);
-
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(Icons.check),
-                  label: const Text('Zapisz i wróć'),
-                )
-              ],
-            ),
-          );
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            final history = controller.saveToHistory(isAbandoned: false);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (_) => WorkoutSummaryView(history: history),
+              ),
+            );
+          });
         }
 
         final exercise = controller.currentExerciseModel;
         final setIndex = controller.currentSet;
         final isRest = controller.isResting;
 
-        return Scaffold(
-          appBar: CommonAppbar(
-            title: AppStrings.workout,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: Center(
-                  child: Text(
-                    _formatDuration(controller.elapsed),
-                    style: theme.textTheme.bodyMedium,
+        return PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) async {
+            if (didPop) return;
+
+            final shouldExit = await showDialog<bool>(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: const Text(AppStrings.terminateWorkout),
+                content: const Text(AppStrings.terminateWorkoutSubtitle),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text(AppStrings.cancel),
                   ),
-                ),
-              ),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (isRest) ...[
-                  const SizedBox(height: 24),
-                  Text(
-                    'Przerwa',
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    _formatDuration(controller.restRemaining),
-                    style: theme.textTheme.displaySmall,
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton.icon(
-                    onPressed: controller.add15sRest,
-                    icon: const Icon(Icons.add),
-                    label: const Text('+15 sekund'),
-                  ),
-                ] else ...[
-                  Text(
-                    exercise.name,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Seria ${setIndex + 1} / ${exercise.sets}',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${exercise.reps[setIndex]} powt. • ${exercise.weight[setIndex]} kg',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  OutlinedButton.icon(
-                    onPressed: () {
-                      _showEditSetDialog(context, controller, setIndex);
-                    },
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Zmień wartość'),
-                  ),
-                  const Spacer(),
-                  FilledButton.icon(
-                    onPressed: controller.finishSet,
-                    icon: const Icon(Icons.check_circle),
-                    label: const Text('Zakończ serię'),
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size.fromHeight(60),
-                    ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text(AppStrings.terminate),
                   ),
                 ],
+              ),
+            );
+
+            if (shouldExit == true) {
+              Navigator.of(context).pop();
+            }
+          },
+          child: Scaffold(
+            appBar: CommonAppbar(
+              title: AppStrings.workout,
+              onBackPressed: () async {
+                final shouldExit = await showDialog<bool>(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Text(AppStrings.terminateWorkout),
+                    content: const Text(AppStrings.terminateWorkoutSubtitle),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text(AppStrings.cancel),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => Navigator.pop(context, true),
+                        child: const Text(AppStrings.terminate),
+                      ),
+                    ],
+                  ),
+                );
+
+                if (shouldExit == true) {
+                  Navigator.of(context).pop();
+                }
+              },
+              actions: [
+                IconButton(
+                  icon: Icon(
+                      controller.isPaused ? Icons.play_arrow : Icons.pause),
+                  tooltip: controller.isPaused
+                      ? AppStrings.resume
+                      : AppStrings.pause,
+                  onPressed: () {
+                    if (controller.isPaused) {
+                      controller.resumeWorkout();
+                    } else {
+                      controller.pauseWorkout();
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Center(
+                    child: Text(
+                      Helpers.formatDuration(controller.elapsed),
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                  ),
+                ),
               ],
             ),
+            body: controller.isPaused
+                ? Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.pause_circle_outline, size: 64),
+                        const SizedBox(height: 16),
+                        Text(
+                          AppStrings.workoutPaused,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            OutlinedButton.icon(
+                              onPressed: controller.resumeWorkout,
+                              icon: const Icon(Icons.play_arrow),
+                              label: const Text(AppStrings.resume),
+                            ),
+                            const SizedBox(width: 16),
+                            FilledButton.icon(
+                              onPressed: () async {
+                                final shouldExit = await showDialog<bool>(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text(
+                                        AppStrings.finishWorkoutQuestion),
+                                    content: const Text(AppStrings
+                                        .terminateWorkoutSubtitleShort),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, false),
+                                        child: const Text(AppStrings.cancel),
+                                      ),
+                                      FilledButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, true),
+                                        child: const Text(AppStrings.finish),
+                                      )
+                                    ],
+                                  ),
+                                );
+                                if (shouldExit == true) {
+                                  controller.markAsAbandoned();
+                                  final history = controller.saveToHistory(
+                                      isAbandoned: true);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) =>
+                                          WorkoutSummaryView(history: history),
+                                    ),
+                                  );
+                                }
+                              },
+                              icon: const Icon(Icons.stop_circle_outlined),
+                              label: const Text(AppStrings.finish),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        WorkoutSessionCard(
+                          isRest: isRest,
+                          exercise: exercise,
+                          setIndex: setIndex,
+                          controller: controller,
+                        ),
+                        if (!isRest && controller.hasNextExercise)
+                          NextExerciseCard(
+                              nextExerciseName: controller.nextExerciseName),
+                        const Spacer(),
+                        if (isRest)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FilledButton.icon(
+                                onPressed: controller.add15sRest,
+                                icon: const Icon(Icons.add),
+                                label: Text(
+                                  AppStrings.addSecs,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          )
+                        else
+                          FilledButton.icon(
+                            onPressed: controller.finishSet,
+                            icon: Icon(
+                              Icons.check_circle_outline,
+                              size: 25,
+                            ),
+                            label: Text(
+                              (controller.isLastSet & controller.isLastExercise)
+                                  ? AppStrings.finishWorkout
+                                  : controller.isLastSet
+                                      ? AppStrings.finishExercise
+                                      : AppStrings.endSet,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                            ),
+                            style: FilledButton.styleFrom(
+                              minimumSize: const Size.fromHeight(60),
+                            ),
+                          ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
           ),
         );
       },
-    );
-  }
-
-  String _formatDuration(Duration d) {
-    final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
-    final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
-  }
-
-  void _showEditSetDialog(
-    BuildContext context,
-    WorkoutSessionController controller,
-    int setIndex,
-  ) {
-    final ex = controller.currentExerciseModel;
-    final repsController =
-        TextEditingController(text: ex.reps[setIndex].toString());
-    final weightController =
-        TextEditingController(text: ex.weight[setIndex].toString());
-
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Edytuj serię'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: repsController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Powtórzenia'),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: weightController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: 'Ciężar (kg)'),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Anuluj'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final reps =
-                  int.tryParse(repsController.text) ?? ex.reps[setIndex];
-              final weight =
-                  double.tryParse(weightController.text) ?? ex.weight[setIndex];
-
-              controller.editSet(setIndex, reps, weight);
-              Navigator.pop(context);
-            },
-            child: const Text('Zapisz'),
-          )
-        ],
-      ),
     );
   }
 }

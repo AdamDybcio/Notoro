@@ -18,10 +18,26 @@ class HistoryModel extends HiveObject {
   @HiveField(3)
   final Duration duration;
 
+  @HiveField(4)
+  final bool wasAbandoned;
+
+  @HiveField(5)
+  final int? interruptedExerciseIndex;
+
+  @HiveField(6)
+  final int? interruptedSetIndex;
+
+  @HiveField(7)
+  final Map<int, List<Duration>> setDurations;
+
   HistoryModel({
     required this.workoutName,
     required this.exercises,
     required this.date,
     required this.duration,
+    required this.wasAbandoned,
+    this.interruptedExerciseIndex,
+    this.interruptedSetIndex,
+    required this.setDurations,
   });
 }

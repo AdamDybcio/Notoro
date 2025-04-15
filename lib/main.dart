@@ -11,6 +11,7 @@ import 'package:notoro/models/workout/body_part.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
 import 'controllers/navbar/navbar_cubit.dart';
+import 'models/history/duration_adapter.dart';
 import 'models/workout/exercise_model.dart';
 import 'models/workout/workout_model.dart';
 import 'views/navbar_view.dart';
@@ -26,6 +27,7 @@ void main() async {
   Hive.registerAdapter(WeeklyPlanAdapter());
   Hive.registerAdapter(DayOfWeekAdapter());
   Hive.registerAdapter(HistoryModelAdapter());
+  Hive.registerAdapter(DurationAdapter());
   await Hive.openBox<WeeklyPlan>('user_plan');
   await Hive.openBox<WorkoutModel>('workouts');
   await Hive.openBox<HistoryModel>('workout_history');

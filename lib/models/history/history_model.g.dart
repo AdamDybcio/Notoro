@@ -21,13 +21,18 @@ class HistoryModelAdapter extends TypeAdapter<HistoryModel> {
       exercises: (fields[1] as List).cast<ExerciseTrainingModel>(),
       date: fields[2] as DateTime,
       duration: fields[3] as Duration,
+      wasAbandoned: fields[4] as bool,
+      interruptedExerciseIndex: fields[5] as int?,
+      interruptedSetIndex: fields[6] as int?,
+      setDurations: (fields[7] as Map).map((dynamic k, dynamic v) =>
+          MapEntry(k as int, (v as List).cast<Duration>())),
     );
   }
 
   @override
   void write(BinaryWriter writer, HistoryModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.workoutName)
       ..writeByte(1)
@@ -35,7 +40,15 @@ class HistoryModelAdapter extends TypeAdapter<HistoryModel> {
       ..writeByte(2)
       ..write(obj.date)
       ..writeByte(3)
-      ..write(obj.duration);
+      ..write(obj.duration)
+      ..writeByte(4)
+      ..write(obj.wasAbandoned)
+      ..writeByte(5)
+      ..write(obj.interruptedExerciseIndex)
+      ..writeByte(6)
+      ..write(obj.interruptedSetIndex)
+      ..writeByte(7)
+      ..write(obj.setDurations);
   }
 
   @override

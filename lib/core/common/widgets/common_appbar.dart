@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
+  final VoidCallback? onBackPressed;
   const CommonAppbar({
     super.key,
     required this.title,
     this.actions,
+    this.onBackPressed,
   });
 
   @override
@@ -19,9 +21,10 @@ class CommonAppbar extends StatelessWidget implements PreferredSizeWidget {
       actions: actions,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios),
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: onBackPressed ??
+            () {
+              Navigator.pop(context);
+            },
       ),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(

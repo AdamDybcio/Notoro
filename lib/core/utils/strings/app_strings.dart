@@ -73,4 +73,38 @@ class AppStrings {
   static const String setRest = 'Przerwa między seriami';
   static const String setRestAfter = 'Przerwa po ćwiczeniu';
   static const String sec = 'sek.';
+  static const String rest = 'Przerwa';
+  static const String restSubtitle =
+      'Odpoczywaj i przygotuj się na kolejną serię';
+  static const String restExerciseSubtitle =
+      'Odpoczywaj i przygotuj się na kolejne ćwiczenie';
+  static const String set = 'Seria';
+  static const String repsShort = 'powt.';
+  static const String kg = 'kg';
+  static const String changeValue = 'Zmień wartość';
+  static const String addSecs = '15 sekund';
+  static const String endSet = 'Zakończ serię';
+  static const String terminateWorkout = 'Przerwać trening?';
+  static const String finishWorkoutQuestion = 'Zakończyć trening?';
+  static const String terminateWorkoutSubtitle =
+      'Czy na pewno chcesz przerwać trening? Postęp zostanie utracony.';
+  static const String terminateWorkoutSubtitleShort =
+      'Czy na pewno chcesz zakończyć trening przedwcześnie?';
+  static const String finish = 'Zakończ';
+  static const String terminate = 'Przerwij';
+  static const String nextExercise = 'Następne ćwiczenie';
+  static const String pause = 'Pauza';
+  static const String resume = 'Wznów';
+  static const String workoutPaused = 'Trening wstrzymany';
+  static const String finishExercise = 'Zakończ ćwiczenie';
+  static const String finishWorkout = 'Zakończ trening';
+  static const String summary = 'Podsumowanie';
+  static const String trainingTime = 'Czas ćwiczenia';
+  static const String volume = 'Objętość (kg)';
+  static const String workoutTime = 'Czas treningu';
+  static const String volumePerExercise = 'Objętość na ćwiczenie (kg)';
+  static const String backToHome = 'Powrót do strony głównej';
+  static const String partsUsed = 'Zaangażowane partie';
+  static const String workoutWasAbandoned =
+      'Trening został przerwany przed końcem.';
 }

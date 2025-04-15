@@ -42,6 +42,24 @@ class WeekdayFrequencyChart extends StatelessWidget {
                 );
               }).toList(),
               titlesData: FlTitlesData(
+                topTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                rightTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 40,
+                    getTitlesWidget: (value, meta) {
+                      return Text(
+                        value.toStringAsFixed(0),
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              fontWeight: FontWeight.normal,
+                            ),
+                        textAlign: TextAlign.center,
+                      );
+                    },
+                  ),
+                ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
@@ -69,7 +87,7 @@ class WeekdayFrequencyChart extends StatelessWidget {
                       'Nd'
                     ][group.x.toInt() - 1];
                     return BarTooltipItem(
-                      '$day\n${rod.toY}',
+                      '$day\n${rod.toY.toStringAsFixed(0)}',
                       TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
