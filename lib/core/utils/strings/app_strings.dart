@@ -31,6 +31,7 @@ class AppStrings {
   static const String editSet = 'Edytuj serię';
   static const String reps = 'Powtórzenia';
   static const String weight = 'Ciężar (kg)';
+  static const String weightLb = 'Ciężar (lb)';
   static const String save = 'Zapisz';
   static const String add = 'Dodaj';
   static const String workoutNameEmpty = "Podaj nazwę treningu";
@@ -101,8 +102,10 @@ class AppStrings {
   static const String summary = 'Podsumowanie';
   static const String trainingTime = 'Czas ćwiczenia';
   static const String volume = 'Objętość (kg)';
+  static const String volumeLb = 'Objętość (lb)';
   static const String workoutTime = 'Czas treningu';
   static const String volumePerExercise = 'Objętość na ćwiczenie (kg)';
+  static const String volumePerExerciseLb = 'Objętość na ćwiczenie (lb)';
   static const String backToHome = 'Powrót do strony głównej';
   static const String partsUsed = 'Zaangażowane partie';
   static const String workoutWasAbandoned =

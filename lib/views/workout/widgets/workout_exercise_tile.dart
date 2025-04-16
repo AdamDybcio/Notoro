@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+import 'package:provider/provider.dart';
 
 import 'body_part_chip.dart';
 
@@ -34,6 +36,14 @@ class WorkoutExerciseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+
+    String unit = AppStrings.kg;
+    String unitWeight = AppStrings.weight;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.lb;
+      unitWeight = AppStrings.weightLb;
+    }
 
     return Card(
       elevation: 0,
@@ -122,6 +132,7 @@ class WorkoutExerciseTile extends StatelessWidget {
                                       index: index,
                                       exercise: exercise,
                                       exerciseIndex: exerciseIndex,
+                                      unit: unitWeight,
                                     );
                                   }
                                 : () {
@@ -130,12 +141,13 @@ class WorkoutExerciseTile extends StatelessWidget {
                                       index: index,
                                       exercise: exercise,
                                       exerciseIndex: exerciseIndex,
+                                      unit: unitWeight,
                                     );
                                   },
                             visualDensity: VisualDensity.compact,
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             label: Text(
-                              '${exercise.reps[index]}x${exercise.weight[index]}${AppStrings.kg}',
+                              '${exercise.reps[index]}x${exercise.weight[index]}$unit',
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall

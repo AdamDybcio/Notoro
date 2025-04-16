@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_state.dart';
@@ -86,13 +87,16 @@ class WorkoutDetailView extends StatelessWidget {
                           availableExercises: state.availableExercises,
                         );
                         if (exercise != null) {
+                          final settings =
+                              context.read<SettingsNotifier>().settings;
                           final trainingExercise = ExerciseTrainingModel(
                             name: exercise.name,
                             bodyParts: exercise.bodyParts,
                             assetImagePath: exercise.assetImagePath,
-                            sets: 4,
-                            reps: List.filled(4, 8),
-                            weight: List.filled(4, 0),
+                            sets: settings.defaultSets,
+                            reps: List.filled(
+                                settings.defaultSets, settings.defaultReps),
+                            weight: List.filled(settings.defaultSets, 0),
                           );
                           context.read<WorkoutDetailBloc>().add(
                                 AddExerciseToWorkoutDetails(trainingExercise),
@@ -132,7 +136,7 @@ class WorkoutDetailView extends StatelessWidget {
                       exerciseIndex: i,
                       onAddSet: () {
                         context.read<WorkoutDetailBloc>().add(
-                              AddSetToExerciseFromDetail(i),
+                              AddSetToExerciseFromDetail(i, context),
                             );
                       },
                       onEditSetDialogWorkout: true,

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
 abstract class WorkoutDetailEvent extends Equatable {
@@ -32,8 +33,9 @@ class ReorderExerciseInDetail extends WorkoutDetailEvent {
 
 class AddSetToExerciseFromDetail extends WorkoutDetailEvent {
   final int exerciseIndex;
+  final BuildContext context;
 
-  const AddSetToExerciseFromDetail(this.exerciseIndex);
+  const AddSetToExerciseFromDetail(this.exerciseIndex, this.context);
 }
 
 class UpdateExerciseSetFromDetail extends WorkoutDetailEvent {

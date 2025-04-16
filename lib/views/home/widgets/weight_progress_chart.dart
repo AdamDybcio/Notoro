@@ -1,6 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:provider/provider.dart';
 
 class WeightProgressChart extends StatelessWidget {
   final Map<DateTime, double> data;
@@ -30,6 +32,12 @@ class WeightProgressChart extends StatelessWidget {
         .fold<double>(0, (prev, curr) => prev > curr ? prev : curr);
     final lastWeek = sorted.last;
 
+    String unit = AppStrings.kg;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.lb;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -44,7 +52,7 @@ class WeightProgressChart extends StatelessWidget {
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 4),
         Text(
-          '${AppStrings.weeks}: $totalWeeks • ${AppStrings.most}: ${maxValue.toStringAsFixed(0)} ${AppStrings.kg} • ${AppStrings.last}: ${lastWeek.value.toStringAsFixed(0)} ${AppStrings.kg}',
+          '${AppStrings.weeks}: $totalWeeks • ${AppStrings.most}: ${maxValue.toStringAsFixed(0)} $unit • ${AppStrings.last}: ${lastWeek.value.toStringAsFixed(0)} $unit',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),

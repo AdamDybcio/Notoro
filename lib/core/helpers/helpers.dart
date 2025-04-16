@@ -128,6 +128,7 @@ class Helpers {
     required int index,
     required ExerciseTrainingModel exercise,
     required int exerciseIndex,
+    required String unit,
   }) {
     showDialog(
       context: context,
@@ -171,7 +172,7 @@ class Helpers {
                   ),
                 ],
                 decoration: InputDecoration(
-                  labelText: AppStrings.weight,
+                  labelText: unit,
                   fillColor: Theme.of(context)
                       .colorScheme
                       .primaryContainer
@@ -232,6 +233,7 @@ class Helpers {
     required int index,
     required ExerciseTrainingModel exercise,
     required int exerciseIndex,
+    required String unit,
   }) {
     showDialog(
       context: context,
@@ -275,7 +277,7 @@ class Helpers {
                   ),
                 ],
                 decoration: InputDecoration(
-                  labelText: AppStrings.weight,
+                  labelText: unit,
                   fillColor: Theme.of(context)
                       .colorScheme
                       .primaryContainer
@@ -338,7 +340,7 @@ class Helpers {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                onTap: () => Navigator.pop(context, null),
+                onTap: () => Navigator.pop(context, -1),
                 tileColor: Theme.of(context).colorScheme.primaryContainer,
                 title: const Text(AppStrings.clearDay),
                 leading: Container(
@@ -465,6 +467,7 @@ class Helpers {
     BuildContext context,
     WorkoutSessionController controller,
     int setIndex,
+    String unit,
   ) {
     final ex = controller.currentExerciseModel;
     final repsController =
@@ -508,7 +511,7 @@ class Helpers {
                 ),
               ],
               decoration: InputDecoration(
-                labelText: AppStrings.weight,
+                labelText: unit,
                 fillColor: Theme.of(context)
                     .colorScheme
                     .primaryContainer

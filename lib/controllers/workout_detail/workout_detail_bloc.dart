@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/data/exercise_factory.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
@@ -67,12 +68,14 @@ class WorkoutDetailBloc extends Bloc<WorkoutDetailEvent, WorkoutDetailState> {
 
   void onRemoveExercise(
       RemoveExerciseFromDetailWorkout event, Emitter<WorkoutDetailState> emit) {
-    final updated = List<ExerciseTrainingModel>.from(state.workout!.exercises)
+    final exercises = List<ExerciseTrainingModel>.from(state.workout!.exercises)
       ..removeAt(event.index);
 
-    final newWorkout = state.workout!.copyWith(exercises: updated);
-    workoutBox.putAt(event.index, newWorkout);
-    emit(state.copyWith(workout: newWorkout));
+    final updatedWorkout = state.workout!.copyWith(exercises: exercises);
+
+    workoutBox.put(state.workout!.key, updatedWorkout);
+
+    emit(state.copyWith(workout: updatedWorkout));
   }
 
   void onReorder(
@@ -88,13 +91,14 @@ class WorkoutDetailBloc extends Bloc<WorkoutDetailEvent, WorkoutDetailState> {
 
   void onAddSet(
       AddSetToExerciseFromDetail event, Emitter<WorkoutDetailState> emit) {
+    final settings = event.context.read<SettingsNotifier>().settings;
     final exercises =
         List<ExerciseTrainingModel>.from(state.workout!.exercises);
     final ex = exercises[event.exerciseIndex];
 
     final updated = ex.copyWith(
       sets: ex.sets + 1,
-      reps: [...ex.reps, 8],
+      reps: [...ex.reps, settings.defaultReps],
       weight: [...ex.weight, 0],
     );
 

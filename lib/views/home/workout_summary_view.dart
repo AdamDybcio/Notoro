@@ -1,10 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/workout/body_part.dart';
 import '../workout/widgets/stat_item.dart';
@@ -96,6 +98,11 @@ class WorkoutSummaryView extends StatelessWidget {
   }
 
   Widget _buildStatsGrid(BuildContext context) {
+    String unit = AppStrings.volume;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.volumeLb;
+    }
     final totalSets =
         filteredExercises.fold<int>(0, (sum, ex) => sum + ex.sets);
 
@@ -117,8 +124,7 @@ class WorkoutSummaryView extends StatelessWidget {
             label: AppStrings.workoutTime,
             value: Helpers.formatDuration(history.duration)),
         StatItem(label: AppStrings.sets, value: '$totalSets'),
-        StatItem(
-            label: AppStrings.volume, value: totalVolume.toStringAsFixed(1)),
+        StatItem(label: unit, value: totalVolume.toStringAsFixed(1)),
         StatItem(
             label: AppStrings.trainingTime,
             value: Helpers.formatDuration(totalSetDurations)),
@@ -144,6 +150,14 @@ class WorkoutSummaryView extends StatelessWidget {
       return SizedBox.shrink();
     }
 
+    String unit = AppStrings.kg;
+    String unitVolume = AppStrings.volumePerExercise;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.lb;
+      unitVolume = AppStrings.volumePerExerciseLb;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,8 +168,7 @@ class WorkoutSummaryView extends StatelessWidget {
           height: 20,
         ),
         const SizedBox(height: 10),
-        Text(AppStrings.volumePerExercise,
-            style: Theme.of(context).textTheme.titleLarge),
+        Text(unitVolume, style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         SizedBox(
           height: 200,
@@ -180,7 +193,7 @@ class WorkoutSummaryView extends StatelessWidget {
                     final name = entries[group.x].key;
                     final value = entries[group.x].value;
                     return BarTooltipItem(
-                      '$name\n${value.toStringAsFixed(1)} ${AppStrings.kg}',
+                      '$name\n${value.toStringAsFixed(1)} $unit',
                       TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/models/workout/workout_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/utils/strings/app_strings.dart';
 import 'widgets/exercise_config_tile.dart';
@@ -23,9 +25,10 @@ class _WorkoutConfigurationViewState extends State<WorkoutConfigurationView> {
   @override
   void initState() {
     super.initState();
+    final settings = context.read<SettingsNotifier>().settings;
     for (int i = 0; i < widget.workout.exercises.length; i++) {
-      restBetweenSets[i] = 60;
-      restAfterExercise[i] = 90;
+      restBetweenSets[i] = settings.defaultRestBetweenSets;
+      restAfterExercise[i] = settings.defaultRestBetweenExercises;
     }
   }
 

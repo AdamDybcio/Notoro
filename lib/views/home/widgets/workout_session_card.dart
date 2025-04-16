@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
+import 'package:provider/provider.dart';
 
 class WorkoutSessionCard extends StatelessWidget {
   final bool isRest;
@@ -21,6 +23,14 @@ class WorkoutSessionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
+    String unit = AppStrings.kg;
+    String unitWeight = AppStrings.weight;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.lb;
+      unitWeight = AppStrings.weightLb;
+    }
 
     return Card(
       elevation: 2,
@@ -97,7 +107,7 @@ class WorkoutSessionCard extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '${exercise.reps[setIndex]} ${AppStrings.repsShort} • ${exercise.weight[setIndex]} ${AppStrings.kg}',
+                '${exercise.reps[setIndex]} ${AppStrings.repsShort} • ${exercise.weight[setIndex]} $unit',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   color: theme.colorScheme.primary,
                   fontWeight: FontWeight.w600,
@@ -107,7 +117,7 @@ class WorkoutSessionCard extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: () {
                   Helpers.showEditSetDialogOnSession(
-                      context, controller, setIndex);
+                      context, controller, setIndex, unitWeight);
                 },
                 icon: const Icon(Icons.edit),
                 label: const Text(AppStrings.changeValue),

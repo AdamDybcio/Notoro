@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
@@ -18,7 +19,7 @@ class SelectedExercises extends StatelessWidget {
           onAcceptWithDetails: (exercise) {
             context
                 .read<WorkoutBuilderBloc>()
-                .add(AddExerciseToWorkout(exercise.data));
+                .add(AddExerciseToWorkout(exercise.data, context));
           },
           builder: (context, candidateData, rejectedData) {
             final bool isHovering = candidateData.isNotEmpty;
@@ -72,9 +73,11 @@ class SelectedExercises extends StatelessWidget {
                           isFirst: index == 0,
                           isLast: index == state.selectedExercises.length - 1,
                           onAddSet: () {
+                            final settings =
+                                context.read<SettingsNotifier>().settings;
                             final updatedReps = List<int>.from(
                                 state.selectedExercises[index].reps)
-                              ..add(8);
+                              ..add(settings.defaultReps);
                             final updatedWeight = List<double>.from(
                                 state.selectedExercises[index].weight)
                               ..add(0);

@@ -6,6 +6,8 @@ import 'package:notoro/core/data/exercise_factory.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 
+import '../settings/settings_notifier.dart';
+
 class WorkoutBuilderBloc
     extends Bloc<WorkoutBuilderEvent, WorkoutBuilderState> {
   WorkoutBuilderBloc()
@@ -42,14 +44,15 @@ class WorkoutBuilderBloc
     AddExerciseToWorkout event,
     Emitter<WorkoutBuilderState> emit,
   ) {
+    final settings = event.context.read<SettingsNotifier>().settings;
     final newList = List<ExerciseTrainingModel>.from(state.selectedExercises)
       ..add(ExerciseTrainingModel(
         assetImagePath: event.exercise.assetImagePath,
         name: event.exercise.name,
         bodyParts: event.exercise.bodyParts,
-        sets: 4,
-        reps: [8, 8, 8, 8],
-        weight: [0, 0, 0, 0],
+        sets: settings.defaultSets,
+        reps: List.filled(settings.defaultSets, settings.defaultReps),
+        weight: List.filled(settings.defaultSets, 0),
       ));
 
     emit(state.copyWith(selectedExercises: newList));

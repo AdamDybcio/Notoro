@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 
 abstract class WorkoutBuilderEvent {}
@@ -6,7 +7,8 @@ class LoadAvailableExercises extends WorkoutBuilderEvent {}
 
 class AddExerciseToWorkout extends WorkoutBuilderEvent {
   final ExerciseModel exercise;
-  AddExerciseToWorkout(this.exercise);
+  final BuildContext context;
+  AddExerciseToWorkout(this.exercise, this.context);
 }
 
 class RemoveExerciseFromWorkout extends WorkoutBuilderEvent {

@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/views/workout/widgets/stat_item.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/common/widgets/header_divider.dart';
 import '../../../core/utils/strings/app_strings.dart';
@@ -45,6 +47,12 @@ class GlobalStatsContent extends StatelessWidget {
           (weekdayCount[item.date.weekday] ?? 0) + 1;
     }
 
+    String unit = AppStrings.kg;
+    unit = context.watch<SettingsNotifier>().settings.preferredUnit;
+    if (unit == 'lb') {
+      unit = AppStrings.lb;
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,7 +65,7 @@ class GlobalStatsContent extends StatelessWidget {
                 label: AppStrings.workouts, value: totalWorkouts.toString()),
             StatItem(
                 label: AppStrings.weightShort,
-                value: '${totalWeight.toStringAsFixed(0)} ${AppStrings.kg}'),
+                value: '${totalWeight.toStringAsFixed(0)} $unit'),
             StatItem(
                 label: AppStrings.sets,
                 value: history.fold<int>(0, (sum, item) {
@@ -79,7 +87,7 @@ class GlobalStatsContent extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleMedium,
                   children: [
                     TextSpan(
-                      text: '$maxLoad ${AppStrings.kg}',
+                      text: '$maxLoad $unit',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),

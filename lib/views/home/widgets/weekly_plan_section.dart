@@ -89,12 +89,12 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                               context: context,
                               availableWorkouts: workouts,
                             );
-                            if (selectedKey != null) {
+                            if (selectedKey != null && selectedKey != -1) {
                               context.read<WeeklyPlanBloc>().add(
                                     AssignWorkoutToDay(
                                         day: day, workoutKey: selectedKey),
                                   );
-                            } else {
+                            } else if (selectedKey == -1) {
                               context.read<WeeklyPlanBloc>().add(
                                     RemoveWorkoutFromDay(day),
                                   );
