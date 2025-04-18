@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:notoro/l10n/l10n.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'controllers/navbar/navbar_cubit.dart';
 import 'models/history/duration_adapter.dart';
@@ -24,7 +25,8 @@ import 'models/workout/workout_model.dart';
 import 'views/navbar_view.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await Hive.initFlutter();
   Hive.registerAdapter(WorkoutModelAdapter());

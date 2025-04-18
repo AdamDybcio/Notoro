@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:notoro/core/utils/constants/app_const.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,6 +11,7 @@ class NavbarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return BlocBuilder<NavbarCubit, NavbarItem>(
       builder: (context, state) {
         return Scaffold(
