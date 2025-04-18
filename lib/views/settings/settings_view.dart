@@ -4,6 +4,8 @@ import 'package:notoro/views/settings/widgets/default_rest_sets.dart';
 import 'package:notoro/views/settings/widgets/settings_section.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'widgets/about_app_tile.dart';
+import 'widgets/clear_all_data_tile.dart';
 import 'widgets/deafault_rest_exercises.dart';
 import 'widgets/default_reps_sets_tile.dart';
 import 'widgets/language_setting_tile.dart';
@@ -42,15 +44,14 @@ class SettingsView extends StatelessWidget {
           SettingsSection(
             title: AppLocalizations.of(context)!.data,
             children: [
-              // ClearAllDataTile(),
-              // ExportHistoryTile(),
+              ClearAllDataTile(),
               ResetToDefaultsTile(),
             ],
           ),
           SettingsSection(
             title: AppLocalizations.of(context)!.info,
             children: [
-              // AboutAppTile(),
+              AboutAppTile(),
             ],
           ),
         ],

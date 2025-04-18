@@ -167,5 +167,11 @@
   "defaultSetsExercises": "Séries e repetições padrão",
   "setsLowercase": "séries",
   "setDefaultValues": "Definir valores padrão",
-  "selectLanguage": "Idioma"
+  "selectLanguage": "Idioma",
+  "clearAllData": "Apagar todos os dados",
+  "clearAllDataSubtitle": "Todos os treinos, histórico e configurações serão permanentemente apagados.",
+  "allDataCleared": "Todos os dados foram apagados.",
+  "exportHistory": "Exportar histórico",
+  "historyExport": "Exportação do histórico de treinos",
+  "aboutApp": "Sobre o aplicativo"
 }

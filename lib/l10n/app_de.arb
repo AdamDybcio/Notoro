@@ -167,5 +167,11 @@
   "defaultSetsExercises": "Standard-Sätze und -Wiederholungen",
   "setsLowercase": "sätze",
   "setDefaultValues": "Standardwerte festlegen",
-  "selectLanguage": "Sprache"
+  "selectLanguage": "Sprache",
+  "clearAllData": "Alle Daten löschen",
+  "clearAllDataSubtitle": "Alle Trainings, der Verlauf und die Einstellungen werden dauerhaft gelöscht.",
+  "allDataCleared": "Alle Daten wurden gelöscht.",
+  "exportHistory": "Verlauf exportieren",
+  "historyExport": "Export des Trainingsverlaufs",
+  "aboutApp": "Über die App"
 }

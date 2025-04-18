@@ -167,5 +167,11 @@
   "defaultSetsExercises": "Serie e ripetizioni predefinite",
   "setsLowercase": "serie",
   "setDefaultValues": "Imposta valori predefiniti",
-  "selectLanguage": "Lingua"
+  "selectLanguage": "Lingua",
+  "clearAllData": "Cancella tutti i dati",
+  "clearAllDataSubtitle": "Tutti gli allenamenti, cronologia e impostazioni verranno eliminati definitivamente.",
+  "allDataCleared": "Tutti i dati sono stati cancellati.",
+  "exportHistory": "Esporta cronologia",
+  "historyExport": "Esportazione della cronologia degli allenamenti",
+  "aboutApp": "Informazioni sull'app"
 }

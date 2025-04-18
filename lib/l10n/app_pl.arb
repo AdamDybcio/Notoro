@@ -167,5 +167,11 @@
   "defaultSetsExercises": "Domyślne serie i powtórzenia",
   "setsLowercase": "serie",
   "setDefaultValues": "Ustaw domyślne wartości",
-  "selectLanguage": "Język"
+  "selectLanguage": "Język",
+  "clearAllData": "Usuń wszystkie dane",
+  "clearAllDataSubtitle": "Wszystkie treningi, historia i ustawienia zostaną trwale usunięte.",
+  "allDataCleared": "Wszystkie dane zostały usunięte.",
+  "exportHistory": "Eksportuj historię",
+  "historyExport": "Eksport historii treningów",
+  "aboutApp": "O aplikacji"
 }

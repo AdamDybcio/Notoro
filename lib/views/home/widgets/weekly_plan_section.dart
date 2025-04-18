@@ -37,7 +37,7 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
               actionButton: Transform.rotate(
                 angle: !isExpanded ? 90 * 3.14 / 180 : 270 * 3.14 / 180,
                 child: IconButton(
-                  icon: Icon(Icons.arrow_back_ios,
+                  icon: Icon(Icons.arrow_back,
                       size: 30, color: Theme.of(context).colorScheme.onPrimary),
                   style: IconButton.styleFrom(
                     backgroundColor: Theme.of(context).colorScheme.primary,

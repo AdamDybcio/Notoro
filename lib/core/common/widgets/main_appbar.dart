@@ -13,6 +13,7 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return AppBar(
       title: Text(
         title,
@@ -27,9 +28,15 @@ class MainAppbar extends StatelessWidget implements PreferredSizeWidget {
           : Container(
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
-                borderRadius: BorderRadius.circular(20),
-                image: const DecorationImage(
-                  image: AssetImage('assets/branding/app_logo.png'),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(4),
+                  topRight: Radius.circular(4),
+                ),
+                image: DecorationImage(
+                  image: AssetImage(!isDarkMode
+                      ? 'assets/branding/app_logo.png'
+                      : 'assets/branding/app_logo_light.png'),
                   fit: BoxFit.cover,
                 ),
               ),

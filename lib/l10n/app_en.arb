@@ -167,5 +167,11 @@
   "defaultSetsExercises": "Default sets and reps",
   "setsLowercase": "sets",
   "setDefaultValues": "Set default values",
-  "selectLanguage": "Language"
+  "selectLanguage": "Language",
+  "clearAllData": "Clear all data",
+  "clearAllDataSubtitle": "All workouts, history and settings will be permanently deleted.",
+  "allDataCleared": "All data has been cleared.",
+  "exportHistory": "Export history",
+  "historyExport": "Workout history export",
+  "aboutApp": "About the app"
 }
