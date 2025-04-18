@@ -11,10 +11,10 @@ import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/workout_exercise_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'widgets/workout_stats_section.dart';
 
@@ -25,7 +25,7 @@ class WorkoutDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(
-        title: AppStrings.workoutDetails,
+        title: AppLocalizations.of(context)!.workoutDetails,
         actions: [
           BlocBuilder<WorkoutDetailBloc, WorkoutDetailState>(
             builder: (context, state) {
@@ -34,9 +34,10 @@ class WorkoutDetailView extends StatelessWidget {
                   final shouldDelete =
                       await Helpers.showDeleteConfirmationDialog(
                     context: context,
-                    title: AppStrings.removeWorkout,
-                    content: AppStrings.removeWorkoutConfirmation,
-                    confirmText: AppStrings.remove,
+                    title: AppLocalizations.of(context)!.removeWorkout,
+                    content:
+                        AppLocalizations.of(context)!.removeWorkoutConfirmation,
+                    confirmText: AppLocalizations.of(context)!.remove,
                     isNegative: true,
                   );
                   if (shouldDelete == true) {
@@ -49,7 +50,7 @@ class WorkoutDetailView extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       CustomSnackbar.show(
                         context: context,
-                        message: AppStrings.workoutDeleted,
+                        message: AppLocalizations.of(context)!.workoutDeleted,
                       ),
                     );
                     Navigator.pop(context);
@@ -79,7 +80,8 @@ class WorkoutDetailView extends StatelessWidget {
                   WorkoutStatsSection(workout: workout),
                   const SizedBox(height: 20),
                   HeaderDivider(
-                    text: "${AppStrings.exercises} (${exercises.length})",
+                    text:
+                        "${AppLocalizations.of(context)!.exercises} (${exercises.length})",
                     actionButton: IconButton(
                       onPressed: () async {
                         final exercise = await Helpers.showExercisePickerDialog(

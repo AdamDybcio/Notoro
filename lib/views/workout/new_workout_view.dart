@@ -9,10 +9,10 @@ import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/add_exercise_dialog.dart';
 import 'package:notoro/views/workout/widgets/selected_excercises.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'widgets/available_exercises.dart';
 
@@ -22,11 +22,11 @@ class NewWorkoutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<WorkoutBuilderBloc>(
-      create: (_) => WorkoutBuilderBloc()..add(LoadAvailableExercises()),
+      create: (_) => WorkoutBuilderBloc()..add(LoadAvailableExercises(context)),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CommonAppbar(
-          title: AppStrings.newWorkout,
+          title: AppLocalizations.of(context)!.newWorkout,
           actions: [
             BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
               builder: (context, state) {
@@ -40,7 +40,8 @@ class NewWorkoutView extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         CustomSnackbar.show(
                           context: context,
-                          message: AppStrings.workoutNameEmpty,
+                          message:
+                              AppLocalizations.of(context)!.workoutNameEmpty,
                         ),
                       );
                       return;
@@ -52,7 +53,7 @@ class NewWorkoutView extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         CustomSnackbar.show(
                           context: context,
-                          message: AppStrings.addOneExercise,
+                          message: AppLocalizations.of(context)!.addOneExercise,
                         ),
                       );
                       return;
@@ -71,7 +72,8 @@ class NewWorkoutView extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         CustomSnackbar.show(
                           context: context,
-                          message: AppStrings.workoutAlreadyExists,
+                          message: AppLocalizations.of(context)!
+                              .workoutAlreadyExists,
                         ),
                       );
                       return;
@@ -87,7 +89,7 @@ class NewWorkoutView extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       CustomSnackbar.show(
                         context: context,
-                        message: AppStrings.workoutCreated,
+                        message: AppLocalizations.of(context)!.workoutCreated,
                       ),
                     );
                     Navigator.pop(context);
@@ -111,7 +113,7 @@ class NewWorkoutView extends StatelessWidget {
                     onTapOutside: (_) =>
                         FocusManager.instance.primaryFocus?.unfocus(),
                     decoration: InputDecoration(
-                      labelText: AppStrings.workoutName,
+                      labelText: AppLocalizations.of(context)!.workoutName,
                       border: OutlineInputBorder(),
                     ),
                     maxLength: 50,
@@ -119,14 +121,14 @@ class NewWorkoutView extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 20),
-              HeaderDivider(text: AppStrings.exercises),
+              HeaderDivider(text: AppLocalizations.of(context)!.exercises),
               const SizedBox(height: 20),
               Expanded(child: SelectedExercises()),
               const SizedBox(height: 20),
               BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
                 builder: (context, state) {
                   return HeaderDivider(
-                    text: AppStrings.availableExercises,
+                    text: AppLocalizations.of(context)!.availableExercises,
                     actionButton: IconButton(
                       onPressed: () {
                         showDialog(

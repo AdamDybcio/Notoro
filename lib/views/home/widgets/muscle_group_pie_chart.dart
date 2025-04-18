@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/body_part.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MuscleGroupPieChart extends StatelessWidget {
   final Map<BodyPart, int> data;
@@ -29,7 +29,7 @@ class MuscleGroupPieChart extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          AppStrings.favParts,
+          AppLocalizations.of(context)!.favParts,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         const SizedBox(height: 12),
@@ -75,7 +75,7 @@ class MuscleGroupPieChart extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Text(Helpers.mapBodyPartToName(entry.key)),
+                Text(Helpers.mapBodyPartToName(entry.key, context)),
               ],
             );
           }).toList(),

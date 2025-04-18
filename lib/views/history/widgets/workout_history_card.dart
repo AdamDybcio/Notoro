@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/views/home/workout_summary_view.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WorkoutHistoryCard extends StatelessWidget {
   final HistoryModel history;
@@ -20,10 +20,10 @@ class WorkoutHistoryCard extends StatelessWidget {
       return sum;
     });
 
-    String unit = AppStrings.kg;
+    String unit = AppLocalizations.of(context)!.kg;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.lb;
+      unit = AppLocalizations.of(context)!.lb;
     }
 
     return Card(
@@ -49,7 +49,7 @@ class WorkoutHistoryCard extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         subtitle: Text(
-          '${history.exercises.length} ${AppStrings.exercisesLowercase} • ${Helpers.formatDuration(history.duration)} • ${totalVolume.toStringAsFixed(0)} $unit',
+          '${history.exercises.length} ${AppLocalizations.of(context)!.exercisesLowercase} • ${Helpers.formatDuration(history.duration)} • ${totalVolume.toStringAsFixed(0)} $unit',
         ),
         trailing: history.wasAbandoned
             ? const Icon(Icons.warning_amber, color: Colors.red)

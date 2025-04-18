@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'body_part_chip.dart';
 
@@ -55,7 +55,7 @@ class ExerciseTile extends StatelessWidget {
                       Icons.delete_outline,
                       size: 20,
                     ),
-                    tooltip: AppStrings.deleteExercise,
+                    tooltip: AppLocalizations.of(context)!.deleteExercise,
                   ),
                 ),
               ],

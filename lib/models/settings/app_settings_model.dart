@@ -23,6 +23,9 @@ class AppSettingsModel extends HiveObject {
   @HiveField(5)
   final int defaultSets;
 
+  @HiveField(6)
+  final String languageCode;
+
   AppSettingsModel({
     this.defaultRestBetweenSets = 90,
     this.defaultRestBetweenExercises = 120,
@@ -30,6 +33,7 @@ class AppSettingsModel extends HiveObject {
     this.preferredUnit = 'kg',
     this.defaultReps = 8,
     this.defaultSets = 4,
+    this.languageCode = 'en',
   });
 
   ThemeMode get themeMode {
@@ -50,6 +54,7 @@ class AppSettingsModel extends HiveObject {
     String? preferredUnit,
     int? defaultReps,
     int? defaultSets,
+    String? languageCode,
   }) {
     return AppSettingsModel(
       defaultRestBetweenSets:
@@ -60,6 +65,7 @@ class AppSettingsModel extends HiveObject {
       preferredUnit: preferredUnit ?? this.preferredUnit,
       defaultReps: defaultReps ?? this.defaultReps,
       defaultSets: defaultSets ?? this.defaultSets,
+      languageCode: languageCode ?? this.languageCode,
     );
   }
 }

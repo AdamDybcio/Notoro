@@ -8,6 +8,7 @@ class SettingsNotifier extends ChangeNotifier {
 
   AppSettingsModel get settings => _settings;
   ThemeMode get themeMode => _settings.themeMode;
+  String get currentLocale => _settings.languageCode;
 
   SettingsNotifier(this.box) {
     _settings = box.get('settings') ?? AppSettingsModel();
@@ -45,7 +46,11 @@ class SettingsNotifier extends ChangeNotifier {
 
   void updateDefaultRepsAndSets(int reps, int sets) {
     _settings = _settings.copyWith(defaultReps: reps, defaultSets: sets);
-    box.put('settings', _settings);
-    notifyListeners();
+    _save();
+  }
+
+  void updateLanguage(String languageCode) {
+    _settings = _settings.copyWith(languageCode: languageCode);
+    _save();
   }
 }

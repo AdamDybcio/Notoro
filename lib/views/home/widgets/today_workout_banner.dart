@@ -4,9 +4,9 @@ import 'package:hive/hive.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_bloc.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_state.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/views/home/workout_configuration_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TodayWorkoutBanner extends StatelessWidget {
   const TodayWorkoutBanner({super.key});
@@ -43,7 +43,7 @@ class TodayWorkoutBanner extends StatelessWidget {
                 Expanded(
                   child: RichText(
                     text: TextSpan(
-                      text: '${AppStrings.todayWorkout} ',
+                      text: '${AppLocalizations.of(context)!.todayWorkout} ',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -73,8 +73,8 @@ class TodayWorkoutBanner extends StatelessWidget {
                 size: 20,
               ),
               label: Text(hasDoneToday
-                  ? AppStrings.repeatWorkout
-                  : AppStrings.startWorkout),
+                  ? AppLocalizations.of(context)!.repeatWorkout
+                  : AppLocalizations.of(context)!.startWorkout),
             ),
           ),
         );

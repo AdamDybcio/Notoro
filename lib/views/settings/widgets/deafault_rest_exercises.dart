@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'number_picker_dialog.dart';
 
@@ -14,14 +14,14 @@ class DefaultRestBetweenExercisesTile extends StatelessWidget {
     final value = notifier.settings.defaultRestBetweenExercises;
 
     return ListTile(
-      title: const Text(AppStrings.defaultRestBetweenExercises),
-      subtitle: Text('$value ${AppStrings.sec}'),
+      title: Text(AppLocalizations.of(context)!.defaultRestBetweenExercises),
+      subtitle: Text('$value ${AppLocalizations.of(context)!.sec}'),
       leading: const Icon(Icons.access_time_outlined),
       onTap: () async {
         final result = await showDialog<int>(
           context: context,
           builder: (_) => NumberPickerDialog(
-            title: AppStrings.chooseRest,
+            title: AppLocalizations.of(context)!.chooseRest,
             initialValue: value,
             minValue: 15,
             maxValue: 180,

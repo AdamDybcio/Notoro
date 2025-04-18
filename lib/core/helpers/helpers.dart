@@ -6,13 +6,13 @@ import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/dashboard/weekly_plan.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/body_part_chip.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../controllers/workout_builder/workout_builder_bloc.dart';
 import '../../models/workout/body_part.dart';
@@ -35,39 +35,39 @@ class Helpers {
     }
   }
 
-  static String mapDayOfWeekToName(DayOfWeek day) {
+  static String mapDayOfWeekToName(DayOfWeek day, BuildContext context) {
     switch (day) {
       case DayOfWeek.monday:
-        return AppStrings.monday;
+        return AppLocalizations.of(context)!.monday;
       case DayOfWeek.tuesday:
-        return AppStrings.tuesday;
+        return AppLocalizations.of(context)!.tuesday;
       case DayOfWeek.wednesday:
-        return AppStrings.wednesday;
+        return AppLocalizations.of(context)!.wednesday;
       case DayOfWeek.thursday:
-        return AppStrings.thursday;
+        return AppLocalizations.of(context)!.thursday;
       case DayOfWeek.friday:
-        return AppStrings.friday;
+        return AppLocalizations.of(context)!.friday;
       case DayOfWeek.saturday:
-        return AppStrings.saturday;
+        return AppLocalizations.of(context)!.saturday;
       case DayOfWeek.sunday:
-        return AppStrings.sunday;
+        return AppLocalizations.of(context)!.sunday;
     }
   }
 
-  static String mapBodyPartToName(BodyPart part) {
+  static String mapBodyPartToName(BodyPart part, BuildContext context) {
     switch (part) {
       case BodyPart.chest:
-        return AppStrings.chest;
+        return AppLocalizations.of(context)!.chest;
       case BodyPart.back:
-        return AppStrings.back;
+        return AppLocalizations.of(context)!.back;
       case BodyPart.legs:
-        return AppStrings.legs;
+        return AppLocalizations.of(context)!.legs;
       case BodyPart.arms:
-        return AppStrings.arms;
+        return AppLocalizations.of(context)!.arms;
       case BodyPart.shoulders:
-        return AppStrings.shoulders;
+        return AppLocalizations.of(context)!.shoulders;
       case BodyPart.abs:
-        return AppStrings.abs;
+        return AppLocalizations.of(context)!.abs;
     }
   }
 
@@ -108,7 +108,7 @@ class Helpers {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () => Navigator.of(ctx).pop(true),
@@ -139,7 +139,7 @@ class Helpers {
             TextEditingController(text: exercise.weight[index].toString());
 
         return AlertDialog(
-          title: const Text(AppStrings.editSet),
+          title: Text(AppLocalizations.of(context)!.editSet),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -152,7 +152,7 @@ class Helpers {
                 onTapOutside: (event) =>
                     FocusManager.instance.primaryFocus?.unfocus(),
                 decoration: InputDecoration(
-                  labelText: AppStrings.reps,
+                  labelText: AppLocalizations.of(context)!.reps,
                   fillColor: Theme.of(context)
                       .colorScheme
                       .primaryContainer
@@ -197,14 +197,14 @@ class Helpers {
                         );
                     Navigator.of(ctx).pop();
                   },
-                  label: const Text(AppStrings.removeSet),
+                  label: Text(AppLocalizations.of(context)!.removeSet),
                 ),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text(AppStrings.cancel),
+              child: Text(AppLocalizations.of(context)!.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -220,7 +220,7 @@ class Helpers {
                     );
                 Navigator.of(ctx).pop();
               },
-              child: const Text(AppStrings.save),
+              child: Text(AppLocalizations.of(context)!.save),
             ),
           ],
         );
@@ -244,7 +244,7 @@ class Helpers {
             TextEditingController(text: exercise.weight[index].toString());
 
         return AlertDialog(
-          title: const Text(AppStrings.editSet),
+          title: Text(AppLocalizations.of(context)!.editSet),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -257,7 +257,7 @@ class Helpers {
                 onTapOutside: (event) =>
                     FocusManager.instance.primaryFocus?.unfocus(),
                 decoration: InputDecoration(
-                  labelText: AppStrings.reps,
+                  labelText: AppLocalizations.of(context)!.reps,
                   fillColor: Theme.of(context)
                       .colorScheme
                       .primaryContainer
@@ -296,14 +296,14 @@ class Helpers {
                         );
                     Navigator.of(ctx).pop();
                   },
-                  label: const Text(AppStrings.removeSet),
+                  label: Text(AppLocalizations.of(context)!.removeSet),
                 ),
             ],
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text(AppStrings.cancel),
+              child: Text(AppLocalizations.of(context)!.cancel),
             ),
             ElevatedButton(
               onPressed: () {
@@ -319,7 +319,7 @@ class Helpers {
                     );
                 Navigator.of(ctx).pop();
               },
-              child: const Text(AppStrings.save),
+              child: Text(AppLocalizations.of(context)!.save),
             ),
           ],
         );
@@ -335,14 +335,14 @@ class Helpers {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppStrings.chooseWorkout),
+          title: Text(AppLocalizations.of(context)!.chooseWorkout),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
                 onTap: () => Navigator.pop(context, -1),
                 tileColor: Theme.of(context).colorScheme.primaryContainer,
-                title: const Text(AppStrings.clearDay),
+                title: Text(AppLocalizations.of(context)!.clearDay),
                 leading: Container(
                   width: 32,
                   height: 32,
@@ -372,7 +372,7 @@ class Helpers {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '${entry.value.exercises.length} ${AppStrings.exercisesLowercase}',
+                                      '${entry.value.exercises.length} ${AppLocalizations.of(context)!.exercisesLowercase}',
                                     ),
                                     const SizedBox(height: 4),
                                     Wrap(
@@ -478,7 +478,7 @@ class Helpers {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text(AppStrings.editSet),
+        title: Text(AppLocalizations.of(context)!.editSet),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -491,7 +491,7 @@ class Helpers {
               onTapOutside: (event) =>
                   FocusManager.instance.primaryFocus?.unfocus(),
               decoration: InputDecoration(
-                labelText: AppStrings.reps,
+                labelText: AppLocalizations.of(context)!.reps,
                 fillColor: Theme.of(context)
                     .colorScheme
                     .primaryContainer
@@ -523,7 +523,7 @@ class Helpers {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(AppStrings.cancel),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -535,7 +535,7 @@ class Helpers {
               controller.editSet(setIndex, reps, weight);
               Navigator.pop(context);
             },
-            child: const Text(AppStrings.save),
+            child: Text(AppLocalizations.of(context)!.save),
           )
         ],
       ),
@@ -588,7 +588,7 @@ class Helpers {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(AppStrings.addExercise),
+          title: Text(AppLocalizations.of(context)!.addExercise),
           content: SizedBox(
             height: 300,
             child: SingleChildScrollView(
@@ -652,13 +652,27 @@ class Helpers {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ListTile(title: const Text(AppStrings.chooseTheme)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    AppLocalizations.of(context)!.chooseTheme,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ),
+              ],
+            ),
             Wrap(
               spacing: 12,
               children: List.generate(3, (i) {
                 final isSelected = selected == i;
-                final label =
-                    [AppStrings.system, AppStrings.light, AppStrings.dark][i];
+                final label = [
+                  AppLocalizations.of(context)!.system,
+                  AppLocalizations.of(context)!.light,
+                  AppLocalizations.of(context)!.dark
+                ][i];
                 final icon =
                     [Icons.smartphone, Icons.light_mode, Icons.dark_mode][i];
 

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../models/workout/body_part.dart';
 import '../workout/widgets/stat_item.dart';
@@ -45,7 +45,7 @@ class WorkoutSummaryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(
-        title: AppStrings.summary,
+        title: AppLocalizations.of(context)!.summary,
         onBackPressed: () =>
             Navigator.popUntil(context, (route) => route.isFirst),
       ),
@@ -89,7 +89,7 @@ class WorkoutSummaryView extends StatelessWidget {
               onPressed: () =>
                   Navigator.popUntil(context, (route) => route.isFirst),
               icon: const Icon(Icons.home),
-              label: const Text(AppStrings.backToHome),
+              label: Text(AppLocalizations.of(context)!.backToHome),
             ),
           ],
         ),
@@ -98,10 +98,10 @@ class WorkoutSummaryView extends StatelessWidget {
   }
 
   Widget _buildStatsGrid(BuildContext context) {
-    String unit = AppStrings.volume;
+    String unit = AppLocalizations.of(context)!.volume;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.volumeLb;
+      unit = AppLocalizations.of(context)!.volumeLb;
     }
     final totalSets =
         filteredExercises.fold<int>(0, (sum, ex) => sum + ex.sets);
@@ -121,12 +121,13 @@ class WorkoutSummaryView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         StatItem(
-            label: AppStrings.workoutTime,
+            label: AppLocalizations.of(context)!.workoutTime,
             value: Helpers.formatDuration(history.duration)),
-        StatItem(label: AppStrings.sets, value: '$totalSets'),
+        StatItem(
+            label: AppLocalizations.of(context)!.sets, value: '$totalSets'),
         StatItem(label: unit, value: totalVolume.toStringAsFixed(1)),
         StatItem(
-            label: AppStrings.trainingTime,
+            label: AppLocalizations.of(context)!.trainingTime,
             value: Helpers.formatDuration(totalSetDurations)),
       ],
     );
@@ -150,12 +151,12 @@ class WorkoutSummaryView extends StatelessWidget {
       return SizedBox.shrink();
     }
 
-    String unit = AppStrings.kg;
-    String unitVolume = AppStrings.volumePerExercise;
+    String unit = AppLocalizations.of(context)!.kg;
+    String unitVolume = AppLocalizations.of(context)!.volumePerExercise;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.lb;
-      unitVolume = AppStrings.volumePerExerciseLb;
+      unit = AppLocalizations.of(context)!.lb;
+      unitVolume = AppLocalizations.of(context)!.volumePerExerciseLb;
     }
 
     return Column(
@@ -269,7 +270,7 @@ class WorkoutSummaryView extends StatelessWidget {
           height: 20,
         ),
         const SizedBox(height: 10),
-        Text(AppStrings.partsUsed,
+        Text(AppLocalizations.of(context)!.partsUsed,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         SizedBox(
@@ -312,7 +313,7 @@ class WorkoutSummaryView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 6),
-                Text(Helpers.mapBodyPartToName(entry.key)),
+                Text(Helpers.mapBodyPartToName(entry.key, context)),
               ],
             );
           }).toList(),
@@ -334,7 +335,7 @@ class WorkoutSummaryView extends StatelessWidget {
           const SizedBox(width: 8),
           Expanded(
             child: Text(
-              AppStrings.workoutWasAbandoned,
+              AppLocalizations.of(context)!.workoutWasAbandoned,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.red.shade800,
                   ),

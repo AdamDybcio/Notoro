@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NextExerciseCard extends StatelessWidget {
   final String nextExerciseName;
@@ -29,7 +29,7 @@ class NextExerciseCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.nextExercise,
+                    AppLocalizations.of(context)!.nextExercise,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: theme.colorScheme.primary,
                       fontWeight: FontWeight.w600,

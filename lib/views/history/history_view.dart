@@ -3,9 +3,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:notoro/core/common/widgets/empty_state_widget_classic.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/history/history_model.dart';
 import 'package:notoro/views/history/widgets/workout_history_card.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
@@ -17,7 +17,7 @@ class HistoryView extends StatelessWidget {
     return Scaffold(
       appBar: MainAppbar(
         leadingIcon: Icons.history_outlined,
-        title: AppStrings.history,
+        title: AppLocalizations.of(context)!.history,
       ),
       body: ValueListenableBuilder(
         valueListenable: historyBox.listenable(),
@@ -29,15 +29,16 @@ class HistoryView extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(20),
               child: EmptyStateWidgetClassic(
-                title: AppStrings.noHistoryTitle,
-                subtitle: AppStrings.noHistorySubtitle,
+                title: AppLocalizations.of(context)!.noHistoryTitle,
+                subtitle: AppLocalizations.of(context)!.noHistorySubtitle,
               ),
             );
           }
 
           final grouped = <String, List<HistoryModel>>{};
           for (final item in items) {
-            final date = DateFormat.yMMMMd(AppStrings.locale).format(item.date);
+            final date = DateFormat.yMMMMd(AppLocalizations.of(context)!.locale)
+                .format(item.date);
             grouped.putIfAbsent(date, () => []).add(item);
           }
 

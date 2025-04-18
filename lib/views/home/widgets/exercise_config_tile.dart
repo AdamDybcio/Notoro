@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/home/widgets/rest_slider.dart';
 
 import '../../../models/workout/exercise_training_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExerciseConfigTile extends StatelessWidget {
   final int index;
@@ -80,7 +80,9 @@ class ExerciseConfigTile extends StatelessWidget {
                       '${index + 1}',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                     ),
                   ),
@@ -92,7 +94,7 @@ class ExerciseConfigTile extends StatelessWidget {
               children: [
                 Expanded(
                   child: RestSlider(
-                    label: AppStrings.setRest,
+                    label: AppLocalizations.of(context)!.setRest,
                     value: restBetween,
                     onChanged: onChangedRestBetween,
                   ),
@@ -105,7 +107,7 @@ class ExerciseConfigTile extends StatelessWidget {
                 children: [
                   Expanded(
                     child: RestSlider(
-                      label: AppStrings.setRestAfter,
+                      label: AppLocalizations.of(context)!.setRestAfter,
                       value: restAfter,
                       onChanged: onChangedRestAfter,
                     ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/settings/widgets/number_picker_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DefaultRestBetweenSetsTile extends StatelessWidget {
   const DefaultRestBetweenSetsTile({super.key});
@@ -13,14 +13,14 @@ class DefaultRestBetweenSetsTile extends StatelessWidget {
     final value = notifier.settings.defaultRestBetweenSets;
 
     return ListTile(
-      title: const Text(AppStrings.defaultRestBetweenSets),
-      subtitle: Text('$value ${AppStrings.sec}'),
+      title: Text(AppLocalizations.of(context)!.defaultRestBetweenSets),
+      subtitle: Text('$value ${AppLocalizations.of(context)!.sec}'),
       leading: const Icon(Icons.timer_outlined),
       onTap: () async {
         final result = await showDialog<int>(
           context: context,
           builder: (_) => NumberPickerDialog(
-            title: AppStrings.chooseRest,
+            title: AppLocalizations.of(context)!.chooseRest,
             initialValue: value,
             minValue: 15,
             maxValue: 180,

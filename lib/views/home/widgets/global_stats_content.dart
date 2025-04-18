@@ -5,9 +5,9 @@ import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
 import 'package:notoro/views/workout/widgets/stat_item.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/common/widgets/header_divider.dart';
-import '../../../core/utils/strings/app_strings.dart';
 import '../../../models/history/history_model.dart';
 import '../../../models/workout/body_part.dart';
 import 'muscle_group_pie_chart.dart';
@@ -47,27 +47,28 @@ class GlobalStatsContent extends StatelessWidget {
           (weekdayCount[item.date.weekday] ?? 0) + 1;
     }
 
-    String unit = AppStrings.kg;
+    String unit = AppLocalizations.of(context)!.kg;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.lb;
+      unit = AppLocalizations.of(context)!.lb;
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderDivider(text: AppStrings.yourStats),
+        HeaderDivider(text: AppLocalizations.of(context)!.yourStats),
         const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             StatItem(
-                label: AppStrings.workouts, value: totalWorkouts.toString()),
+                label: AppLocalizations.of(context)!.workouts,
+                value: totalWorkouts.toString()),
             StatItem(
-                label: AppStrings.weightShort,
+                label: AppLocalizations.of(context)!.weightShort,
                 value: '${totalWeight.toStringAsFixed(0)} $unit'),
             StatItem(
-                label: AppStrings.sets,
+                label: AppLocalizations.of(context)!.sets,
                 value: history.fold<int>(0, (sum, item) {
                   final filteredExercises = Helpers.filterValidExercises(item);
                   return sum +
@@ -83,7 +84,7 @@ class GlobalStatsContent extends StatelessWidget {
             child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  text: AppStrings.mostWeight,
+                  text: AppLocalizations.of(context)!.mostWeight,
                   style: Theme.of(context).textTheme.titleMedium,
                   children: [
                     TextSpan(

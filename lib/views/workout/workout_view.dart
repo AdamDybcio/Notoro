@@ -5,11 +5,11 @@ import 'package:notoro/controllers/workout_detail/workout_detail_bloc.dart';
 import 'package:notoro/controllers/workout_detail/workout_detail_event.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:notoro/views/workout/widgets/new_exercise_button.dart';
 import 'package:notoro/views/workout/widgets/new_workout_button.dart';
 import 'package:notoro/views/workout/workout_detail_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/common/widgets/empty_state_widget.dart';
 import 'new_workout_view.dart';
@@ -24,7 +24,7 @@ class WorkoutView extends StatelessWidget {
     return Scaffold(
       appBar: MainAppbar(
         leadingIcon: Icons.fitness_center_outlined,
-        title: AppStrings.workout,
+        title: AppLocalizations.of(context)!.workout,
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -43,7 +43,7 @@ class WorkoutView extends StatelessWidget {
                   ));
             }),
             const SizedBox(height: 20),
-            HeaderDivider(text: AppStrings.yourWorkouts),
+            HeaderDivider(text: AppLocalizations.of(context)!.yourWorkouts),
             const SizedBox(height: 20),
             ValueListenableBuilder<Box<WorkoutModel>>(
               valueListenable: workoutBox.listenable(),
@@ -52,8 +52,8 @@ class WorkoutView extends StatelessWidget {
 
                 if (workouts.isEmpty) {
                   return EmptyStateWidget(
-                    title: AppStrings.noWorkoutsTitle,
-                    subtitle: AppStrings.noWorkoutsSubtitle,
+                    title: AppLocalizations.of(context)!.noWorkoutsTitle,
+                    subtitle: AppLocalizations.of(context)!.noWorkoutsSubtitle,
                   );
                 }
 
@@ -71,7 +71,8 @@ class WorkoutView extends StatelessWidget {
                                   builder: (_) => BlocProvider(
                                     create: (_) => WorkoutDetailBloc(
                                         Hive.box<WorkoutModel>('workouts'))
-                                      ..add(LoadAvailableExercisesDetails())
+                                      ..add(LoadAvailableExercisesDetails(
+                                          context))
                                       ..add(LoadWorkoutDetail(
                                           workout.key as int)),
                                     child: const WorkoutDetailView(),

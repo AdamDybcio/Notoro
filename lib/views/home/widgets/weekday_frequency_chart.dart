@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeekdayFrequencyChart extends StatelessWidget {
   final Map<int, int> data;
@@ -18,7 +18,7 @@ class WeekdayFrequencyChart extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(AppStrings.mostFrequentDays,
+        Text(AppLocalizations.of(context)!.mostFrequentDays,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 12),
         SizedBox(
@@ -65,13 +65,13 @@ class WeekdayFrequencyChart extends StatelessWidget {
                     showTitles: true,
                     getTitlesWidget: (value, _) {
                       final names = [
-                        AppStrings.mondayShort,
-                        AppStrings.tuesdayShort,
-                        AppStrings.wednesdayShort,
-                        AppStrings.thursdayShort,
-                        AppStrings.fridayShort,
-                        AppStrings.saturdayShort,
-                        AppStrings.sundayShort,
+                        AppLocalizations.of(context)!.mondayShort,
+                        AppLocalizations.of(context)!.tuesdayShort,
+                        AppLocalizations.of(context)!.wednesdayShort,
+                        AppLocalizations.of(context)!.thursdayShort,
+                        AppLocalizations.of(context)!.fridayShort,
+                        AppLocalizations.of(context)!.saturdayShort,
+                        AppLocalizations.of(context)!.sundayShort,
                       ];
                       return Text(names[value.toInt() - 1]);
                     },
@@ -86,13 +86,13 @@ class WeekdayFrequencyChart extends StatelessWidget {
                 touchTooltipData: BarTouchTooltipData(
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     final day = [
-                      AppStrings.mondayShort,
-                      AppStrings.tuesdayShort,
-                      AppStrings.wednesdayShort,
-                      AppStrings.thursdayShort,
-                      AppStrings.fridayShort,
-                      AppStrings.saturdayShort,
-                      AppStrings.sundayShort,
+                      AppLocalizations.of(context)!.mondayShort,
+                      AppLocalizations.of(context)!.tuesdayShort,
+                      AppLocalizations.of(context)!.wednesdayShort,
+                      AppLocalizations.of(context)!.thursdayShort,
+                      AppLocalizations.of(context)!.fridayShort,
+                      AppLocalizations.of(context)!.saturdayShort,
+                      AppLocalizations.of(context)!.sundayShort,
                     ][group.x.toInt() - 1];
                     return BarTooltipItem(
                       '$day\n${rod.toY.toStringAsFixed(0)}',

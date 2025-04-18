@@ -4,9 +4,9 @@ import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/views/workout/widgets/workout_exercise_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectedExercises extends StatelessWidget {
   const SelectedExercises({super.key});
@@ -45,7 +45,7 @@ class SelectedExercises extends StatelessWidget {
               child: state.selectedExercises.isEmpty
                   ? Center(
                       child: Text(
-                        AppStrings.dragExerciseHere,
+                        AppLocalizations.of(context)!.dragExerciseHere,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     )

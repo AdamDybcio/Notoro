@@ -3,8 +3,8 @@ import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../core/utils/strings/app_strings.dart';
 import 'widgets/exercise_config_tile.dart';
 import 'workout_session_view.dart';
 
@@ -37,13 +37,13 @@ class _WorkoutConfigurationViewState extends State<WorkoutConfigurationView> {
     final exercises = widget.workout.exercises;
 
     return Scaffold(
-      appBar: CommonAppbar(title: AppStrings.prepareWorkout),
+      appBar: CommonAppbar(title: AppLocalizations.of(context)!.prepareWorkout),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Text(
-              AppStrings.configureRest,
+              AppLocalizations.of(context)!.configureRest,
               style: Theme.of(context).textTheme.titleMedium,
               textAlign: TextAlign.center,
             ),
@@ -90,7 +90,7 @@ class _WorkoutConfigurationViewState extends State<WorkoutConfigurationView> {
                 );
               },
               icon: const Icon(Icons.play_arrow),
-              label: const Text(AppStrings.startWorkoutLong),
+              label: Text(AppLocalizations.of(context)!.startWorkoutLong),
             ),
           ],
         ),

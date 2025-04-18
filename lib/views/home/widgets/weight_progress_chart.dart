@@ -1,8 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeightProgressChart extends StatelessWidget {
   final Map<DateTime, double> data;
@@ -32,10 +32,10 @@ class WeightProgressChart extends StatelessWidget {
         .fold<double>(0, (prev, curr) => prev > curr ? prev : curr);
     final lastWeek = sorted.last;
 
-    String unit = AppStrings.kg;
+    String unit = AppLocalizations.of(context)!.kg;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.lb;
+      unit = AppLocalizations.of(context)!.lb;
     }
 
     return Column(
@@ -48,11 +48,11 @@ class WeightProgressChart extends StatelessWidget {
           height: 20,
         ),
         const SizedBox(height: 12),
-        Text(AppStrings.weightWeeklyProgress,
+        Text(AppLocalizations.of(context)!.weightWeeklyProgress,
             style: Theme.of(context).textTheme.titleLarge),
         const SizedBox(height: 4),
         Text(
-          '${AppStrings.weeks}: $totalWeeks • ${AppStrings.most}: ${maxValue.toStringAsFixed(0)} $unit • ${AppStrings.last}: ${lastWeek.value.toStringAsFixed(0)} $unit',
+          '${AppLocalizations.of(context)!.weeks}: $totalWeeks • ${AppLocalizations.of(context)!.most}: ${maxValue.toStringAsFixed(0)} $unit • ${AppLocalizations.of(context)!.last}: ${lastWeek.value.toStringAsFixed(0)} $unit',
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),

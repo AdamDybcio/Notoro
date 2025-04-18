@@ -4,9 +4,9 @@ import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
 import 'package:notoro/views/workout/widgets/exercise_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AvailableExercises extends StatelessWidget {
   const AvailableExercises({super.key});
@@ -53,10 +53,12 @@ class AvailableExercises extends StatelessWidget {
                             final shouldDelete =
                                 await Helpers.showDeleteConfirmationDialog(
                                     context: context,
-                                    title: AppStrings.removeExercise,
-                                    content:
-                                        AppStrings.removeExerciseConfirmation,
-                                    confirmText: AppStrings.remove,
+                                    title: AppLocalizations.of(context)!
+                                        .removeExercise,
+                                    content: AppLocalizations.of(context)!
+                                        .removeExerciseConfirmation,
+                                    confirmText:
+                                        AppLocalizations.of(context)!.remove,
                                     isNegative: true);
                             if (shouldDelete == true) {
                               // ignore: use_build_context_synchronously

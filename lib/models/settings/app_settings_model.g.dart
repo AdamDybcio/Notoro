@@ -23,13 +23,14 @@ class AppSettingsModelAdapter extends TypeAdapter<AppSettingsModel> {
       preferredUnit: fields[3] as String,
       defaultReps: fields[4] as int,
       defaultSets: fields[5] as int,
+      languageCode: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, AppSettingsModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.defaultRestBetweenSets)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class AppSettingsModelAdapter extends TypeAdapter<AppSettingsModel> {
       ..writeByte(4)
       ..write(obj.defaultReps)
       ..writeByte(5)
-      ..write(obj.defaultSets);
+      ..write(obj.defaultSets)
+      ..writeByte(6)
+      ..write(obj.languageCode);
   }
 
   @override

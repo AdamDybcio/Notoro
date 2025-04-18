@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_state.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/workout/widgets/add_exercise_dialog.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewExerciseButton extends StatelessWidget {
   const NewExerciseButton({super.key});
@@ -14,7 +14,7 @@ class NewExerciseButton extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return BlocProvider<WorkoutBuilderBloc>(
-      create: (_) => WorkoutBuilderBloc()..add(LoadAvailableExercises()),
+      create: (_) => WorkoutBuilderBloc()..add(LoadAvailableExercises(context)),
       child: BlocBuilder<WorkoutBuilderBloc, WorkoutBuilderState>(
           builder: (context, state) {
         return Card(
@@ -57,7 +57,7 @@ class NewExerciseButton extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.newExerciseButton,
+                          AppLocalizations.of(context)!.newExerciseButton,
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.w700,
@@ -65,7 +65,8 @@ class NewExerciseButton extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          AppStrings.newExerciseButtonSubtitle,
+                          AppLocalizations.of(context)!
+                              .newExerciseButtonSubtitle,
                           style:
                               Theme.of(context).textTheme.bodyMedium?.copyWith(
                                     color: colorScheme.onPrimaryContainer

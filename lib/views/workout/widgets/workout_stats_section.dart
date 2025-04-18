@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/body_part.dart';
 import 'package:notoro/models/workout/workout_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'stat_item.dart';
 
@@ -38,24 +38,28 @@ class WorkoutStatsSection extends StatelessWidget {
       ..sort((a, b) => b.value.compareTo(a.value));
     parts.sort((a, b) => a.key.name.compareTo(b.key.name));
 
-    String unit = AppStrings.weight;
+    String unit = AppLocalizations.of(context)!.weight;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.weightLb;
+      unit = AppLocalizations.of(context)!.weightLb;
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderDivider(text: AppStrings.workoutStats),
+        HeaderDivider(text: AppLocalizations.of(context)!.workoutStats),
         const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              StatItem(label: AppStrings.sets, value: totalSets.toString()),
-              StatItem(label: AppStrings.reps, value: totalReps.toString()),
+              StatItem(
+                  label: AppLocalizations.of(context)!.sets,
+                  value: totalSets.toString()),
+              StatItem(
+                  label: AppLocalizations.of(context)!.reps,
+                  value: totalReps.toString()),
               StatItem(label: unit, value: totalWeight.toStringAsFixed(0)),
             ],
           ),
@@ -105,7 +109,7 @@ class WorkoutStatsSection extends StatelessWidget {
                       color: Helpers.mapBodyPartToColor(entry.key),
                     ),
                   ),
-                  Text(Helpers.mapBodyPartToName(entry.key)),
+                  Text(Helpers.mapBodyPartToName(entry.key, context)),
                 ],
               );
             }).toList(),

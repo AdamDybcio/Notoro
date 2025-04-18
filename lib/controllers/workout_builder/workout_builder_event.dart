@@ -3,7 +3,10 @@ import 'package:notoro/models/workout/exercise_model.dart';
 
 abstract class WorkoutBuilderEvent {}
 
-class LoadAvailableExercises extends WorkoutBuilderEvent {}
+class LoadAvailableExercises extends WorkoutBuilderEvent {
+  final BuildContext context;
+  LoadAvailableExercises(this.context);
+}
 
 class AddExerciseToWorkout extends WorkoutBuilderEvent {
   final ExerciseModel exercise;

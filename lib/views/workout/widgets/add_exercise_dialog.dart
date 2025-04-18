@@ -4,8 +4,8 @@ import 'package:notoro/controllers/workout_builder/workout_builder_bloc.dart';
 import 'package:notoro/controllers/workout_builder/workout_builder_event.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../models/workout/body_part.dart';
 
@@ -41,14 +41,17 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackbar.show(
-            context: context, message: AppStrings.exerciseNameEmpty),
+            context: context,
+            message: AppLocalizations.of(context)!.exerciseNameEmpty),
       );
       return;
     }
     if (parts.isEmpty) {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
-        CustomSnackbar.show(context: context, message: AppStrings.addOnePart),
+        CustomSnackbar.show(
+            context: context,
+            message: AppLocalizations.of(context)!.addOnePart),
       );
       return;
     }
@@ -66,7 +69,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackbar.show(
           context: context,
-          message: AppStrings.exerciseAlreadyExists,
+          message: AppLocalizations.of(context)!.exerciseAlreadyExists,
         ),
       );
       return;
@@ -86,7 +89,8 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         CustomSnackbar.show(
-            context: context, message: AppStrings.exerciseAdded),
+            context: context,
+            message: AppLocalizations.of(context)!.exerciseAdded),
       );
     }
 
@@ -96,7 +100,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppStrings.addExercise),
+      title: Text(AppLocalizations.of(context)!.addExercise),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -106,8 +110,8 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
                   FocusManager.instance.primaryFocus?.unfocus(),
               controller: nameController,
               maxLength: 50,
-              decoration: const InputDecoration(
-                labelText: AppStrings.exerciseName,
+              decoration: InputDecoration(
+                labelText: AppLocalizations.of(context)!.exerciseName,
                 border: OutlineInputBorder(),
               ),
             ),
@@ -117,7 +121,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
               runSpacing: -2,
               children: BodyPart.values
                   .map((part) => FilterChip(
-                        label: Text(Helpers.mapBodyPartToName(part)),
+                        label: Text(Helpers.mapBodyPartToName(part, context)),
                         checkmarkColor: Colors.white,
                         avatar: ClipRRect(
                           borderRadius: BorderRadius.circular(4),
@@ -138,11 +142,11 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
       actions: [
         TextButton(
           onPressed: Navigator.of(context).pop,
-          child: const Text(AppStrings.cancel),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
           onPressed: submit,
-          child: const Text(AppStrings.add),
+          child: Text(AppLocalizations.of(context)!.add),
         ),
       ],
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NumberPickerDialog extends StatefulWidget {
   final String title;
@@ -45,7 +45,7 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
             final value = widget.minValue + (index * widget.step);
             return DropdownMenuItem(
               value: value,
-              child: Text('$value ${AppStrings.seconds}'),
+              child: Text('$value ${AppLocalizations.of(context)!.seconds}'),
             );
           },
         ),
@@ -54,10 +54,10 @@ class _NumberPickerDialogState extends State<NumberPickerDialog> {
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text(AppStrings.cancel)),
+            child: Text(AppLocalizations.of(context)!.cancel)),
         ElevatedButton(
           onPressed: () => Navigator.pop(context, selected),
-          child: const Text(AppStrings.save),
+          child: Text(AppLocalizations.of(context)!.save),
         )
       ],
     );

@@ -10,7 +10,7 @@ class BodyPartChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final icon = Helpers.mapBodyPartToString(part);
-    final name = Helpers.mapBodyPartToName(part);
+    final name = Helpers.mapBodyPartToName(part, context);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

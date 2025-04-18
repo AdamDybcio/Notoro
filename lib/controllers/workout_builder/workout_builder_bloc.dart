@@ -30,7 +30,7 @@ class WorkoutBuilderBloc
     LoadAvailableExercises event,
     Emitter<WorkoutBuilderState> emit,
   ) async {
-    final baseExercises = ExerciseFactory.getBaseExercises();
+    final baseExercises = ExerciseFactory.getBaseExercises(event.context);
 
     final customBox = await Hive.openBox<ExerciseModel>('custom_exercises');
     final customExercises = customBox.values.toList();

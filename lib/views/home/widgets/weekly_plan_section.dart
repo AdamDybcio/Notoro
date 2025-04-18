@@ -8,8 +8,8 @@ import 'package:notoro/controllers/weekly_plan/weekly_plan_state.dart';
 import 'package:notoro/core/common/widgets/header_divider.dart';
 import 'package:notoro/core/helpers/custom_snackbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/dashboard/weekly_plan.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeeklyPlanSection extends StatefulWidget {
   const WeeklyPlanSection({super.key});
@@ -33,7 +33,7 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             HeaderDivider(
-              text: AppStrings.weeklyPlan,
+              text: AppLocalizations.of(context)!.weeklyPlan,
               actionButton: Transform.rotate(
                 angle: !isExpanded ? 90 * 3.14 / 180 : 270 * 3.14 / 180,
                 child: IconButton(
@@ -78,7 +78,8 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 CustomSnackbar.show(
                                   context: context,
-                                  message: AppStrings.noWorkoutsAvailable,
+                                  message: AppLocalizations.of(context)!
+                                      .noWorkoutsAvailable,
                                 ),
                               );
                               return;
@@ -136,7 +137,8 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        Helpers.mapDayOfWeekToName(day),
+                                        Helpers.mapDayOfWeekToName(
+                                            day, context),
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge
@@ -151,7 +153,9 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                                       ),
                                       const SizedBox(height: 4),
                                       Text(
-                                        workout?.name ?? AppStrings.noWorkout,
+                                        workout?.name ??
+                                            AppLocalizations.of(context)!
+                                                .noWorkout,
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyMedium

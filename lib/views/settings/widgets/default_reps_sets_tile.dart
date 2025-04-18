@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DefaultRepsAndSetsTile extends StatelessWidget {
   const DefaultRepsAndSetsTile({super.key});
@@ -13,9 +13,9 @@ class DefaultRepsAndSetsTile extends StatelessWidget {
     final settings = context.watch<SettingsNotifier>().settings;
 
     return ListTile(
-      title: const Text(AppStrings.defaultSetsExercises),
+      title: Text(AppLocalizations.of(context)!.defaultSetsExercises),
       subtitle: Text(
-          '${settings.defaultSets} ${AppStrings.setsLowercase} • ${settings.defaultReps} ${AppStrings.repsShort}'),
+          '${settings.defaultSets} ${AppLocalizations.of(context)!.setsLowercase} • ${settings.defaultReps} ${AppLocalizations.of(context)!.repsShort}'),
       leading: const Icon(Icons.fitness_center_outlined),
       onTap: () async {
         final result = await showDialog<List<int>>(
@@ -61,13 +61,13 @@ class _RepsAndSetsDialogState extends State<_RepsAndSetsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(AppStrings.setDefaultValues),
+      title: Text(AppLocalizations.of(context)!.setDefaultValues),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
-              const Text('${AppStrings.reps}:'),
+              Text('${AppLocalizations.of(context)!.reps}:'),
               const Spacer(),
               DropdownButton<int>(
                 dropdownColor:
@@ -84,7 +84,7 @@ class _RepsAndSetsDialogState extends State<_RepsAndSetsDialog> {
           const SizedBox(height: 16),
           Row(
             children: [
-              const Text('${AppStrings.sets}:'),
+              Text('${AppLocalizations.of(context)!.sets}:'),
               const Spacer(),
               DropdownButton<int>(
                 dropdownColor:
@@ -102,11 +102,11 @@ class _RepsAndSetsDialogState extends State<_RepsAndSetsDialog> {
       ),
       actions: [
         TextButton(
-          child: const Text(AppStrings.cancel),
+          child: Text(AppLocalizations.of(context)!.cancel),
           onPressed: () => Navigator.pop(context),
         ),
         ElevatedButton(
-          child: const Text(AppStrings.save),
+          child: Text(AppLocalizations.of(context)!.save),
           onPressed: () => Navigator.pop(context, [reps, sets]),
         ),
       ],

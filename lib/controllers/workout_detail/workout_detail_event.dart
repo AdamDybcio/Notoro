@@ -74,4 +74,8 @@ class AddExerciseToWorkoutDetails extends WorkoutDetailEvent {
   List<Object?> get props => [exercise];
 }
 
-class LoadAvailableExercisesDetails extends WorkoutDetailEvent {}
+class LoadAvailableExercisesDetails extends WorkoutDetailEvent {
+  final BuildContext context;
+
+  const LoadAvailableExercisesDetails(this.context);
+}

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewWorkoutButton extends StatelessWidget {
   final VoidCallback onTap;
@@ -41,14 +41,14 @@ class NewWorkoutButton extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppStrings.newWorkoutButtonTitle,
+                      AppLocalizations.of(context)!.newWorkoutButtonTitle,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w700,
                           ),
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      AppStrings.newWorkoutButtonSubtitle,
+                      AppLocalizations.of(context)!.newWorkoutButtonSubtitle,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color:
                                 colorScheme.onPrimaryContainer.withAlpha(175),

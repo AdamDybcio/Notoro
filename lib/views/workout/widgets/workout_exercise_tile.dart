@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'body_part_chip.dart';
 
@@ -37,12 +37,12 @@ class WorkoutExerciseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    String unit = AppStrings.kg;
-    String unitWeight = AppStrings.weight;
+    String unit = AppLocalizations.of(context)!.kg;
+    String unitWeight = AppLocalizations.of(context)!.weight;
     unit = context.watch<SettingsNotifier>().settings.preferredUnit;
     if (unit == 'lb') {
-      unit = AppStrings.lb;
-      unitWeight = AppStrings.weightLb;
+      unit = AppLocalizations.of(context)!.lb;
+      unitWeight = AppLocalizations.of(context)!.weightLb;
     }
 
     return Card(
@@ -100,16 +100,17 @@ class WorkoutExerciseTile extends StatelessWidget {
                     final shouldDelete =
                         await Helpers.showDeleteConfirmationDialog(
                             context: context,
-                            title: AppStrings.removeExercise,
-                            content: AppStrings.removeExerciseConfirmation,
-                            confirmText: AppStrings.remove,
+                            title: AppLocalizations.of(context)!.removeExercise,
+                            content: AppLocalizations.of(context)!
+                                .removeExerciseConfirmation,
+                            confirmText: AppLocalizations.of(context)!.remove,
                             isNegative: true);
                     if (shouldDelete == true) {
                       onRemove();
                     }
                   },
                   icon: const Icon(Icons.delete_outline, size: 20),
-                  tooltip: AppStrings.deleteExercise,
+                  tooltip: AppLocalizations.of(context)!.deleteExercise,
                 ),
               ],
             ),
@@ -158,7 +159,7 @@ class WorkoutExerciseTile extends StatelessWidget {
                       ),
                       ActionChip(
                         label: Text(
-                          AppStrings.add,
+                          AppLocalizations.of(context)!.add,
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                         visualDensity: VisualDensity.compact,
@@ -170,13 +171,13 @@ class WorkoutExerciseTile extends StatelessWidget {
                 Column(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_upward, size: 20),
-                      tooltip: AppStrings.moveUp,
+                      icon: Icon(Icons.arrow_upward, size: 20),
+                      tooltip: AppLocalizations.of(context)!.moveUp,
                       onPressed: isFirst ? null : onMoveUp,
                     ),
                     IconButton(
-                      icon: const Icon(Icons.arrow_downward, size: 20),
-                      tooltip: AppStrings.moveDown,
+                      icon: Icon(Icons.arrow_downward, size: 20),
+                      tooltip: AppLocalizations.of(context)!.moveDown,
                       onPressed: isLast ? null : onMoveDown,
                     ),
                   ],

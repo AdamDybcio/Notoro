@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notoro/core/utils/constants/app_const.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../controllers/navbar/navbar_cubit.dart';
 
@@ -24,22 +24,22 @@ class NavbarView extends StatelessWidget {
                     NavbarItem.values[index],
                   );
             },
-            items: const [
+            items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home_outlined),
-                label: AppStrings.home,
+                label: AppLocalizations.of(context)!.home,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.fitness_center_outlined),
-                label: AppStrings.workout,
+                label: AppLocalizations.of(context)!.workout,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history_outlined),
-                label: AppStrings.history,
+                label: AppLocalizations.of(context)!.history,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined),
-                label: AppStrings.settings,
+                label: AppLocalizations.of(context)!.settings,
               ),
             ],
           ),

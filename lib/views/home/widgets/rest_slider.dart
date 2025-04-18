@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/strings/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RestSlider extends StatelessWidget {
   final String label;
@@ -19,14 +19,14 @@ class RestSlider extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$label: $value ${AppStrings.sec}',
+        Text('$label: $value ${AppLocalizations.of(context)!.sec}',
             style: Theme.of(context).textTheme.labelMedium),
         Slider(
           value: value.toDouble(),
           min: 15,
           max: 180,
           divisions: 11,
-          label: '$value ${AppStrings.secVeryShort}',
+          label: '$value ${AppLocalizations.of(context)!.secVeryShort}',
           onChanged: (val) => onChanged(val.round()),
         ),
       ],

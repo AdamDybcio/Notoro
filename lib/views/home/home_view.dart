@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:notoro/core/common/widgets/main_appbar.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/home/widgets/global_stats_section.dart';
 import 'package:notoro/views/home/widgets/today_workout_banner.dart';
 import 'package:notoro/views/home/widgets/weekly_plan_section.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: MainAppbar(
         leadingIcon: Icons.home_outlined,
-        title: AppStrings.homePage,
+        title: AppLocalizations.of(context)!.homePage,
         showLogo: true,
       ),
       body: SingleChildScrollView(

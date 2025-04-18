@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:notoro/controllers/active_workout/workout_session_controller.dart';
 import 'package:notoro/core/common/widgets/common_appbar.dart';
 import 'package:notoro/core/helpers/helpers.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/views/home/widgets/next_exercise_card.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../workout_summary_view.dart';
 import 'workout_session_card.dart';
@@ -44,16 +44,17 @@ class WorkoutSessionBody extends StatelessWidget {
             final shouldExit = await showDialog<bool>(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text(AppStrings.terminateWorkout),
-                content: const Text(AppStrings.terminateWorkoutSubtitle),
+                title: Text(AppLocalizations.of(context)!.terminateWorkout),
+                content: Text(
+                    AppLocalizations.of(context)!.terminateWorkoutSubtitle),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, false),
-                    child: const Text(AppStrings.cancel),
+                    child: Text(AppLocalizations.of(context)!.cancel),
                   ),
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context, true),
-                    child: const Text(AppStrings.terminate),
+                    child: Text(AppLocalizations.of(context)!.terminate),
                   ),
                 ],
               ),
@@ -65,21 +66,22 @@ class WorkoutSessionBody extends StatelessWidget {
           },
           child: Scaffold(
             appBar: CommonAppbar(
-              title: AppStrings.workout,
+              title: AppLocalizations.of(context)!.workout,
               onBackPressed: () async {
                 final shouldExit = await showDialog<bool>(
                   context: context,
                   builder: (_) => AlertDialog(
-                    title: const Text(AppStrings.terminateWorkout),
-                    content: const Text(AppStrings.terminateWorkoutSubtitle),
+                    title: Text(AppLocalizations.of(context)!.terminateWorkout),
+                    content: Text(
+                        AppLocalizations.of(context)!.terminateWorkoutSubtitle),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
-                        child: const Text(AppStrings.cancel),
+                        child: Text(AppLocalizations.of(context)!.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () => Navigator.pop(context, true),
-                        child: const Text(AppStrings.terminate),
+                        child: Text(AppLocalizations.of(context)!.terminate),
                       ),
                     ],
                   ),
@@ -94,8 +96,8 @@ class WorkoutSessionBody extends StatelessWidget {
                   icon: Icon(
                       controller.isPaused ? Icons.play_arrow : Icons.pause),
                   tooltip: controller.isPaused
-                      ? AppStrings.resume
-                      : AppStrings.pause,
+                      ? AppLocalizations.of(context)!.resume
+                      : AppLocalizations.of(context)!.pause,
                   onPressed: () {
                     if (controller.isPaused) {
                       controller.resumeWorkout();
@@ -123,7 +125,7 @@ class WorkoutSessionBody extends StatelessWidget {
                         const Icon(Icons.pause_circle_outline, size: 64),
                         const SizedBox(height: 16),
                         Text(
-                          AppStrings.workoutPaused,
+                          AppLocalizations.of(context)!.workoutPaused,
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 24),
@@ -133,7 +135,7 @@ class WorkoutSessionBody extends StatelessWidget {
                             OutlinedButton.icon(
                               onPressed: controller.resumeWorkout,
                               icon: const Icon(Icons.play_arrow),
-                              label: const Text(AppStrings.resume),
+                              label: Text(AppLocalizations.of(context)!.resume),
                             ),
                             const SizedBox(width: 16),
                             FilledButton.icon(
@@ -141,20 +143,24 @@ class WorkoutSessionBody extends StatelessWidget {
                                 final shouldExit = await showDialog<bool>(
                                   context: context,
                                   builder: (_) => AlertDialog(
-                                    title: const Text(
-                                        AppStrings.finishWorkoutQuestion),
-                                    content: const Text(AppStrings
+                                    title: Text(AppLocalizations.of(context)!
+                                        .finishWorkoutQuestion),
+                                    content: Text(AppLocalizations.of(context)!
                                         .terminateWorkoutSubtitleShort),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
                                             Navigator.pop(context, false),
-                                        child: const Text(AppStrings.cancel),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .cancel),
                                       ),
                                       FilledButton(
                                         onPressed: () =>
                                             Navigator.pop(context, true),
-                                        child: const Text(AppStrings.finish),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .finish),
                                       )
                                     ],
                                   ),
@@ -173,7 +179,7 @@ class WorkoutSessionBody extends StatelessWidget {
                                 }
                               },
                               icon: const Icon(Icons.stop_circle_outlined),
-                              label: const Text(AppStrings.finish),
+                              label: Text(AppLocalizations.of(context)!.finish),
                             ),
                           ],
                         )
@@ -203,7 +209,7 @@ class WorkoutSessionBody extends StatelessWidget {
                                 onPressed: controller.add15sRest,
                                 icon: const Icon(Icons.add),
                                 label: Text(
-                                  AppStrings.addSecs,
+                                  AppLocalizations.of(context)!.addSecs,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -225,10 +231,11 @@ class WorkoutSessionBody extends StatelessWidget {
                             ),
                             label: Text(
                               (controller.isLastSet & controller.isLastExercise)
-                                  ? AppStrings.finishWorkout
+                                  ? AppLocalizations.of(context)!.finishWorkout
                                   : controller.isLastSet
-                                      ? AppStrings.finishExercise
-                                      : AppStrings.endSet,
+                                      ? AppLocalizations.of(context)!
+                                          .finishExercise
+                                      : AppLocalizations.of(context)!.endSet,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!

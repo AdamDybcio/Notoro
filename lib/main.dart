@@ -6,7 +6,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:notoro/controllers/settings/settings_notifier.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_bloc.dart';
 import 'package:notoro/controllers/weekly_plan/weekly_plan_event.dart';
-import 'package:notoro/core/utils/strings/app_strings.dart';
 import 'package:notoro/core/utils/theme/app_theme.dart';
 import 'package:notoro/models/dashboard/weekly_plan.dart';
 import 'package:notoro/models/history/history_model.dart';
@@ -14,6 +13,9 @@ import 'package:notoro/models/settings/app_settings_model.dart';
 import 'package:notoro/models/workout/body_part.dart';
 import 'package:notoro/models/workout/exercise_training_model.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:notoro/l10n/l10n.dart';
 
 import 'controllers/navbar/navbar_cubit.dart';
 import 'models/history/duration_adapter.dart';
@@ -44,7 +46,7 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  await initializeDateFormatting(AppStrings.locale, null);
+  await initializeDateFormatting();
 
   runApp(
     ChangeNotifierProvider(
@@ -66,6 +68,14 @@ class MyApp extends StatelessWidget {
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: settings.themeMode,
+        locale: Locale(settings.currentLocale),
+        supportedLocales: L10n.all,
+        localizationsDelegates: const [
+          AppLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
         home: MultiBlocProvider(
           providers: [
             BlocProvider<WeeklyPlanBloc>(
