@@ -389,7 +389,7 @@ class Helpers {
                                                     ? ClipRRect(
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(4),
+                                                                .circular(6),
                                                         child: Image.asset(
                                                           exercise
                                                               .assetImagePath,
@@ -703,6 +703,22 @@ class Helpers {
             ),
             const SizedBox(height: 12),
           ],
+        ),
+      ),
+    );
+  }
+
+  static Widget buildPartImage(
+      BodyPart part, double iconSize, double errorIconSize) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(6),
+      child: Image.asset(
+        Helpers.mapBodyPartToString(part),
+        width: iconSize,
+        height: iconSize,
+        errorBuilder: (context, error, stackTrace) => Icon(
+          Icons.fitness_center,
+          size: errorIconSize,
         ),
       ),
     );

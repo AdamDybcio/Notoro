@@ -58,7 +58,7 @@ class WorkoutExerciseTile extends StatelessWidget {
             Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(6),
                   child: exercise.assetImagePath != ''
                       ? Image.asset(
                           exercise.assetImagePath,

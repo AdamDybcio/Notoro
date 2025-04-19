@@ -189,7 +189,7 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        4),
+                                                                        6),
                                                             child: Image.asset(
                                                               exercise
                                                                   .assetImagePath,

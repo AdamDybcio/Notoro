@@ -15,7 +15,7 @@ class AboutAppTile extends StatelessWidget {
         applicationName: AppLocalizations.of(context)!.appName,
         applicationVersion: '1.0.0',
         applicationIcon: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(6),
           child: Image.asset(
             !isDarkMode
                 ? 'assets/branding/app_logo.png'

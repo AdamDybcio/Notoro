@@ -23,7 +23,7 @@ class BodyPartChip extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
             child: Image.asset(
               icon,
               height: 20,

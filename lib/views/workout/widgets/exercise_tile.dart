@@ -34,7 +34,7 @@ class ExerciseTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(6),
                   child: exercise.assetImagePath != ''
                       ? Image.asset(
                           exercise.assetImagePath,
@@ -67,7 +67,7 @@ class ExerciseTile extends StatelessWidget {
           else
             Center(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(6),
                 child: exercise.assetImagePath != ''
                     ? Image.asset(
                         exercise.assetImagePath,

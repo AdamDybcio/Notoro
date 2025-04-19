@@ -71,7 +71,7 @@ class WorkoutCard extends StatelessWidget {
                       children: [
                         ...workout.exercises.take(8).map(
                               (exercise) => ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
+                                borderRadius: BorderRadius.circular(6),
                                 child: exercise.assetImagePath != ''
                                     ? Image.asset(
                                         exercise.assetImagePath,

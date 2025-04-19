@@ -76,7 +76,7 @@ class WorkoutSessionCard extends StatelessWidget {
                     child: Center(
                       child: exercise.assetImagePath != ''
                           ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(6),
                               child: Image.asset(
                                 exercise.assetImagePath,
                                 width: 32,

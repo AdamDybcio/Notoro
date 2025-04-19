@@ -123,18 +123,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
                   .map((part) => FilterChip(
                         label: Text(Helpers.mapBodyPartToName(part, context)),
                         checkmarkColor: Colors.white,
-                        avatar: ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: Image.asset(
-                            Helpers.mapBodyPartToString(part),
-                            width: 20,
-                            height: 20,
-                            errorBuilder: (context, error, stackTrace) => Icon(
-                              Icons.fitness_center,
-                              size: 20,
-                            ),
-                          ),
-                        ),
+                        avatar: Helpers.buildPartImage(part, 60, 60),
                         selected: selectedParts.contains(part),
                         onSelected: (_) => togglePart(part),
                       ))
