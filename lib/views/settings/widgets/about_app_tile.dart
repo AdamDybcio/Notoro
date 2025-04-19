@@ -22,6 +22,10 @@ class AboutAppTile extends StatelessWidget {
                 : 'assets/branding/app_logo_light.png',
             width: 48,
             height: 48,
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.fitness_center,
+              size: 48,
+            ),
           ),
         ),
         applicationLegalese: '© 2025 Adam Dybcio',

@@ -64,6 +64,10 @@ class WorkoutExerciseTile extends StatelessWidget {
                           exercise.assetImagePath,
                           width: 56,
                           height: 56,
+                          errorBuilder: (context, error, stackTrace) => Icon(
+                            Icons.fitness_center,
+                            size: 56,
+                          ),
                         )
                       : Icon(
                           Icons.fitness_center,

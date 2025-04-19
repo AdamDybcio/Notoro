@@ -77,6 +77,12 @@ class WorkoutCard extends StatelessWidget {
                                         exercise.assetImagePath,
                                         width: 18,
                                         height: 18,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                Icon(
+                                          Icons.fitness_center,
+                                          size: 18,
+                                        ),
                                       )
                                     : Icon(
                                         Icons.fitness_center,

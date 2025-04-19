@@ -27,7 +27,7 @@ class Helpers {
       case BodyPart.legs:
         return 'assets/body_parts/legs.png';
       case BodyPart.arms:
-        return 'assets/body_parts/biceps.png';
+        return 'assets/body_parts/arms.png';
       case BodyPart.shoulders:
         return 'assets/body_parts/shoulders.png';
       case BodyPart.abs:
@@ -395,6 +395,14 @@ class Helpers {
                                                               .assetImagePath,
                                                           width: 18,
                                                           height: 18,
+                                                          errorBuilder: (context,
+                                                                  error,
+                                                                  stackTrace) =>
+                                                              Icon(
+                                                            Icons
+                                                                .fitness_center,
+                                                            size: 18,
+                                                          ),
                                                         ),
                                                       )
                                                     : Icon(
@@ -615,6 +623,11 @@ class Helpers {
                                   width: 32,
                                   height: 32,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Icon(
+                                    Icons.fitness_center,
+                                    size: 32,
+                                  ),
                                 ),
                               )
                             : Icon(

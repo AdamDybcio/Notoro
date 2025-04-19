@@ -129,6 +129,10 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
                             Helpers.mapBodyPartToString(part),
                             width: 20,
                             height: 20,
+                            errorBuilder: (context, error, stackTrace) => Icon(
+                              Icons.fitness_center,
+                              size: 20,
+                            ),
                           ),
                         ),
                         selected: selectedParts.contains(part),

@@ -195,6 +195,15 @@ class _WeeklyPlanSectionState extends State<WeeklyPlanSection> {
                                                                   .assetImagePath,
                                                               width: 18,
                                                               height: 18,
+                                                              errorBuilder:
+                                                                  (context,
+                                                                          error,
+                                                                          stackTrace) =>
+                                                                      Icon(
+                                                                Icons
+                                                                    .fitness_center,
+                                                                size: 18,
+                                                              ),
                                                             ),
                                                           )
                                                         : Icon(
