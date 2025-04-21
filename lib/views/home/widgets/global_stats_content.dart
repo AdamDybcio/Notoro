@@ -66,7 +66,7 @@ class GlobalStatsContent extends StatelessWidget {
                 value: totalWorkouts.toString()),
             StatItem(
                 label: AppLocalizations.of(context)!.weightShort,
-                value: '${totalWeight.toStringAsFixed(0)} $unit'),
+                value: '${Helpers.formatVolume(totalWeight)} $unit'),
             StatItem(
                 label: AppLocalizations.of(context)!.sets,
                 value: history.fold<int>(0, (sum, item) {

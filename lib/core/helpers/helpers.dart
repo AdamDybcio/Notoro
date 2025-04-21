@@ -466,9 +466,24 @@ class Helpers {
   }
 
   static String formatDuration(Duration d) {
+    final hours = d.inHours.toString().padLeft(2, '0');
     final minutes = d.inMinutes.remainder(60).toString().padLeft(2, '0');
     final seconds = d.inSeconds.remainder(60).toString().padLeft(2, '0');
-    return '$minutes:$seconds';
+    if (d.inHours == 0) {
+      return '$minutes:$seconds';
+    }
+    return '$hours:$minutes:$seconds';
+  }
+
+  static String formatVolume(double volume) {
+    if (volume == 0) return '0.0';
+    if (volume < 1000) {
+      return volume.toStringAsFixed(1);
+    } else if (volume < 1000000) {
+      return '${(volume / 1000).toStringAsFixed(1)}K';
+    } else {
+      return '${(volume / 1000000).toStringAsFixed(1)}M';
+    }
   }
 
   static void showEditSetDialogOnSession(

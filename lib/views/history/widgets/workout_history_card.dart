@@ -49,7 +49,7 @@ class WorkoutHistoryCard extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         subtitle: Text(
-          '${history.exercises.length} ${AppLocalizations.of(context)!.exercisesLowercase} • ${Helpers.formatDuration(history.duration)} • ${totalVolume.toStringAsFixed(0)} $unit',
+          '${history.exercises.length} ${AppLocalizations.of(context)!.exercisesLowercase} • ${Helpers.formatDuration(history.duration)}\n${Helpers.formatVolume(totalVolume)} $unit',
         ),
         trailing: history.wasAbandoned
             ? const Icon(Icons.warning_amber, color: Colors.red)

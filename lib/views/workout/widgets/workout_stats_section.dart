@@ -60,7 +60,7 @@ class WorkoutStatsSection extends StatelessWidget {
               StatItem(
                   label: AppLocalizations.of(context)!.reps,
                   value: totalReps.toString()),
-              StatItem(label: unit, value: totalWeight.toStringAsFixed(0)),
+              StatItem(label: unit, value: Helpers.formatVolume(totalWeight)),
             ],
           ),
         ),

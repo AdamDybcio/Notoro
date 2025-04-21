@@ -125,7 +125,7 @@ class WorkoutSummaryView extends StatelessWidget {
             value: Helpers.formatDuration(history.duration)),
         StatItem(
             label: AppLocalizations.of(context)!.sets, value: '$totalSets'),
-        StatItem(label: unit, value: totalVolume.toStringAsFixed(1)),
+        StatItem(label: unit, value: Helpers.formatVolume(totalVolume)),
         StatItem(
             label: AppLocalizations.of(context)!.trainingTime,
             value: Helpers.formatDuration(totalSetDurations)),
@@ -144,8 +144,7 @@ class WorkoutSummaryView extends StatelessWidget {
       data[ex.name] = volume;
     }
 
-    final entries = data.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
+    final entries = data.entries.toList();
 
     if (entries.isEmpty) {
       return SizedBox.shrink();
@@ -227,11 +226,7 @@ class WorkoutSummaryView extends StatelessWidget {
                 ),
                 bottomTitles: AxisTitles(
                   sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: (index, _) => Text(
-                      entries[index.toInt()].key,
-                      style: Theme.of(context).textTheme.labelSmall,
-                    ),
+                    showTitles: false,
                   ),
                 ),
               ),
